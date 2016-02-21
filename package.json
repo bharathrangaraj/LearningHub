@@ -1,0 +1,22 @@
+{
+  "name": "learninghub",
+  "version": "0.0.0",
+  "description": "Scripts for scraping",
+  "main": "scrape.js",
+  "dependencies": {
+    "url-parse": "^1.0.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "learninghub"
+  },
+  "keywords": [
+    "scrape"
+  ],
+  "author": "bharath",
+  "license": "ISC"
+}
