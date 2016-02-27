@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test angular</title>
+    <script src=http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js></script>
+</head>
+<body ng-app="">
+<input type="text" ng-model="testw">
+<span> {{ testw }}</span>
+
+</body>
+</html>
+
+
+
+<!--panel-example data-->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-1 custom hidden-md hidden-sm hidden-xs">
+                <span class="align-center"><i class="fa fa-youtube-square fa-3x" id="icon">&nbsp;</i> </span>
+            </div>
+            <div class="col-md-10">
+                <span id="tit">Mundasupatti Tamil Movie | Back To Back Comedy Scenes | Vishnu | Nanditha </span>
+                <span><p class="user">Added by abc before 10 mins</p></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-body">
+
+        <div class="row">
+            <div class="col-lg-7">
+                <iframe width=100% height="300" src="https://www.youtube.com/embed/WQH6nTB3eHM" frameborder="0" allowfullscreen>
+
+                </iframe>
+
+            </div>
+            <div class="col-md-5 hidden-md hidden-sm hidden-xs">
+                <h4 class="description">Description</h4>
+                Mundasupatti Tamil Movie Back To Back Comedy Scenes, featuring Vishnu and Nandita in lead roles.The movie is about a village,Mundasupatti, filled with superstitions, the weirdest belief is that photographs will reduce their lifespan. And so they don’t take photographs when they are alive. Gopi (Vishnu) is a photographer who
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-footer">
+        <span><a href="#comments" data-toggle="collapse"><b class="meta-content">3 comments</b> </a> </span>&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="#tags" data-toggle="collapse"><b class="meta-content">2 tags</b></a> </span>
+        <div id="comments" class="collapse">
+
+            <ul class="list-group">
+                <li class="list-group item">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Add a comment...">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default">Comment</button>
+                                        </span>
+                    </div>
+                </li>
+                <li class="list-group-item">Cras justo odio</li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+            </ul>
+
+        </div>
+        <div id="tags" class="collapse">
+            <span class=" label label-default">Mundasupatti</span>
+            <span class=" label label-default">Comedy</span>
+
+        </div>
+    </div>
+</div>
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>-->
+<!--<body>-->
+
+<!--<div ng-app="">-->
+
+    <!--<p>Input something in the input box:</p>-->
+    <!--<p>Name: <input type="text" ng-model="firstName"></p>-->
+    <!--<p>You wrote: {{ firstName }}</p>-->
+
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+
+<!--display content cards-->
+<div class="row content" ng-show="posts.length>0">
+
+    <div class="col-md-offset-2 col-md-8">
+        <div class="panel-group">
+
+            <div  ng-repeat="post in posts[0]">
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-1 custom hidden-md hidden-sm hidden-xs">
+                                <span class="align-center"><i class="fa fa-youtube-square fa-3x" id="icon">&nbsp;</i> </span>
+                            </div>
+                            <div class="col-md-10">
+                                <span id="tit">{{post.title}}</span>
+                                <span><p class="user">Added by abc before 10 mins</p></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <iframe width=100% height="300" src="{{post.content}}" frameborder="0" allowfullscreen>
+
+                                </iframe>
+
+                            </div>
+                            <div class="col-md-5 hidden-md hidden-sm hidden-xs">
+                                <h4 class="description">Description</h4>
+                                {{post.description}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-footer">
+                        <span><a href="#comments" data-toggle="collapse"><b class="meta-content">3 comments</b> </a> </span>&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="#tags" data-toggle="collapse"><b class="meta-content">2 tags</b></a> </span>
+                        <div id="comments" class="collapse">
+
+                            <ul class="list-group">
+                                <li class="list-group item">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Add a comment...">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default">Comment</button>
+                                        </span>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">Cras justo odio</li>
+                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                            </ul>
+
+                        </div>
+                        <div id="tags" class="collapse">
+                            <span class=" label label-default">Mundasupatti</span>
+                            <span class=" label label-default">Comedy</span>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
