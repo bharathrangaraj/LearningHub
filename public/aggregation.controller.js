@@ -26,9 +26,9 @@ app.controller('aggregationController',['$scope','$sce','$http',function($scope,
                 $scope.formData.description=data.description;
                 $scope.scraped=false;
 
-            }).error(function(){
+            }).error(function(data){
                 $scope.loading=false;
-                console.log(error);
+                console.log(data.errors);
         });
     };
 

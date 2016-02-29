@@ -65,14 +65,18 @@
 
 
 
+
         .meta-content{
             font-size:18px;
+            cursor:pointer;
+            color: #3c8dbc;
+            text-decoration: underline;
         }
 
-      .description{
-          color: #337ab7;
-          font-weight: bold;
-      }
+        .description{
+            color: #337ab7;
+            font-weight: bold;
+        }
     </style>
 
 
@@ -164,7 +168,7 @@
                                </div>
                                <div class="col-md-10">
                                    <span id="tit">{{post.title}}</span>
-                                   <span>"{{post.content}}"</span>
+
                                    <span><p class="user">Added by abc before 10 mins</p></span>
                                </div>
                            </div>
@@ -187,35 +191,52 @@
                        </div>
 
                        <div class="panel-footer">
-                           <span><a href="#comments" data-toggle="collapse"><b class="meta-content">3 comments</b> </a> </span>&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="#tags" data-toggle="collapse"><b class="meta-content">2 tags</b></a> </span>
-                           <div id="comments" class="collapse">
 
+
+                           <span class="commentToggle meta-content" id="{{'c'+post.postId}}" onclick="alert(this.id)">comments</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="meta-content" id="{{'tags-'+post.postId+'d'}}" onclick="tagsclick(this.id)">2 tags</span>
+                           <div id="{{'c'+post.postId+'d'}}" class="comments">
                                <ul class="list-group">
                                    <li class="list-group item">
                                        <div class="input-group">
                                            <input type="text" class="form-control" placeholder="Add a comment...">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default">Comment</button>
-                                        </span>
+                                                        <span class="input-group-btn">
+                                                             <button type="button" class="btn btn-default">Comment</button>
+                                                        </span>
                                        </div>
                                    </li>
                                    <li class="list-group-item">Cras justo odio</li>
                                    <li class="list-group-item">Dapibus ac facilisis in</li>
                                </ul>
-
                            </div>
-                           <div id="tags" class="collapse">
+                           <div id="{{'t'+post.postId+'d'}}" class="tags">
                                <span class=" label label-default">Mundasupatti</span>
                                <span class=" label label-default">Comedy</span>
-
                            </div>
                        </div>
-                   </div>
+                       </div>
+
                </li>
 
            </ul>
         </div>
     </div>
+
+<script>
+
+    $('.comments').hide();
+    $('.tags').hide();
+    function commentsclick(clicked){
+
+        var _id="#"+clicked+" .comments";
+        console.log(_id);
+        $(_id).slideToggle();
+    }
+    function tagsclick(id){
+        console.log(id);
+        //$(id).slideToggle();
+    }
+
+</script>
 
 
 </div>
