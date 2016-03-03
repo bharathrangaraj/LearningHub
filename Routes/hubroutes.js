@@ -28,13 +28,38 @@ router.post('/api/add',function(req,res){
         {
             title:req.body.title,
             description:req.body.description,
-            url:req.body.url
+            url:req.body.url,
+            tags:req.body.tags
 
         },function (post) {
             res.status(200).json({
                 result: true, post: post
             });
-    })
+    });
+
+});
+
+router.put('/api/comment',function(req,res){
+
+
+
+controller.comment(function(err){
+    console.log(err);
+    return;
+},
+    {
+        content:req.body.commentText,
+        userId:req.body.userId,
+        postId:req.body.postId
+    },
+function(put){
+    res.status(200).json(
+        {
+            result:true,
+            put: put
+        }
+    )
+});
 
 });
 

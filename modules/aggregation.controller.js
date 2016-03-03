@@ -26,7 +26,8 @@ hubcontroller.prototype.add=function(error,params,success){
         title:params.title,
         content:params.url,
         description:params.description,
-        isDeleted:false
+        isDeleted:false,
+        tags:params.tags
     });
 
     newPost.save(function(err){
@@ -38,6 +39,34 @@ hubcontroller.prototype.add=function(error,params,success){
             success(newPost);
         }
     })
+
+};
+
+hubcontroller.prototype.comment=function(error,params,success){
+
+
+    agg.update(
+        {postId:params.postId},
+        {
+            $push:{
+                "comments":{
+                    "commentId":new mongoose.Types.ObjectId,
+                    "userId":params.userId,
+                    "isDeleted":false,
+                    "comment":params.content
+                }
+
+
+            }
+        },
+        function(err){
+            if(err){
+                error(err);
+            }else{
+                success();
+            }
+        }
+    )
 
 };
 
@@ -57,7 +86,10 @@ hubcontroller.prototype.getlinks=function(error,params,success){
 
 }
 
-
+//"comments.comment":params.content,
+//    "comments.commentId":new mongoose.Types.ObjectId,
+//    "comments.userId":params.userId,
+//    "comments.isDeleted":false
 
 
 module.exports=new hubcontroller();
