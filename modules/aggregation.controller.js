@@ -53,7 +53,8 @@ hubcontroller.prototype.comment=function(error,params,success){
                     "commentId":new mongoose.Types.ObjectId,
                     "userId":params.userId,
                     "isDeleted":false,
-                    "comment":params.content
+                    "comment":params.content,
+                    "userName":params.userName
                 }
 
 

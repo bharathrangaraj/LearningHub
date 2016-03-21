@@ -48,9 +48,10 @@ controller.comment(function(err){
     return;
 },
     {
-        content:req.body.commentText,
+        content:req.body.content,
         userId:req.body.userId,
-        postId:req.body.postId
+        postId:req.body.postId,
+        userName:req.body.userName
     },
 function(put){
     res.status(200).json(

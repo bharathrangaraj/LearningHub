@@ -101,6 +101,8 @@ app.controller('commentsController',['$scope','$http',function($scope,$http){
     $scope.addComment=function(post){
         $scope.comment.postId=post.postId;
         $scope.comment.userId=1;
+        $scope.comment.userName="bharath";
+
         $http.put('/api/comment',$scope.comment).success(function(data){
             console.log(data);
 

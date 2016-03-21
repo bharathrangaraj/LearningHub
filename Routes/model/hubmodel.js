@@ -7,10 +7,11 @@ var commentSchema=new mongoose.Schema();
 commentSchema.add({
     commentId:{type:mongoose.Schema.Types.ObjectId},
     userId:{type:Number},
+    userName:{type:String},
     comment:{type:String},
     isDeleted:{type:Boolean},
     dateAdded:{type: Date},
-    dateUpdated:{type: Date},
+    dateUpdated:{type: Date}
 
 });
 
