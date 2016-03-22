@@ -2,7 +2,7 @@
  * Created by Bharath on 20/02/16.
  */
 "use-strict";
-var jq=require('jquery');
+
 var https=require("https");
 var ytCreditials={
     'API_URL':"https://www.googleapis.com/youtube/v3/videos?",
