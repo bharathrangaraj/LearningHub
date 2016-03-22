@@ -73,8 +73,7 @@ controller.getlinks(function(err){
         courseId:req.query.courseId
     },
     function(posts){
-        console.log("inside get posts");
-    console.log(posts);
+
     res.json(posts);
 });
 
