@@ -7,7 +7,8 @@ var URL=require ('url-parse');
 var video=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/video.js');
 var sb=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/safeBrowsing.js');
 function scrape(){};
-var videos=['www.youtube.com'];
+var current_link="";
+var videos=['youtube','gfycat','viddler','hulu','vimeo','dotsub','animoto','ted','sapo','mobypicture','moby','dailymotion','circuitlab','coub','kickstarter'];
 function hostName(link){
 
     var url=new URL(link);
@@ -21,7 +22,7 @@ scrape.prototype.getInfo=function(link,callback){
             var hostname=hostName(link);
             if(contains(videos,hostname)){
 
-                video.getDetails(link,hostname,
+                video.getDetails(link,current_link,
                     function(res){
                         callback(res);
                     });
@@ -31,9 +32,11 @@ scrape.prototype.getInfo=function(link,callback){
         }
     });
 };
-function contains(a, obj) {
-    for (var i = 0; i < a.length; i++) {
-        if (a[i] === obj) {
+function contains(videos,hostname) {
+    for (var i = 0; i < videos.length; i++) {
+        var sub_str=videos[i];
+        if(hostname.indexOf(sub_str)>-1){
+            current_link=videos[i];
             return true;
         }
     }
