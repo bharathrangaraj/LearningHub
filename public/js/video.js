@@ -5,6 +5,7 @@
 
 var https=require("follow-redirects").https;
 var http=require("follow-redirects").http;
+var ogp=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/ogp.js');
 var ytCreditials={
     'API_URL':"https://www.googleapis.com/youtube/v3/videos?",
     'API_kEY':"AIzaSyAj_omzCHA7TT6YBIJtECHwVQnU8UuzgdU"
@@ -38,9 +39,21 @@ Video.prototype.getDetails=function(url,current_link,callback) {
 
             });
             response.on('end',function(){
-                //coubconsole.log(oe_details)
+                //console.log(oe_details)
                 var json=JSON.parse(oe_details);
-                callback(json);
+                result.title=json.title;
+                result.html=json.html;
+                if(json.description){
+                    result.description=json.description;
+                    callback(result);
+                }else{
+                    result.description=ogp.getOgDescription(url,function(des){
+                        result.description=des;
+                        callback(result);
+                    });
+                }
+
+
             });
             response.on('error',function(err){
                 console.log(err)
