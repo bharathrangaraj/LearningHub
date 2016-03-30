@@ -5,10 +5,12 @@
 var URL=require ('url-parse');
 
 var video=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/video.js');
+var slide=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/slide.js');
 var sb=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/safeBrowsing.js');
 function scrape(){};
 var current_link="";
 var videos=['youtube','gfycat','viddler','hulu','vimeo','dotsub','animoto','ted','sapo','mobypicture','moby','dailymotion','circuitlab','coub','kickstarter'];
+var slides=['slideshare','speakerdeck'];
 function hostName(link){
 
     var url=new URL(link);
@@ -26,7 +28,14 @@ scrape.prototype.getInfo=function(link,callback){
                     function(res){
                         callback(res);
                     });
+            }else if(contains(slides,hostname)){
+                slide.getDetails(link,current_link,
+                    function(res){
+                        callback(res);
+                    });
             }
+
+
         }else{
             console.log(legit);
         }
