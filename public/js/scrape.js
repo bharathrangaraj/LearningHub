@@ -6,11 +6,13 @@ var URL=require ('url-parse');
 
 var video=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/video.js');
 var slide=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/slide.js');
+var image=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/image.js')
 var sb=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/safeBrowsing.js');
 function scrape(){};
 var current_link="";
 var videos=['youtube','gfycat','viddler','hulu','vimeo','dotsub','animoto','ted','sapo','mobypicture','moby','dailymotion','circuitlab','coub','kickstarter'];
 var slides=['slideshare','speakerdeck'];
+var images=['flickr','flic','smugmug','23hq','hlip','germany','geograph','instagram','instagr.am','sketchfab','infogram','infogr','chartblocks'];
 function hostName(link){
 
     var url=new URL(link);
@@ -30,6 +32,11 @@ scrape.prototype.getInfo=function(link,callback){
                     });
             }else if(contains(slides,hostname)){
                 slide.getDetails(link,current_link,
+                    function(res){
+                        callback(res);
+                    });
+            }else if(contains(images,hostname)){
+                image.getDetails(link,current_link,
                     function(res){
                         callback(res);
                     });
