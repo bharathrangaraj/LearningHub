@@ -4,7 +4,7 @@
 var url=require('url-parse');
 var isImageUrl = require('is-image-url');
 var meta = require('metatags');
-var test_url="http://entropymag.org/wp-content/uploads/2014/10/outer-space-wallpaper-pictures.jpg";
+var test_url="http://listic.ru/jQuery_Cookbook.pdf";
 
 
 var scrape=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/scrape.js');

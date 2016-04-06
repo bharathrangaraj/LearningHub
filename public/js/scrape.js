@@ -8,16 +8,25 @@ var video=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/video.j
 var slide=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/slide.js');
 var image=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/image.js')
 var sb=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/safeBrowsing.js');
+var pdf=require('./pdf.js');
+var https=require("follow-redirects").https;
+var http=require("follow-redirects").http;
+
 function scrape(){};
 var current_link="";
 var videos=['youtube','gfycat','viddler','hulu','vimeo','dotsub','animoto','ted','sapo','mobypicture','moby','dailymotion','circuitlab','coub','kickstarter','sketchfab'];
 var slides=['slideshare','speakerdeck','sway','slides','emaze'];
 var images=['flickr','flic','smugmug','23hq','hlip','germany','geograph','instagram','instagr.am','infogram','infogr','chartblocks'];
 function hostName(link){
-
     var url=new URL(link);
     return url.hostname;
 };
+
+
+function protocol(link){
+    var url=new URL(link);
+    return url.protocol;
+}
 scrape.prototype.getInfo=function(link,callback){
 
     checkUrl(link,function(legit){
@@ -47,9 +56,18 @@ scrape.prototype.getInfo=function(link,callback){
                     function(res){
                         callback(res);
                     });
+            }else if(isPdf(link,function(valid){
+                    if(valid){
+                        pdf.getInfo(link,function(res){
+                            callback(res);
+                        })
+                    }
+                    else{
+
+                    }
+                })){
+
             }
-
-
         }
         else{
             console.log(legit);
@@ -72,6 +90,41 @@ function checkUrl(link,callback){
 
         callback(legit);
     });
+}
+
+function isPdf(url,callback){
+    var proto=protocol(url);
+    if(proto=="http:"){
+        http.get(url,function(res,err){
+
+            if(err){
+                console.log(err);
+            }
+
+            if(res.headers['content-type']=='application/pdf'){
+                callback(true);
+
+            }else{
+                console.log('0');
+                callback(false);
+            }
+        });
+    }else{
+        https.get(url,function(res,err){
+
+            if(err){
+                console.log(err);
+            }
+            if(res.headers['content-type']=='application/pdf'){
+                console.log('1');
+                return true;
+            }else{
+                console.log('0');
+                return false;
+            }
+        });
+    }
+
 }
 module.exports= new scrape();
 
