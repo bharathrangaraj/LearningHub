@@ -7,15 +7,23 @@ function Ogp(){};
 
 
 Ogp.prototype.getOgDescription=function(url,callback){
-    og(url, function(error, data) {
-        if(error){
-            console.log(error);
-        }else{
+    Ogp.prototype.getInfo(url,function(og_data){
+       callback(og_data.description);
+    });
+};
 
-            callback(data.og.description);
+Ogp.prototype.getInfo=function(url,callback){
+    var og_data={};
+    og(url, function(error, data) {
+            if(error){
+                console.log(error);
+            }else{
+                og_data.description=data.og.description;
+                og_data.title=data.og.title;
+                callback(og_data);
+            }
         }
-    }
-);
+    );
 };
 
 module.exports=new Ogp();

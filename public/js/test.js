@@ -2,11 +2,24 @@
  * Created by Bharath on 22/03/16.
  */
 var url=require('url-parse');
-var test_url="https://dotsub.com/view/99eaba09-787a-40a9-9125-27a729de71db";
+var isImageUrl = require('is-image-url');
+var meta = require('metatags');
+var test_url="http://entropymag.org/wp-content/uploads/2014/10/outer-space-wallpaper-pictures.jpg";
+
 
 var scrape=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/scrape.js');
 
+//console.log(isImageUrl("https://refslund.smugmug.com/Landscapes-and-people-1/Refslunds-Images/i-7LTDg6h"));
+//meta('http://findanexpertonline.com/directory/sandra-dee-robinson-media-trainer-280.html', function(err, data){
+//    console.log(data);
+//});
+
+
+
+
+
 scrape.getInfo(test_url,function(res){
 console.log(res);
+
 });
 

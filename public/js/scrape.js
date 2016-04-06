@@ -3,16 +3,16 @@
  */
 "use strict";
 var URL=require ('url-parse');
-
+var isImageUrl = require('is-image-url');
 var video=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/video.js');
 var slide=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/slide.js');
 var image=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/image.js')
 var sb=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/safeBrowsing.js');
 function scrape(){};
 var current_link="";
-var videos=['youtube','gfycat','viddler','hulu','vimeo','dotsub','animoto','ted','sapo','mobypicture','moby','dailymotion','circuitlab','coub','kickstarter'];
-var slides=['slideshare','speakerdeck'];
-var images=['flickr','flic','smugmug','23hq','hlip','germany','geograph','instagram','instagr.am','sketchfab','infogram','infogr','chartblocks'];
+var videos=['youtube','gfycat','viddler','hulu','vimeo','dotsub','animoto','ted','sapo','mobypicture','moby','dailymotion','circuitlab','coub','kickstarter','sketchfab'];
+var slides=['slideshare','speakerdeck','sway','slides','emaze'];
+var images=['flickr','flic','smugmug','23hq','hlip','germany','geograph','instagram','instagr.am','infogram','infogr','chartblocks'];
 function hostName(link){
 
     var url=new URL(link);
@@ -23,36 +23,44 @@ scrape.prototype.getInfo=function(link,callback){
     checkUrl(link,function(legit){
         if(legit){
 
-            var hostname=hostName(link);
-            if(contains(videos,hostname)){
+            var host_name=hostName(link);
+            if(contains(videos,host_name)){
 
                 video.getDetails(link,current_link,
                     function(res){
                         callback(res);
                     });
-            }else if(contains(slides,hostname)){
+            }else if(contains(slides,host_name)){
+
                 slide.getDetails(link,current_link,
                     function(res){
                         callback(res);
                     });
-            }else if(contains(images,hostname)){
+            }else if(contains(images,host_name)){
                 image.getDetails(link,current_link,
+                    function(res){
+                        callback(res);
+                    });
+            }else if(isImageUrl(link)){
+
+                image.getDetails(link,host_name,
                     function(res){
                         callback(res);
                     });
             }
 
 
-        }else{
+        }
+        else{
             console.log(legit);
         }
     });
 };
-function contains(videos,hostname) {
-    for (var i = 0; i < videos.length; i++) {
-        var sub_str=videos[i];
+function contains(list,hostname) {
+    for (var i = 0; i < list.length; i++) {
+        var sub_str=list[i];
         if(hostname.indexOf(sub_str)>-1){
-            current_link=videos[i];
+            current_link=list[i];
             return true;
         }
     }
@@ -61,7 +69,7 @@ function contains(videos,hostname) {
 function checkUrl(link,callback){
 
     sb.checkUrl(link,function(legit){
-        console.log(legit);
+
         callback(legit);
     });
 }

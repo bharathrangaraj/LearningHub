@@ -6,6 +6,7 @@
 var https=require("follow-redirects").https;
 var http=require("follow-redirects").http;
 var ogp=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/ogp.js');
+var h2js=require('html-to-json');
 var ytCreditials={
     'API_URL':"https://www.googleapis.com/youtube/v3/videos?",
     'API_kEY':"AIzaSyAj_omzCHA7TT6YBIJtECHwVQnU8UuzgdU"
@@ -18,20 +19,19 @@ var oembed_list={
     'animoto':'https://animoto.com/oembeds/create',
     'ted':'https://www.ted.com/services/v1/oembed.json',
     'sapo':'https://videos.sapo.pt/oembed',
-    'mobypicture':'https://api.mobypicture.com/oEmbed',
-    'moby':'https://api.mobypicture.com/oEmbed',
     'dailymotion':'https://www.dailymotion.com/services/oembed',
     'circuitlab':'https://www.circuitlab.com/circuit/oembed/',
     'coub':'https://coub.com/api/oembed.json',
     'kickstarter':'https://www.kickstarter.com/services/oembed',
+    'sketchfab':'https://sketchfab.com/oembed'
 };
 
 function Video(){};
 
 Video.prototype.getDetails=function(url,current_link,callback) {
     var result={};
+    result.type="video";
     if(oembed_list[current_link]){
-        console.log(prepareoeURL(url,current_link));
         https.get(prepareoeURL(url,current_link),function(response){
             var oe_details="";
             response.on('data',function(d){
@@ -39,21 +39,24 @@ Video.prototype.getDetails=function(url,current_link,callback) {
 
             });
             response.on('end',function(){
-                //console.log(oe_details)
                 var json=JSON.parse(oe_details);
                 result.title=json.title;
                 result.html=json.html;
                 if(json.description){
                     result.description=json.description;
-                    callback(result);
+                    prepareHtml(result.html,function(html){
+                        result.html=html;
+                        callback(result);
+                    });
                 }else{
                     result.description=ogp.getOgDescription(url,function(des){
                         result.description=des;
-                        callback(result);
+                        prepareHtml(result.html,function(html){
+                            result.html=html;
+                            callback(result);
+                        });
                     });
                 }
-
-
             });
             response.on('error',function(err){
                 console.log(err)
@@ -99,12 +102,28 @@ function prepareytURL(ID){
 function prepareoeURL(url,current_link){
 
     if((current_link=="moby")||(current_link=="mobypicture")){
-        console.log(1);
+
         return oembed_list[current_link]+'?url='+encodeURIComponent(url)+"&format=json"
     }else{
-        console.log(2);
+
         return oembed_list[current_link]+'?url='+encodeURIComponent(url);
     }
+
+}
+function prepareHtml(ht,callback){
+    h2js.parse(ht, {
+        'src': function ($doc) {
+            return $doc.find('iframe').attr('src');
+        }
+    }, function (err, result) {
+        if(err){
+            console.log(err);
+        }else{
+            var html='<iframe src="'+result.src+'" scrolling="no" frameborder="0" width="100%" height="300" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+            callback(html)
+        }
+
+    });
 
 }
 module.exports= new Video();
