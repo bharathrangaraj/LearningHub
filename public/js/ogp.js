@@ -11,6 +11,16 @@ Ogp.prototype.getOgDescription=function(url,callback){
        callback(og_data.description);
     });
 };
+Ogp.prototype.getOgTitle=function(url,callback){
+    Ogp.prototype.getInfo(url,function(og_data){
+        callback(og_data.title);
+    });
+};
+Ogp.prototype.getOgImage=function(url,callback){
+    Ogp.prototype.getInfo(url,function(og_data){
+        callback(og_data.image);
+    });
+};
 
 Ogp.prototype.getInfo=function(url,callback){
     var og_data={};
@@ -20,6 +30,7 @@ Ogp.prototype.getInfo=function(url,callback){
             }else{
                 og_data.description=data.og.description;
                 og_data.title=data.og.title;
+                og_data.image=data.og.image.url;
                 callback(og_data);
             }
         }

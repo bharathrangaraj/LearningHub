@@ -5,6 +5,7 @@
 
 var https=require("follow-redirects").https;
 var http=require("follow-redirects").http;
+var embedHtml=require('./embedHtml.js');
 var ogp=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/ogp.js');
 var h2js=require('html-to-json');
 var ytCreditials={
@@ -12,18 +13,14 @@ var ytCreditials={
     'API_kEY':"AIzaSyAj_omzCHA7TT6YBIJtECHwVQnU8UuzgdU"
 };
 var oembed_list={
-    'viddler':' https://developers.viddler.com/documentation/oembed/',
-    'hulu':'https://www.hulu.com/api/oembed.json',
     'vimeo':'https://vimeo.com/api/oembed.json',
     'dotsub':'https://dotsub.com/services/oembed',
-    'animoto':'https://animoto.com/oembeds/create',
     'ted':'https://www.ted.com/services/v1/oembed.json',
     'sapo':'https://videos.sapo.pt/oembed',
     'dailymotion':'https://www.dailymotion.com/services/oembed',
     'circuitlab':'https://www.circuitlab.com/circuit/oembed/',
     'coub':'https://coub.com/api/oembed.json',
     'kickstarter':'https://www.kickstarter.com/services/oembed',
-    'sketchfab':'https://sketchfab.com/oembed'
 };
 
 function Video(){};
@@ -43,15 +40,15 @@ Video.prototype.getDetails=function(url,current_link,callback) {
                 result.title=json.title;
                 result.html=json.html;
                 if(json.description){
-                    result.description=json.description;
-                    prepareHtml(result.html,function(html){
+                    result.description=json.description.replace(/(\r\n|\n|\r)/gm,"");
+                    prepareHtml(result.html,result.description,function(html){
                         result.html=html;
                         callback(result);
                     });
                 }else{
                     result.description=ogp.getOgDescription(url,function(des){
                         result.description=des;
-                        prepareHtml(result.html,function(html){
+                        prepareHtml(result.html,result.description,function(html){
                             result.html=html;
                             callback(result);
                         });
@@ -110,7 +107,7 @@ function prepareoeURL(url,current_link){
     }
 
 }
-function prepareHtml(ht,callback){
+function prepareHtml(ht,description,callback){
     h2js.parse(ht, {
         'src': function ($doc) {
             return $doc.find('iframe').attr('src');
@@ -118,9 +115,10 @@ function prepareHtml(ht,callback){
     }, function (err, result) {
         if(err){
             console.log(err);
+            callback(ht);
         }else{
-            var html='<iframe src="'+result.src+'" scrolling="no" frameborder="0" width="100%" height="300" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-            callback(html)
+            var html=embedHtml.embedVideo(result.src,description);
+            callback(html);
         }
 
     });

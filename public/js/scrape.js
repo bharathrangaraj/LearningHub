@@ -6,17 +6,23 @@ var URL=require ('url-parse');
 var isImageUrl = require('is-image-url');
 var video=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/video.js');
 var slide=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/slide.js');
-var image=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/image.js')
+var image=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/image.js');
+var link1=require('./link.js');
+var audio=require('./audio.js');
 var sb=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/safeBrowsing.js');
+var story=require('./story.js');
 var pdf=require('./pdf.js');
+var doc=require('./doc.js');
 var https=require("follow-redirects").https;
 var http=require("follow-redirects").http;
-
-function scrape(){};
 var current_link="";
 var videos=['youtube','gfycat','viddler','hulu','vimeo','dotsub','animoto','ted','sapo','mobypicture','moby','dailymotion','circuitlab','coub','kickstarter','sketchfab'];
 var slides=['slideshare','speakerdeck','sway','slides','emaze'];
 var images=['flickr','flic','smugmug','23hq','hlip','germany','geograph','instagram','instagr.am','infogram','infogr','chartblocks'];
+var stories=['silk','verse','amcharts','chartblocks'];
+var audios=[,'soundcloud','mixcloud','clyp','huffduffer'];
+var docs=['docs','office']
+function scrape(){};
 function hostName(link){
     var url=new URL(link);
     return url.hostname;
@@ -56,14 +62,36 @@ scrape.prototype.getInfo=function(link,callback){
                     function(res){
                         callback(res);
                     });
+            }else if(contains(stories,host_name)){
+                story.getDetails(link,current_link,
+                    function(res){
+                        callback(res);
+                    });
+            }else if(contains(audios,host_name)){
+                audio.getDetails(link,current_link,
+                    function(res){
+                        callback(res);
+                    });
+            }else if(contains(docs,host_name)){
+                doc.getDetails(link,current_link,
+                    function(res){
+                        callback(res);
+                    });
+
             }else if(isPdf(link,function(valid){
+                    console.log(valid);
                     if(valid){
+
                         pdf.getInfo(link,function(res){
                             callback(res);
                         })
                     }
                     else{
+                        console.log("1");
 
+                        link1.getInfo(link,function(res){
+                            callback(res);
+                        })
                     }
                 })){
 
@@ -105,7 +133,7 @@ function isPdf(url,callback){
                 callback(true);
 
             }else{
-                console.log('0');
+
                 callback(false);
             }
         });
@@ -119,7 +147,7 @@ function isPdf(url,callback){
                 console.log('1');
                 return true;
             }else{
-                console.log('0');
+
                 return false;
             }
         });
