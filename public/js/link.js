@@ -8,14 +8,16 @@ var result={};
 result.type='link';
 var callback1;
 var url;
+var dat;
 
 Link.prototype.getInfo=function(url1,callback){
     callback1=callback;
     url=url1;
-    ogp.getInfo(url1,ogTitle);
+    ogp.getInfo(url,ogTitle);
 }
 
 ogTitle=function(og_data){
+    var dat=og_data;
     if(og_data.title){
         result.title=og_data.title;
         ogDescription(og_data);

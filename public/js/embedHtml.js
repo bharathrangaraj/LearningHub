@@ -42,4 +42,53 @@ EmbedHtml.prototype.embedDocs=function(raw_html){
     return doc_html;
 };
 
+//Embed code for pdf
+//conten.title,content.description,content.image
+EmbedHtml.prototype.embedPdf=function(content){
+    //var description=content.description.slice(0,497)+'...';
+    var src=content.src+'&embedded=true';
+    var image=content.thumbnail;
+    var html='<div class="col-xs-12">'+
+            '<div class="col-xs-6">'+
+                '<a href="'+src+'">'+
+                '<img src="'+
+                image+
+                '"'+
+                'height="500px" width="100%">'+
+                '</a>'+
+            '</div>'+
+            '<div class="col-xs-6">'+
+                '<iframe src="'+
+                 src+
+                '"'+
+                'height="500px" width="100%">'+
+            '</iframe>'+
+            '</div>'+
+            '</div>';
+    return html;
+
+};
+
+
+EmbedHtml.prototype.embedSlide=function(raw_html){
+    //var html=norm_iframe(raw_html.replace(/(\r|\n|\n\r|\r\n)/gm,""));
+    console.log("inside")
+    var slide_html='<div class="col-xs-12">'+
+        raw_html+
+        '</div>';
+    return slide_html;
+
+};
+//Embed code for image
+EmbedHtml.prototype.embedImage=function(raw_html){
+    var html= raw_html.replace(/(\r|\n|\n\r|\r\n)/gm,"");
+    var audio_html='<div class="col-xs-12">'+
+        html+
+        '</div>';
+    return audio_html;
+};
+//Embed code for links
+EmbedHtml.prototype.embedLink=function(raw_html){
+
+};
 module.exports=new EmbedHtml();

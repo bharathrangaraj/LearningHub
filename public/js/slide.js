@@ -3,6 +3,7 @@
  */
 var https=require("follow-redirects").https;
 var http=require("follow-redirects").http;
+var embed=require("./embedHtml")
 var h2js=require('html-to-json');
 var ogp=require("./ogp.js");
 
@@ -29,9 +30,10 @@ Slide.prototype.getDetails=function(url,host_name,callback) {
                 var slide_json = JSON.parse(oe_details);
                 result.title=slide_json.title;
                 prepareOeHtml(slide_json.html,function(html){
-                    result.html=html;
-                })
-                callback(result);
+                    result.html=embed.embedSlide(html);
+                    callback(result);
+                });
+
             });
             response.on('error', function (err) {
                 console.log(err)
@@ -42,7 +44,7 @@ Slide.prototype.getDetails=function(url,host_name,callback) {
         ogp.getInfo(url,function(ogp_data){
             result.title=ogp_data.title;
             result.description=ogp_data.description;
-            result.html=prepareHtml(url)
+            result.html=embed.embedSlide(prepareHtml(url));
             callback(result);
         })
     }

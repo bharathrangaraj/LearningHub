@@ -1,11 +1,10 @@
 /**
  * Created by Bharath on 06/04/16.
  */
-
-
-
+var embed=require("./embedHtml.js");
 var google_viewer="https://drive.google.com/viewerng/viewer?url=";
 var meta = require('metatags');
+
 
 
 function Pdf(){};
@@ -15,10 +14,13 @@ function Pdf(){};
 
 Pdf.prototype.getInfo=function(url,callback){
     var result={};
-    result.html=google_viewer+encodeURI(url);
-    meta(result.html, function(err, data){
+    result.src=google_viewer+encodeURI(url);
+    console.log(result.src);
+    meta(result.src, function(err, data){
+        console.log(data);
         result.title=data.title;
-        result.thumbnail=data.otherimages[0].src;
+        result.thumbnail="https:"+data.otherimages[0].src;
+        result.html=embed.embedPdf(result);
         callback(result);
     });
 

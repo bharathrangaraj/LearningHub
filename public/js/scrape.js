@@ -18,8 +18,8 @@ var http=require("follow-redirects").http;
 var current_link="";
 var videos=['youtube','gfycat','viddler','hulu','vimeo','dotsub','animoto','ted','sapo','mobypicture','moby','dailymotion','circuitlab','coub','kickstarter','sketchfab'];
 var slides=['slideshare','speakerdeck','sway','slides','emaze'];
-var images=['flickr','flic','smugmug','23hq','hlip','germany','geograph','instagram','instagr.am','infogram','infogr','chartblocks'];
-var stories=['silk','verse','amcharts','chartblocks'];
+var images=['flickr','flic','smugmug','23hq','hlip','germany','geograph','infogram','chartblocks','infogr'];
+var stories=['silk','verse','amcharts'];
 var audios=[,'soundcloud','mixcloud','clyp','huffduffer'];
 var docs=['docs','office']
 function scrape(){};
@@ -68,6 +68,7 @@ scrape.prototype.getInfo=function(link,callback){
                         callback(res);
                     });
             }else if(contains(audios,host_name)){
+                console.log(inside);
                 audio.getDetails(link,current_link,
                     function(res){
                         callback(res);
@@ -87,8 +88,6 @@ scrape.prototype.getInfo=function(link,callback){
                         })
                     }
                     else{
-                        console.log("1");
-
                         link1.getInfo(link,function(res){
                             callback(res);
                         })
@@ -145,10 +144,10 @@ function isPdf(url,callback){
             }
             if(res.headers['content-type']=='application/pdf'){
                 console.log('1');
-                return true;
+                callback(true);
             }else{
 
-                return false;
+                callback(false);
             }
         });
     }

@@ -9,7 +9,6 @@ var ogp=require("./ogp.js");
 var embed=require("./embedHtml.js");
 function Audio(){};
 var oembed_list={
-   'audiosnaps':'http://audiosnaps.com/service/oembed',
     'soundcloud':'https://soundcloud.com/oembed',
     'mixcloud':'https://www.mixcloud.com/oembed/',
     'clyp':'https://api.clyp.it/oembed/',
@@ -31,7 +30,7 @@ Audio.prototype.getDetails=function(url,host_name,callback){
 
                 });
                 response.on('end', function () {
-                    //console.log("raw"+oe_details);
+                    console.log("raw"+oe_details);
                     var audio_json = JSON.parse(oe_details);
                     result.title=audio_json.title;
                     result.html=embed.embedAudio(audio_json.html);

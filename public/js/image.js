@@ -6,6 +6,7 @@ var http=require("follow-redirects").http;
 var URL=require ('url-parse');
 var video=require("./video.js");
 var h2js=require('html-to-json');
+var embed=require('./embedHtml.js');
 
 var oembed_list={
     'flickr':'https://www.flickr.com/services/oembed/',
@@ -14,11 +15,9 @@ var oembed_list={
     'hlip':'http://geo.hlipp.de/restapi.php/api/oembed',
     'germany':'http://geo.hlipp.de/restapi.php/api/oembed',
     'geograph':'http://www.geograph.org.gg/api/oembed',
-    'instagram':'https://api.instagram.com/oembed',
-    'instagr.am':'https://api.instagram.com/oembed',
     'infogram':'https://infogr.am/oembed',
     'infogr':'https://infogr.am/oembed',
-    'chartblocks':'http://embed.chartblocks.com/1.0/oembed'
+    'chartblocks':'https://embed.chartblocks.com/1.0/oembed'
 };
 
 function Image(){};
@@ -46,10 +45,10 @@ Image.prototype.getDetails=function(url,host_name,callback) {
                     var image_json = JSON.parse(oe_details);
                     result.title=image_json.title;
                     if(image_json.html){
-                        result.html=image_json.html;
+                        result.html=embed.embedImage(image_json.html);
                         callback(result);
                     } else if(image_json.url){
-                        result.html=prepareHtml(image_json.url);
+                        result.html=embed.embedImage(prepareHtml(image_json.url));
                         callback(result);
                     }
 
@@ -71,10 +70,10 @@ Image.prototype.getDetails=function(url,host_name,callback) {
                     var image_json = JSON.parse(oe_details);
                     result.title=image_json.title;
                     if(image_json.html){
-                        result.html=image_json.html;
+                        result.html=embed.embedImage(image_json.html);
                         callback(result);
                     } else if(image_json.url){
-                        result.html=prepareHtml(image_json.url);
+                        result.html=embed.embedImage(prepareHtml(image_json.url));
                         callback(result);
                     }
                 });
@@ -99,11 +98,11 @@ Image.prototype.getDetails=function(url,host_name,callback) {
                     result.type='video';
 
                     prepareSMHtml(image_json.html,function(html){
-                        result.html=html;
+                        result.html=embed.embedImage(html);
                         callback(result);
                     })
                 }else{
-                    result.html=prepareHtml(image_json.url);
+                    result.html=embed.embedImage(prepareHtml(image_json.url));
                     callback(result);
                 }
 
@@ -113,7 +112,7 @@ Image.prototype.getDetails=function(url,host_name,callback) {
             })
         });
     }else{
-        result.html=prepareHtml(url);
+        result.html=embed.embedImage(prepareHtml(url));
         var title=host_name.split('.');
         result.title=title[title.length-2];
         callback(result);
