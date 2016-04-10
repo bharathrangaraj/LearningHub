@@ -11,6 +11,7 @@
     "html-to-json": "^0.6.0",
     "is-image-url": "^1.1.8",
     "is-pdf": "^1.0.0",
+    "json-to-html": "^0.1.2",
     "lodash": "^4.9.0",
     "metatags": "0.0.8",
     "method-override": "^2.3.5",
