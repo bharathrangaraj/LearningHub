@@ -3,67 +3,106 @@
  */
 var ogp=require('./ogp.js');
 var meta=require('./meta.JS');
+var URL=require ('url-parse');
+var favicon = require('favicon');
+var validUrl = require('valid-url');
 function Link(){};
-var result={};
-result.type='link';
-var callback1;
-var url;
-var dat;
 
-Link.prototype.getInfo=function(url1,callback){
-    callback1=callback;
-    url=url1;
-    ogp.getInfo(url,ogTitle);
+//result object initialization
+var result={
+    type:'link',
+    title:"",
+    description:"",
+    image:"",
+    url:"",
+    html:"",
+    favicon:""
+};
+//get the information of the general link
+//looks for the ogp data and the meta information
+Link.prototype.getInfo=function(url,callback){
+    result.url=url;
+    ogp.getInfo(url,function(data) {
+        console.log(data);
+        if (data.og) {
+            console.log('in data.og');
+            if (data.og.title) {
+                result.title = data.og.title;
+
+            } else {
+                if (data.title) {
+                    result.title = data.title.replace(/(\r|\n|\n\r|\r\n)/gm, "");
+                }
+            }
+            if (data.og.description) {
+                result.description = data.og.description;
+            } else {
+                if (data.description) {
+                    result.description= data.description.replace(/(\r|\n|\n\r|\r\n)/gm, "");
+                }
+            }
+            if (data.og.image) {
+                result.image = data.og.image.url;
+
+
+            } else {
+                if (data.images) {
+                    result.image = getImageUrl(data.images[0].src, url)
+                }
+            }
+        } else {
+            if (data.title) {
+                result.title = data.title.replace(/(\r|\n|\n\r|\r\n)/gm, "");
+            }
+            if (data.description) {
+                result.description= data.description.replace(/(\r|\n|\n\r|\r\n)/gm, "");
+            }
+            if (data.images) {
+                result.image = getImageUrl(data.images[0].src, url)
+            }
+        }
+        getFavicon(url, function (favicon) {
+            result.favicon = favicon;
+            callback(result);
+        })
+    });
 }
 
-ogTitle=function(og_data){
-    var dat=og_data;
-    if(og_data.title){
-        result.title=og_data.title;
-        ogDescription(og_data);
-    }else{
-        meta.getTitle(url,metaTitle)
+
+
+function getImageUrl(image_url,url){
+    var final_url=image_url;
+var parse_image_url=new URL(image_url,true);
+var parse_link_url=new URL(url,true);
+   var protocol=parse_link_url.protocol;
+    var hostname=parse_link_url.hostname;
+    if(validURI(final_url)){
+        return final_url;
     }
-
-}
-
-metaTitle=function(meta_title){
-    result.title=meta_title;
-    ogDescription(og_data);
-}
-
-ogDescription=function(og_data){
-    if(og_data.description){
-        result.description=og_data.description;
-        ogImage(og_data);
-
+    if(parse_image_url.protocol){
+        return final_url;
     }else{
-        meta.getDescription(url,metaDescription)
+        final_url=protocol+image_url;
+        if(validURI(final_url)){
+            return final_url;
+        }else{
+            final_url=protocol+hostname+image_url;
+            return final_url;
+        }
     }
 }
 
-ogImage=function(og_data){
-    if(og_data.image){
-        result.image=og_data.image;
-        callback1(result);
-    }else{
-        meta.getImage(url,metaImage)
-    }
-
-}
-metaDescription=function(meta_description){
-    result.description=meta_description;
-    ogImage(og_data,callback);
-
+function getFavicon(url,callback){
+    favicon(url, function(err, favicon_url) {
+        callback(favicon_url);
+    });
 }
 
-metaImage=function(meta_image){
-    result.image=meta_image
-    console.log(meta);
-    callback1(result)
+function validURI(URI){
+    return validUrl.is_web_uri(URI);
 }
+
 
 module.exports=new Link();
-
 
 

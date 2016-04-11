@@ -21,7 +21,7 @@ var slides=['slideshare','speakerdeck','sway','slides','emaze'];
 var images=['flickr','flic','smugmug','23hq','hlip','germany','geograph','infogram','chartblocks','infogr'];
 var stories=['silk','verse','amcharts'];
 var audios=[,'soundcloud','mixcloud','clyp','huffduffer'];
-var docs=['docs','office']
+var docs=['docs','office'];
 function scrape(){};
 function hostName(link){
     var url=new URL(link);
