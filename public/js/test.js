@@ -9,23 +9,21 @@ var meta = require('metatags');
 var og=require('og-parser');
 var validUrl = require('valid-url');
 var favicon = require('favicon');
+
 var URL=require ('url-parse');
-var test_url=decodeURIComponent("https://www.youtube.com/watch?v=CuH3tJPiP-U");
+var test_url=decodeURIComponent("https://community-cdn-digitalocean-com.global.ssl.fastly.net/assets/tutorials/images/large/NODE_js_tw.png?1426699784");
 console.log(test_url);
 
 
 var scrape=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/scrape.js');
 
 
-
-
-favicon("https://www.jetbrains.com/help/webstorm/2016.1/running-and-debugging-node-js.html?origin=old_help#Node.js_run", function(err, favicon_url) {
-    console.log(favicon_url);
-});
-
-
 scrape.getInfo(test_url,function(res){
 console.log(res);
 
 });
+
+
+
+
 

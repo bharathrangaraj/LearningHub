@@ -23,7 +23,7 @@ Meta.prototype.getImage=function(url,callback){
         callback(meta_data.image);
     });
 
-}
+};
 
 Meta.prototype.getInfo=function(url,callback){
     var meta_data={};

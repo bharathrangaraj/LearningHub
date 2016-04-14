@@ -22,11 +22,11 @@ var images=['flickr','flic','smugmug','23hq','hlip','germany','geograph','infogr
 var stories=['silk','verse','amcharts'];
 var audios=[,'soundcloud','mixcloud','clyp','huffduffer'];
 var docs=['docs','office'];
-function scrape(){};
+function scrape(){}
 function hostName(link){
     var url=new URL(link);
     return url.hostname;
-};
+}
 
 
 function protocol(link){
@@ -88,6 +88,7 @@ scrape.prototype.getInfo=function(link,callback){
                         })
                     }
                     else{
+                        console.log("yes");
                         link1.getInfo(link,function(res){
                             callback(res);
                         })

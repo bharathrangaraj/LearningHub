@@ -1,17 +1,18 @@
 /**
  * Created by Bharath on 21/03/16.
  */
-var https=require("https")
+var https=require("https");
 var sbCredentials={
     'API_kEY':"AIzaSyB_hxZ5n5YRD9nR7gCZUgscaDDv0R3N-bU"
-}
+};
 /*SafeBrowsing lookup is used to check whether the submitted URl causes Phising, Malware or any unrelated software downloads*/
-function SafeBrowsing(){};
+function SafeBrowsing(){}
 //method used the API to get the results of the URL
 SafeBrowsing.prototype.checkUrl=function(url,callback){
     https.get(preparesbUrl(url),function(response){
-        var code="";
-        code=response.statusCode;
+
+         var code=response.statusCode;
+        console.log(code);
         if(code==200){
             callback(false);
         }else{

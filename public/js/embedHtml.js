@@ -69,7 +69,6 @@ EmbedHtml.prototype.embedPdf=function(content){
 
 };
 
-
 EmbedHtml.prototype.embedSlide=function(raw_html){
     //var html=norm_iframe(raw_html.replace(/(\r|\n|\n\r|\r\n)/gm,""));
     console.log("inside")
@@ -88,7 +87,55 @@ EmbedHtml.prototype.embedImage=function(raw_html){
     return audio_html;
 };
 //Embed code for links
-EmbedHtml.prototype.embedLink=function(raw_html){
+EmbedHtml.prototype.embedLink=function(result){
+    var link_html="";
+    if(result.image!=""){
+        link_html='<div class="col-xs-12">'+
+            '<img src="'+result.image+'">'+
+            '</div>'+
+            '<div class="col-xs-12 pull left">'+
+                '<img src="'+
+                result.favicon+
+                '" width="12px" height="12px"><span>'+
+            result.name+
+            '</span>'+
+                '</div>'+
+            '<div class="col-xs-12 desc">'+
+            '<p>'+
+            result.description+
+                '</p>'+
+            '<p>'+
+                ' Read this on <span><a href="'+
+                result.url+
+            '"></a>'+
+                result.name+
+                '</span>'+
+                '</p></div></div>';
+        return link_html;
+
+
+    }else{
+        link_html='<div class="col-xs-12 pull left">'+
+        '<img src="'+
+        result.favicon+
+        '" width="12px" height="12px"><span>'+
+        result.name+
+        '</span>'+
+        '</div>'+
+        '<div class="col-xs-12 desc">'+
+        '<p>'+
+        result.description+
+        '</p>'+
+        '<p>'+
+        ' Read this on <span><a href="'+
+        result.url+
+        '"></a>'+
+        result.name+
+        '</span>'+
+        '</p></div></div>';
+        return link_html;
+    }
 
 };
+
 module.exports=new EmbedHtml();
