@@ -15,11 +15,16 @@ var oembed_list={
     'huffduffer':'https://huffduffer.com/oembed'
 
 };
+var result={
+    'type':"audio",
+    'url':"",
+    'title':"",
+    'html':""
+};
 
 Audio.prototype.getDetails=function(url,host_name,callback){
-    var result={};
-    console.log("in"+host_name);
-    result.type='audio';
+
+    result.url=url;
     if(protocol(url)=="https:"){
         if (oembed_list[host_name]) {
             console.log(prepareoeURL(url, host_name));
@@ -33,7 +38,7 @@ Audio.prototype.getDetails=function(url,host_name,callback){
                     console.log("raw"+oe_details);
                     var audio_json = JSON.parse(oe_details);
                     result.title=audio_json.title;
-                    result.html=embed.embedAudio(audio_json.html);
+                    result.html=audio_json.html;
                     callback(result);
                 });
                 response.on('error', function (err) {
@@ -53,10 +58,9 @@ Audio.prototype.getDetails=function(url,host_name,callback){
 
                 });
                 response.on('end', function () {
-                    //console.log("raw"+oe_details);
                     var audio_json = JSON.parse(oe_details);
                     result.title=audio_json.title;
-                    result.html=embed.embedAudio(audio_json.html);
+                    result.html=audio_json.html;
                     callback(result);
                 });
                 response.on('error', function (err) {

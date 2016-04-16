@@ -21,6 +21,13 @@ var oembed_list={
 };
 
 function Image(){};
+var result={
+    'type':"image",
+    'url':"",
+    'title':"",
+    'description':"",
+    'html':""
+};
 function protocol(link){
 
     var url=new URL(link);
@@ -28,8 +35,8 @@ function protocol(link){
 };
 
 Image.prototype.getDetails=function(url,host_name,callback) {
-    var result = {};
-    result.type="image";
+
+    result.url=url;
 
     if (oembed_list[host_name]) {
         console.log(prepareoeURL(url, host_name));
@@ -45,10 +52,10 @@ Image.prototype.getDetails=function(url,host_name,callback) {
                     var image_json = JSON.parse(oe_details);
                     result.title=image_json.title;
                     if(image_json.html){
-                        result.html=embed.embedImage(image_json.html);
+                        result.html=image_json.html;
                         callback(result);
                     } else if(image_json.url){
-                        result.html=embed.embedImage(prepareHtml(image_json.url));
+                        result.html=prepareHtml(image_json.url);
                         callback(result);
                     }
 
@@ -70,10 +77,10 @@ Image.prototype.getDetails=function(url,host_name,callback) {
                     var image_json = JSON.parse(oe_details);
                     result.title=image_json.title;
                     if(image_json.html){
-                        result.html=embed.embedImage(image_json.html);
+                        result.html=image_json.html;
                         callback(result);
                     } else if(image_json.url){
-                        result.html=embed.embedImage(prepareHtml(image_json.url));
+                        result.html=prepareHtml(image_json.url);
                         callback(result);
                     }
                 });
@@ -98,11 +105,11 @@ Image.prototype.getDetails=function(url,host_name,callback) {
                     result.type='video';
 
                     prepareSMHtml(image_json.html,function(html){
-                        result.html=embed.embedImage(html);
+                        result.html=html;
                         callback(result);
                     })
                 }else{
-                    result.html=embed.embedImage(prepareHtml(image_json.url));
+                    result.html=prepareHtml(image_json.url);
                     callback(result);
                 }
 

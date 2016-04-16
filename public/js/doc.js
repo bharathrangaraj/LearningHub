@@ -11,13 +11,17 @@ function Doc(){};
 
 var oembed_list={
     'office':'https://mix.office.com/oembed',
-    'docs':'https://docs.com/api/oembed',
+    'docs':'https://docs.com/api/oembed'
+};
+var result={
+    'type':"doc",
+    'url':"",
+    'title':"",
+    'html':""
 };
 
 Doc.prototype.getDetails=function(url,host_name,callback){
-    var result={};
-    console.log("in"+host_name);
-    result.type='doc';
+    result.url=url;
     if(protocol(url)=="https:"){
         if (oembed_list[host_name]) {
             console.log(prepareoeURL(url, host_name));
@@ -30,7 +34,7 @@ Doc.prototype.getDetails=function(url,host_name,callback){
                 response.on('end', function () {
                     var doc_json = JSON.parse(oe_details);
                     result.title=doc_json.title;
-                    result.html=embed.embedDocs(doc_json.html);
+                    result.html=doc_json.html;
                     callback(result);
                 });
                 response.on('error', function (err) {
@@ -53,7 +57,7 @@ Doc.prototype.getDetails=function(url,host_name,callback){
                     //console.log("raw"+oe_details);
                     var doc_json = JSON.parse(oe_details);
                     result.title=doc_json.title;
-                    result.html=embed.embedDocs(doc_json.html);
+                    result.html=doc_json.html;
                     callback(result);
                 });
                 response.on('error', function (err) {

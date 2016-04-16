@@ -14,10 +14,15 @@ var oembed_list={
 };
 
 function Slide(){};
+var result={
+    'type':"slide",
+    'url':"",
+    'title':"",
+    'html':""
+};
 
 Slide.prototype.getDetails=function(url,host_name,callback) {
-    var result = {};
-    result.type="slide";
+    result.url=url;
     if (oembed_list[host_name]) {
         console.log(prepareoeURL(url, host_name));
         https.get(prepareoeURL(url, host_name), function (response) {
@@ -30,7 +35,7 @@ Slide.prototype.getDetails=function(url,host_name,callback) {
                 var slide_json = JSON.parse(oe_details);
                 result.title=slide_json.title;
                 prepareOeHtml(slide_json.html,function(html){
-                    result.html=embed.embedSlide(html);
+                    result.html=html;
                     callback(result);
                 });
 
@@ -44,11 +49,11 @@ Slide.prototype.getDetails=function(url,host_name,callback) {
         ogp.getInfo(url,function(ogp_data){
             result.title=ogp_data.title;
             result.description=ogp_data.description;
-            result.html=embed.embedSlide(prepareHtml(url));
+            result.html=prepareHtml(url);
             callback(result);
         })
     }
-}
+};
 
 function prepareoeURL(url,current_link){
 

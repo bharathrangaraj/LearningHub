@@ -7,12 +7,12 @@ var _=require('lodash');
 function EmbedHtml(){};
 
 //Embed code for videos
-EmbedHtml.prototype.embedVideo=function(url,description){
+EmbedHtml.prototype.embedVideo=function(html,description){
 var video_html='<div class="col-lg-7">' +
-        '<iframe src="'+url+'" width="100%" height="300"></iframe>'+
+        html+
     '</div>'+
     '<div class="col-md-5 hidden-md hidden-sm hidden-xs">'+
-        '<div class="description">Description</div>'+
+        '<div class="description text-left">Description</div>'+
         '<p class="text-justify">'+description+'</p>'+
     '</div>';
     return video_html;
@@ -45,9 +45,10 @@ EmbedHtml.prototype.embedDocs=function(raw_html){
 //Embed code for pdf
 //conten.title,content.description,content.image
 EmbedHtml.prototype.embedPdf=function(content){
-    //var description=content.description.slice(0,497)+'...';
-    var src=content.src+'&embedded=true';
-    var image=content.thumbnail;
+    console.log("inside");
+    console.log(content);
+    var src=content.url+'&embedded=true';
+    var image=content.image;
     var html='<div class="col-xs-12">'+
             '<div class="col-xs-6">'+
                 '<a href="'+src+'">'+
@@ -71,7 +72,6 @@ EmbedHtml.prototype.embedPdf=function(content){
 
 EmbedHtml.prototype.embedSlide=function(raw_html){
     //var html=norm_iframe(raw_html.replace(/(\r|\n|\n\r|\r\n)/gm,""));
-    console.log("inside")
     var slide_html='<div class="col-xs-12">'+
         raw_html+
         '</div>';
@@ -90,49 +90,46 @@ EmbedHtml.prototype.embedImage=function(raw_html){
 EmbedHtml.prototype.embedLink=function(result){
     var link_html="";
     if(result.image!=""){
-        link_html='<div class="col-xs-12">'+
-            '<img src="'+result.image+'">'+
+        link_html='<div class="col-lg-6">'+
+            '<img src="'+result.image+'" width="100%" height="200">'+
             '</div>'+
-            '<div class="col-xs-12 pull left">'+
+            '<div class="col-lg-6 pull-left text-left">'+
                 '<img src="'+
                 result.favicon+
-                '" width="12px" height="12px"><span>'+
+                '" width="16px" height="16px">&nbsp;<span class="link_name">'+
             result.name+
             '</span>'+
-                '</div>'+
-            '<div class="col-xs-12 desc">'+
             '<p>'+
             result.description+
-                '</p>'+
+            '</p>'+
             '<p>'+
-                ' Read this on <span><a href="'+
-                result.url+
-            '"></a>'+
-                result.name+
-                '</span>'+
-                '</p></div></div>';
+            ' Read this on <span>' +
+            '<a href="'+
+            result.url+
+            '">'+result.name+'</a>'+
+            '</span>'+
+            '</p>'+
+                '</div>';
+
         return link_html;
 
 
     }else{
-        link_html='<div class="col-xs-12 pull left">'+
+        link_html='<div class="col-xs-12 pull-left text-left">'+
         '<img src="'+
         result.favicon+
-        '" width="12px" height="12px"><span>'+
+        '" width="16px" height="16px">&nbsp;<span class="link_name">'+
         result.name+
         '</span>'+
-        '</div>'+
-        '<div class="col-xs-12 desc">'+
         '<p>'+
         result.description+
         '</p>'+
         '<p>'+
         ' Read this on <span><a href="'+
         result.url+
-        '"></a>'+
-        result.name+
+        '">'+result.name+'</a>'+
         '</span>'+
-        '</p></div></div>';
+        '</p></div>';
         return link_html;
     }
 

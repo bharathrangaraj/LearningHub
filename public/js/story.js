@@ -14,14 +14,17 @@ var oembed_list={
     'chartblocks':'https://embed.chartblocks.com/1.0/oembed',
     repubhub:'http://repubhub.icopyright.net/oembed.act'
 };
-
+var result={
+    'type':"story",
+    'url':"",
+    'title':"",
+    'html':""
+};
 
 
 
 Story.prototype.getDetails=function(url,host_name,callback){
-    var result={};
-    console.log("in"+host_name);
-    result.type='story';
+    result.url=url;
     if(protocol(url)=="https:"){
         if (oembed_list[host_name]) {
             console.log(prepareoeURL(url, host_name));
@@ -35,7 +38,7 @@ Story.prototype.getDetails=function(url,host_name,callback){
                     //console.log("raw"+oe_details);
                     var story_json = JSON.parse(oe_details);
                     result.title=story_json.title;
-                    result.html=embedHtml.embedStory(story_json.html);
+                    result.html=story_json.html;
                     callback(result);
                 });
                 response.on('error', function (err) {
@@ -66,7 +69,7 @@ Story.prototype.getDetails=function(url,host_name,callback){
                     //console.log("raw"+oe_details);
                     var story_json = JSON.parse(oe_details);
                     result.title=story_json.title;
-                    result.html=embedHtml.embedStory(story_json.html);;
+                    result.html=story_json.html;
                     callback(result);
                 });
                 response.on('error', function (err) {
@@ -85,7 +88,7 @@ function prepareoeURL(url,host_name){
 
 function prepareSilkhtml(url){
     var silk_html='<iframe src="'+url+'" width="100%" height="300"></iframe>'
-    return  embedHtml.embedStory(silk_html);
+    return  silk_html;
 }
 function protocol(link){
 

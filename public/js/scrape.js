@@ -13,10 +13,11 @@ var sb=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/safeBrowsi
 var story=require('./story.js');
 var pdf=require('./pdf.js');
 var doc=require('./doc.js');
+require('follow-redirects').maxRedirects = 10;
 var https=require("follow-redirects").https;
 var http=require("follow-redirects").http;
 var current_link="";
-var videos=['youtube','gfycat','viddler','hulu','vimeo','dotsub','animoto','ted','sapo','mobypicture','moby','dailymotion','circuitlab','coub','kickstarter','sketchfab'];
+var videos=['youtube','vimeo','dotsub','ted','sapo','dailymotion','circuitlab','coub','kickstarter'];
 var slides=['slideshare','speakerdeck','sway','slides','emaze'];
 var images=['flickr','flic','smugmug','23hq','hlip','germany','geograph','infogram','chartblocks','infogr'];
 var stories=['silk','verse','amcharts'];
@@ -68,7 +69,7 @@ scrape.prototype.getInfo=function(link,callback){
                         callback(res);
                     });
             }else if(contains(audios,host_name)){
-                console.log(inside);
+
                 audio.getDetails(link,current_link,
                     function(res){
                         callback(res);
@@ -122,11 +123,14 @@ function checkUrl(link,callback){
 
 function isPdf(url,callback){
     var proto=protocol(url);
+    console.log(require("follow-redirects"));
     if(proto=="http:"){
         http.get(url,function(res,err){
 
             if(err){
-                console.log(err);
+                console.log("inside error");
+                //console.log(err);
+                callback(false);
             }
 
             if(res.headers['content-type']=='application/pdf'){
@@ -141,6 +145,7 @@ function isPdf(url,callback){
         https.get(url,function(res,err){
 
             if(err){
+                console.log("inside error");
                 console.log(err);
             }
             if(res.headers['content-type']=='application/pdf'){

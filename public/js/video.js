@@ -5,8 +5,7 @@
 
 var https=require("follow-redirects").https;
 var http=require("follow-redirects").http;
-var embedHtml=require('./embedHtml.js');
-var ogp=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/ogp.js');
+var ogp=require('./ogp.js');
 var h2js=require('html-to-json');
 var ytCreditials={
     'API_URL':"https://www.googleapis.com/youtube/v3/videos?",
@@ -20,16 +19,23 @@ var oembed_list={
     'dailymotion':'https://www.dailymotion.com/services/oembed',
     'circuitlab':'https://www.circuitlab.com/circuit/oembed/',
     'coub':'https://coub.com/api/oembed.json',
-    'kickstarter':'https://www.kickstarter.com/services/oembed',
+    'kickstarter':'https://www.kickstarter.com/services/oembed'
 };
-
+//init of the return variable
+var result={
+    'type':"video",
+    'url':"",
+    'description':"",
+    'title':"",
+    'html':""
+};
 function Video(){};
 
-Video.prototype.getDetails=function(url,current_link,callback) {
-    var result={};
-    result.type="video";
-    if(oembed_list[current_link]){
-        https.get(prepareoeURL(url,current_link),function(response){
+Video.prototype.getDetails=function(url,host_name,callback) {
+    result.url=url;
+
+    if(oembed_list[host_name]){
+        https.get(prepareoeURL(url,host_name),function(response){
             var oe_details="";
             response.on('data',function(d){
                 oe_details+=d;
@@ -38,6 +44,7 @@ Video.prototype.getDetails=function(url,current_link,callback) {
             response.on('end',function(){
                 var json=JSON.parse(oe_details);
                 result.title=json.title;
+
                 result.html=json.html;
                 if(json.description){
                     result.description=json.description.replace(/(\r\n|\n|\r)/gm,"");
@@ -60,7 +67,7 @@ Video.prototype.getDetails=function(url,current_link,callback) {
             })
         });
 
-    }else if (current_link === 'youtube') {
+    }else if (host_name=== 'youtube') {
         var ID = YouTubeGetID(url);
         var yt_details = "";
          https.get(prepareytURL(ID), function (response) {
@@ -71,6 +78,7 @@ Video.prototype.getDetails=function(url,current_link,callback) {
                 var json = JSON.parse(yt_details);
                 result.title = json.items[0].snippet.title;
                 result.description = json.items[0].snippet.description;
+                result.html=prepareytHtml(url.replace("watch?v=", "embed/"));
                 callback(result);
             });
         });
@@ -96,14 +104,14 @@ function prepareytURL(ID){
     return ytURL;
 }
 
-function prepareoeURL(url,current_link){
+function prepareoeURL(url,host_name){
 
-    if((current_link=="moby")||(current_link=="mobypicture")){
+    if((host_name="moby")||(host_name=="mobypicture")){
 
-        return oembed_list[current_link]+'?url='+encodeURIComponent(url)+"&format=json"
+        return oembed_list[host_name]+'?url='+encodeURIComponent(url)+"&format=json"
     }else{
 
-        return oembed_list[current_link]+'?url='+encodeURIComponent(url);
+        return oembed_list[host_name]+'?url='+encodeURIComponent(url);
     }
 
 }
@@ -117,13 +125,17 @@ function prepareHtml(ht,description,callback){
             console.log(err);
             callback(ht);
         }else{
-            var html=embedHtml.embedVideo(result.src,description);
+            var html='<iframe ng-src="'+result.src+'" width="100%" height=300px></iframe>';
             callback(html);
         }
 
     });
 
 }
+
+function prepareytHtml(url){
+  return '<iframe src="'+url+'" width="100%" height=300px></iframe>';
+};
 module.exports= new Video();
 
 

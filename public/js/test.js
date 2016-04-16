@@ -9,17 +9,25 @@ var meta = require('metatags');
 var og=require('og-parser');
 var validUrl = require('valid-url');
 var favicon = require('favicon');
+var https=require("follow-redirects").https;
+var embed=require("./embedHtml.js");
+var http=require("follow-redirects").http;
+
 
 var URL=require ('url-parse');
-var test_url=decodeURIComponent("https://community-cdn-digitalocean-com.global.ssl.fastly.net/assets/tutorials/images/large/NODE_js_tw.png?1426699784");
-console.log(test_url);
+
+var test_url=decodeURIComponent("https://vimeo.com/channels/staffpicks/161890877");
+
 
 
 var scrape=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/scrape.js');
 
 
+
+
 scrape.getInfo(test_url,function(res){
 console.log(res);
+    console.log(embed.embedLink(res));
 
 });
 
