@@ -65,6 +65,10 @@
 
 
         }
+        .link_name{
+            color: #337ab7;
+            font-weight: bolder;
+        }
 
         .functions,.content{
             margin-top: 50px;
@@ -155,8 +159,8 @@
                                 <textarea rows="3" name="title" id="title" class="form-control" placeholder="title" ng-model="formData.title"></textarea>
                                 <span class="help-block"></span>
                             </div>
-                            <div id="description-group" class="form-group">
-                                <label for="url">Title</label>
+                            <div id="description-group" class="form-group" ng-hide="des_hide">
+                                <label for="url">Description</label>
                                 <textarea rows="3" name="description" id="description" class="form-control" placeholder="description" ng-model="formData.description"></textarea>
                                 <span class="help-block"></span>
                             </div>
@@ -168,7 +172,7 @@
 
                             </div>
 
-                            <button type="button" class="btn btn-primary" ng-disabled="added" ng-click="addlink()" >Add
+                            <button type="button" class="btn btn-primary" ng-click="addlink()" >Add
 
                             </button>
 
@@ -204,7 +208,7 @@
                        <div class="panel-heading">
                            <div class="row">
                                <div class="col-md-1 custom hidden-md hidden-sm hidden-xs">
-                                   <span class="align-center"><i class="fa fa-youtube-square fa-3x" id="icon">&nbsp;</i> </span>
+                                   <span class="align-center"><i class="fa fa-external-link-square  fa-3x" id="icon">&nbsp;</i> </span>
                                </div>
                                <div class="col-md-10">
                                    <span id="tit">{{post.title}}</span>
@@ -217,16 +221,15 @@
                        <div class="panel-body">
 
                            <div class="row">
-                               <div class="col-lg-7">
-                                   <iframe width=100% height="300" type="text/html" ng-src="{{trustsrc(post.content)}}" frameborder="0" allowfullscreen>
 
-                                   </iframe>
 
-                               </div>
-                               <div class="col-md-5 hidden-md hidden-sm hidden-xs">
-                                   <div class="description">Description</div>
-                                   <p class="text-justify">{{post.description}}</p>
-                               </div>
+                              <div class="col-xs-12 text-center">
+
+                               <p ng-bind-html=trustHtml(post.embedHtml)></p>
+
+
+                              </div>
+
                            </div>
                        </div>
 

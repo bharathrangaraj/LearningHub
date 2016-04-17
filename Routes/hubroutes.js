@@ -12,8 +12,7 @@ var controller=require(rootpath+'/modules/aggregation.controller.js');
 
 router.get('/api/scrape',function(req,res){
 
-    var details=controller.scrape(req.query.url,function(details){
-
+   controller.scrape(req.query.url,function(details){
         res.json(details);
     });
 
@@ -24,20 +23,15 @@ router.post('/api/add',function(req,res){
     controller.add(function(err){
         console.log(err);
         return;
-    },
-        {
-            title:req.body.title,
-            description:req.body.description,
-            url:req.body.url,
-            tags:req.body.tags
-
-        },function (post) {
+    },req.body
+        ,function (post) {
             res.status(200).json({
                 result: true, post: post
             });
     });
 
 });
+
 
 router.put('/api/comment',function(req,res){
 

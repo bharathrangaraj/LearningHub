@@ -16,7 +16,7 @@ var http=require("follow-redirects").http;
 
 var URL=require ('url-parse');
 
-var test_url=decodeURIComponent("https://vimeo.com/channels/staffpicks/161890877");
+var test_url=decodeURIComponent("https://www.carolus-thermen.de/go/verwoehnwelt-carolus_spa/english.html");
 
 
 

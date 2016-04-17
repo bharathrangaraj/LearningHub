@@ -4,14 +4,14 @@
 var rootpath=require('app-root-path');
 var mongoose=require('mongoose');
 var agg=require('/Users/Bharath/WebstormProjects/LearningHub/Routes/model/hubmodel.js');
-
+var embed=require(rootpath+'/public/js/embedHtml.js');
 
 function hubcontroller(){
 
 }
 hubcontroller.prototype.scrape=function(url,callback){
     var scrape=require(rootpath+'/public/js/scrape.js');
-    var details=scrape.getInfo(url,function(res){
+    scrape.getInfo(url,function(res){
 
         callback(res)
     });
@@ -20,15 +20,121 @@ hubcontroller.prototype.scrape=function(url,callback){
 }
 
 hubcontroller.prototype.add=function(error,params,success){
+    console.log(params);
+    if(params.type=="video"){
+        var embedHtml=embed.embedVideo(params.html,params.description);
+        var newPost=new agg({
+            courseId:001,
+            postId:new mongoose.Types.ObjectId,
+            title:params.title,
+            url:params.url,
+            description:params.description,
+            embedHtml:embedHtml,
+            type:params.type,
+            isDeleted:false,
+            tags:params.tags
+        });
+    }else if(params.type=="image"){
+    var embedHtml=embed.embedImage(params.html);
     var newPost=new agg({
         courseId:001,
         postId:new mongoose.Types.ObjectId,
         title:params.title,
-        content:params.url,
-        description:params.description,
+        url:params.url,
+        embedHtml:embedHtml,
+        type:params.type,
         isDeleted:false,
         tags:params.tags
     });
+
+    }else if(params.type=="audio"){
+        var embedHtml=embed.embedAudio(params.html);
+        var newPost=new agg({
+            courseId:001,
+            postId:new mongoose.Types.ObjectId,
+            title:params.title,
+            url:params.url,
+            embedHtml:embedHtml,
+            type:params.type,
+            isDeleted:false,
+            tags:params.tags
+        });
+
+    }else if(params.type=="slide"){
+        var embedHtml=embed.embedSlide(params.html);
+        var newPost=new agg({
+            courseId:001,
+            postId:new mongoose.Types.ObjectId,
+            title:params.title,
+            url:params.url,
+            embedHtml:embedHtml,
+            type:params.type,
+            isDeleted:false,
+            tags:params.tags
+        });
+
+    }else if(params.type=="doc"){
+        var embedHtml=embed.embedDocs(params.html);
+        var newPost=new agg({
+            courseId:001,
+            postId:new mongoose.Types.ObjectId,
+            title:params.title,
+            url:params.url,
+            embedHtml:embedHtml,
+            type:params.type,
+            isDeleted:false,
+            tags:params.tags
+        });
+
+    }else if(params.type=="pdf"){
+        console.log("inside params");
+        console.log(params);
+        var embedHtml=embed.embedPdf(params);
+        var newPost=new agg({
+            courseId:001,
+            postId:new mongoose.Types.ObjectId,
+            title:params.title,
+            image:params.image,
+            url:params.url,
+            embedHtml:embedHtml,
+            type:params.type,
+            isDeleted:false,
+            tags:params.tags
+        });
+
+    }else if(params.type=="story"){
+        var embedHtml=embed.embedStory(params.html);
+        var newPost=new agg({
+            courseId:001,
+            postId:new mongoose.Types.ObjectId,
+            title:params.title,
+            url:params.url,
+            embedHtml:embedHtml,
+            type:params.type,
+            isDeleted:false,
+            tags:params.tags
+        });
+
+    }else if(params.type=="link"){
+
+        var embedHtml=embed.embedLink(params);
+        var newPost=new agg({
+            courseId:001,
+            postId:new mongoose.Types.ObjectId,
+            title:params.title,
+            description:params.description,
+            favicon:params.favicon,
+            hostName:params.name,
+            image:params.image,
+            url:params.url,
+            embedHtml:embedHtml,
+            type:params.type,
+            isDeleted:false,
+            tags:params.tags
+        });
+
+    }
+
 
     newPost.save(function(err){
         if(err){
