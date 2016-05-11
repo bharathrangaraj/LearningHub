@@ -16,7 +16,7 @@ var http=require("follow-redirects").http;
 
 var URL=require ('url-parse');
 
-var test_url=decodeURIComponent("https://www.carolus-thermen.de/go/verwoehnwelt-carolus_spa/english.html");
+var test_url=decodeURIComponent("https://www.youtube.com/watch?v=UrxCwYc5h2Q");
 
 
 
@@ -27,7 +27,7 @@ var scrape=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/scrape
 
 scrape.getInfo(test_url,function(res){
 console.log(res);
-    console.log(embed.embedLink(res));
+    console.log(embed.embedPdf(res));
 
 });
 

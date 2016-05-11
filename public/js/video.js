@@ -29,6 +29,7 @@ var result={
     'title':"",
     'html':""
 };
+//video prototype
 function Video(){};
 
 Video.prototype.getDetails=function(url,host_name,callback) {
