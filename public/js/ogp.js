@@ -9,19 +9,19 @@ function Ogp(){};
 //get the ogdata description
 Ogp.prototype.getOgDescription=function(url,callback){
     Ogp.prototype.getInfo(url,function(og_data){
-       callback(data.og.description);
+       callback(og_data.og.description);
     });
 };
 //get the ogdata title
 Ogp.prototype.getOgTitle=function(url,callback){
     Ogp.prototype.getInfo(url,function(og_data){
-        callback(data.og.title);
+        callback(og_data.og.title);
     });
 };
 //get the ogdata image
 Ogp.prototype.getOgImage=function(url,callback){
     Ogp.prototype.getInfo(url,function(og_data){
-        callback(data.og.image);
+        callback(og_data.og.image);
     });
 };
 

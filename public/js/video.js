@@ -6,6 +6,7 @@
 var https=require("follow-redirects").https;
 var http=require("follow-redirects").http;
 var ogp=require('./ogp.js');
+var ahelper=require("./aggHelper.js");
 var h2js=require('html-to-json');
 var ytCreditials={
     'API_URL':"https://www.googleapis.com/youtube/v3/videos?",
@@ -31,61 +32,46 @@ var result={
 };
 //video prototype
 function Video(){};
-
+//get the video details
 Video.prototype.getDetails=function(url,host_name,callback) {
-    result.url=url;
+    result.url = url;
+    var prepared_url = "";
+    //prepare the url
+    if (oembed_list[host_name]) {
+        prepared_url = prepareoeURL(url, host_name);
+    } else if (host_name == 'youtube') {
+        var ID = YouTubeGetID(url);
+        prepared_url = prepareytURL(ID)
+    }
+    //use the helper to tget the JSON data
+    ahelper.getHttps(prepared_url, function (d) {
+        if (d =="") {
 
-    if(oembed_list[host_name]){
-        https.get(prepareoeURL(url,host_name),function(response){
-            var oe_details="";
-            response.on('data',function(d){
-                oe_details+=d;
 
-            });
-            response.on('end',function(){
-                var json=JSON.parse(oe_details);
-                result.title=json.title;
-
-                result.html=json.html;
-                if(json.description){
-                    result.description=json.description.replace(/(\r\n|\n|\r)/gm,"");
-                    prepareHtml(result.html,result.description,function(html){
-                        result.html=html;
+        } else {
+            if (host_name === 'youtube') {
+                console.log("d" +d);
+                result.title = d.items[0].snippet.title;
+                result.description = d.items[0].snippet.description;
+                result.html = prepareytHtml(url.replace("watch?v=", "embed/"));
+                callback(result);
+            } else {
+                result.title = d.title;
+                result.html = d.html;
+                videoDescription(d, function (des) {
+                    result.description = des;
+                    prepareHtml(result.html, result.description, function (html) {
+                        result.html = html;
                         callback(result);
                     });
-                }else{
-                    result.description=ogp.getOgDescription(url,function(des){
-                        result.description=des;
-                        prepareHtml(result.html,result.description,function(html){
-                            result.html=html;
-                            callback(result);
-                        });
-                    });
-                }
-            });
-            response.on('error',function(err){
-                console.log(err)
-            })
-        });
 
-    }else if (host_name=== 'youtube') {
-        var ID = YouTubeGetID(url);
-        var yt_details = "";
-         https.get(prepareytURL(ID), function (response) {
-            response.on('data', function (d) {
-                yt_details += d;
-            });
-            response.on('end', function () {
-                var json = JSON.parse(yt_details);
-                result.title = json.items[0].snippet.title;
-                result.description = json.items[0].snippet.description;
-                result.html=prepareytHtml(url.replace("watch?v=", "embed/"));
-                callback(result);
-            });
-        });
-    }
-}
+                });
+            }
 
+        }
+    });
+};
+//get the ID of the youTube video from its URL
 function YouTubeGetID(url){
     var ID = '';
     url = url.replace(/(>|<)/gi,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
@@ -98,24 +84,16 @@ function YouTubeGetID(url){
     }
     return ID;
 }
-
+//preparing youTube url
 function prepareytURL(ID){
     var ytURL=ytCreditials.API_URL+"id="+ID+"&key="+ytCreditials.API_kEY+"&part=snippet";
-
     return ytURL;
 }
-
+//preparing oembed url
 function prepareoeURL(url,host_name){
-
-    if((host_name="moby")||(host_name=="mobypicture")){
-
-        return oembed_list[host_name]+'?url='+encodeURIComponent(url)+"&format=json"
-    }else{
-
         return oembed_list[host_name]+'?url='+encodeURIComponent(url);
-    }
-
 }
+//prepare html for oembed video sites
 function prepareHtml(ht,description,callback){
     h2js.parse(ht, {
         'src': function ($doc) {
@@ -132,6 +110,17 @@ function prepareHtml(ht,description,callback){
 
     });
 
+}
+//get description
+function videoDescription(d,callback){
+    if (!d.description) {
+        ogp.getOgDescription(result.url, function (des) {
+            callback(des.replace(/(\r\n|\n|\r)/gm, ""))
+        });
+    }else
+        {
+            callback(d.description.replace(/(\r\n|\n|\r)/gm, ""));
+        }
 }
 
 function prepareytHtml(url){

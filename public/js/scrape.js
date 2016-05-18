@@ -1,7 +1,6 @@
 /**
  * Created by Bharath on 20/02/16.
  */
-"use strict";
 var URL=require ('url-parse');
 var isImageUrl = require('is-image-url');
 var video=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/video.js');
