@@ -12,7 +12,6 @@ SafeBrowsing.prototype.checkUrl=function(url,callback){
     https.get(preparesbUrl(url),function(response){
 
          var code=response.statusCode;
-        console.log(code);
         if(code==200){
             callback(false);
         }else{

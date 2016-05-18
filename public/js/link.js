@@ -22,10 +22,7 @@ var result={
 //looks for the ogp data and the meta information
 Link.prototype.getInfo=function(url,callback){
     result.url=url;
-    console.log("link");
-
     ogp.getInfo(url,function(data) {
-        console.log(data);
         if (data.og) {
             if (data.og.title) {
                 result.title = data.og.title;
@@ -55,8 +52,7 @@ Link.prototype.getInfo=function(url,callback){
             } else {
 
                     result.description=getDescription(url,function(description){
-
-                            result.description=description;
+                        result.description=description;
                         result.name=getName(url);
                         getFavicon(url, function (favicon) {
                             result.favicon = favicon;
@@ -66,7 +62,6 @@ Link.prototype.getInfo=function(url,callback){
             }
 
         } else {
-            console.log("inside");
             if (data.title) {
                 result.title = data.title.replace(/(\r|\n|\n\r|\r\n)/gm, "");
             }
@@ -97,7 +92,7 @@ function getImageUrl(images,url){
     var final_url=get_thumbnail(images);
 
     if(final_url!=""){
-        var parse_image_url=new URL(image_url,true);
+        var parse_image_url=new URL(final_url,true);
         var parse_link_url=new URL(url,true);
         var protocol=parse_link_url.protocol;
         var hostname=parse_link_url.hostname;
@@ -154,11 +149,12 @@ function get_thumbnail(images){
     var aspect_ratio=3;
     var max_size=0;
     var src="";
+    images.sort(compare);
+
     images.forEach(function(img,index){
         if(img.src){
 
             if(img.width && img.height){
-                console.log(index);
                 var size= img.width*img.height;
                 var ratio=(img.width/img.height);
                 if((size>=min_size)&&(ratio<aspect_ratio)){
@@ -169,9 +165,17 @@ function get_thumbnail(images){
             }
         }
     });
-    console.log(src);
     return src;
 };
+
+function compare(a,b) {
+    if (a.src < b.src)
+        return -1;
+    else if (a.src > b.src)
+        return 1;
+    else
+        return 0;
+}
 
 module.exports=new Link();
 

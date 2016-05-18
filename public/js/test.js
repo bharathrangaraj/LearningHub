@@ -7,19 +7,33 @@ var h2js=require('html-to-json');
 var js2h = require('json-to-html');
 var meta = require('metatags');
 var og=require('og-parser');
+var request=require('request');
 var validUrl = require('valid-url');
 var favicon = require('favicon');
 var https=require("follow-redirects").https;
 var embed=require("./embedHtml.js");
 var http=require("follow-redirects").http;
 var URL=require ('url-parse');
+var ogp=require('./ogp.js');
 var test_url=decodeURIComponent("https://www.youtube.com/watch?v=UrxCwYc5h2Q");
 var scrape=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/scrape.js');
+var read = require('node-read');
 
 
-scrape.getInfo("https://vimeo.com/channels/staffpicks/165192677",function(result){
-   console.log(result);
+
+
+scrape.getInfo("http://physicsworld.com/cws/article/news/2016/may/16/photons-with-half-integer-angular-momentum-",function(err,result){
+   if(err){
+       console.log(err);
+   }else{
+       console.log(result);
+   }
 });
+
+
+
+
+
 
 
 
