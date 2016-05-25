@@ -20,15 +20,13 @@ var scrape=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/scrape
 var read = require('node-read');
 
 
+//audio.getDetails("https://soundcloud.com/scottisbell/trumpified","soundcloud",function(result){
+//    console.log()
+//})
 
 
-scrape.getInfo("http://physicsworld.com/cws/article/news/2016/may/16/photons-with-half-integer-angular-momentum-",function(err,result){
-   if(err){
-       console.log(err);
-   }else{
-       console.log(result);
-   }
-});
+
+
 
 
 

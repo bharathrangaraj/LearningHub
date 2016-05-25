@@ -1,7 +1,3 @@
-/**
- *Created by Bharath on 20/02/16.
- */
-"use-strict";
 
 var https=require("follow-redirects").https;
 var http=require("follow-redirects").http;
@@ -23,7 +19,7 @@ var oembed_list={
     'kickstarter':'https://www.kickstarter.com/services/oembed'
 };
 //init of the return variable
-var result={
+var video_result={
     'type':"video",
     'url':"",
     'description':"",
@@ -34,7 +30,7 @@ var result={
 function Video(){};
 //get the video details
 Video.prototype.getDetails=function(url,host_name,callback) {
-    result.url = url;
+    video_result.url = url;
     var prepared_url = "";
     //prepare the url
     if (oembed_list[host_name]) {
@@ -51,18 +47,18 @@ Video.prototype.getDetails=function(url,host_name,callback) {
         } else {
             if (host_name === 'youtube') {
                 console.log("d" +d);
-                result.title = d.items[0].snippet.title;
-                result.description = d.items[0].snippet.description;
-                result.html = prepareytHtml(url.replace("watch?v=", "embed/"));
-                callback(result);
+                video_result.title = d.items[0].snippet.title;
+                video_result.description = d.items[0].snippet.description;
+                video_result.html = prepareytHtml(url.replace("watch?v=", "embed/"));
+                callback(video_result);
             } else {
-                result.title = d.title;
-                result.html = d.html;
+                video_result.title = d.title;
+                video_result.html = d.html;
                 videoDescription(d, function (des) {
-                    result.description = des;
-                    prepareHtml(result.html, result.description, function (html) {
-                        result.html = html;
-                        callback(result);
+                    video_result.description = des;
+                    prepareHtml(video_result.html, video_result.description, function (html) {
+                        video_result.html = html;
+                        callback(video_result);
                     });
 
                 });
@@ -99,12 +95,12 @@ function prepareHtml(ht,description,callback){
         'src': function ($doc) {
             return $doc.find('iframe').attr('src');
         }
-    }, function (err, result) {
+    }, function (err, video_result) {
         if(err){
             console.log(err);
             callback(ht);
         }else{
-            var html='<iframe ng-src="'+result.src+'" width="100%" height=300px></iframe>';
+            var html='<iframe ng-src="'+video_result.src+'" width="100%" height=300px></iframe>';
             callback(html);
         }
 
@@ -114,7 +110,7 @@ function prepareHtml(ht,description,callback){
 //get description
 function videoDescription(d,callback){
     if (!d.description) {
-        ogp.getOgDescription(result.url, function (des) {
+        ogp.getOgDescription(video_result.url, function (des) {
             callback(des.replace(/(\r\n|\n|\r)/gm, ""))
         });
     }else

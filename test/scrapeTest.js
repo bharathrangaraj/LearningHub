@@ -16,7 +16,7 @@ describe("Video links",function(){
             'type':"video",
             'url':"https://www.youtube.com/watch?v=jXUFRue31PQ"
         };
-        scrape.getInfo("https://www.youtube.com/watch?v=jXUFRue31PQ",function(result){
+        scrape.getInfo("https://www.youtube.com/watch?v=jXUFRue31PQ",function(err,result){
             expect(result.title).to.equal(m1result.title);
             expect(result.description).to.equal(m1result.description);
             expect(result.type).to.equal(m1result.type);
@@ -34,7 +34,7 @@ describe("Video links",function(){
             'type':"video",
             'url':"https://vimeo.com/channels/staffpicks/165192677"
         };
-        scrape.getInfo("https://vimeo.com/channels/staffpicks/165192677",function(result){
+        scrape.getInfo("https://vimeo.com/channels/staffpicks/165192677",function(err,result){
             expect(result.title).to.equal(m2result.title);
             expect(result.description).to.equal(m2result.description);
             expect(result.type).to.equal(m2result.type);
@@ -51,7 +51,7 @@ describe("Video links",function(){
             'type':"video",
             'url':"https://dotsub.com/view/3f75417e-4a9f-44b9-a125-e302238c2cef"
         };
-            scrape.getInfo("https://dotsub.com/view/3f75417e-4a9f-44b9-a125-e302238c2cef",function(result){
+            scrape.getInfo("https://dotsub.com/view/3f75417e-4a9f-44b9-a125-e302238c2cef",function(err,result){
                 expect(result.title).to.equal(m3result.title);
                 expect(result.description).to.equal(m3result.description);
                 expect(result.type).to.equal(m3result.type);
@@ -67,7 +67,7 @@ describe("Video links",function(){
             'type':"video",
             'url':"https://www.ted.com/talks/laura_indolfi_good_news_in_the_fight_against_pancreatic_cancer"
         };
-        scrape.getInfo("https://www.ted.com/talks/laura_indolfi_good_news_in_the_fight_against_pancreatic_cancer",function(result){
+        scrape.getInfo("https://www.ted.com/talks/laura_indolfi_good_news_in_the_fight_against_pancreatic_cancer",function(err,result){
             expect(result.title).to.equal(m4result.title);
             expect(result.description).to.equal(m4result.description);
             expect(result.type).to.equal(m4result.type);
@@ -83,7 +83,7 @@ describe("Video links",function(){
             'type':"video",
             'url':"http://videos.sapo.pt/CosZR1yEUHhTdKdV8cPT"
         };
-        scrape.getInfo("http://videos.sapo.pt/CosZR1yEUHhTdKdV8cPT",function(result){
+        scrape.getInfo("http://videos.sapo.pt/CosZR1yEUHhTdKdV8cPT",function(err,result){
             expect(result.title).to.equal(m5result.title);
             expect(result.description).to.equal(m5result.description);
             expect(result.type).to.equal(m5result.type);
@@ -99,7 +99,7 @@ describe("Video links",function(){
             'type':"video",
             'url':"http://www.dailymotion.com/video/x3y8w4e_manchester-city-0-0-dynamo-kyiv-3-1-agg-manuel-pellegrini-post-match-interview_sport"
         };
-        scrape.getInfo("http://www.dailymotion.com/video/x3y8w4e_manchester-city-0-0-dynamo-kyiv-3-1-agg-manuel-pellegrini-post-match-interview_sport",function(result){
+        scrape.getInfo("http://www.dailymotion.com/video/x3y8w4e_manchester-city-0-0-dynamo-kyiv-3-1-agg-manuel-pellegrini-post-match-interview_sport",function(err,result){
             done();
             expect(result.title).to.equal(m6result.title);
             expect(result.description).to.equal(m6result.description);
@@ -117,7 +117,7 @@ describe("Video links",function(){
             'type':"video",
             'url':"https://www.circuitlab.com/circuit/f6ex5x/diode-full-wave-rectifier/"
         };
-        scrape.getInfo("https://www.circuitlab.com/circuit/f6ex5x/diode-full-wave-rectifier/",function(result){
+        scrape.getInfo("https://www.circuitlab.com/circuit/f6ex5x/diode-full-wave-rectifier/",function(err,result){
             done();
             expect(result.title).to.equal(m7result.title);
             expect(result.description).to.equal(m7result.description);
@@ -135,7 +135,7 @@ describe("Video links",function(){
             'type':"video",
             'url':"http://coub.com/view/ch6wq"
         };
-        scrape.getInfo("http://coub.com/view/ch6wq",function(result){
+        scrape.getInfo("http://coub.com/view/ch6wq",function(err,result){
             done();
             expect(result.title).to.equal(m8result.title);
             expect(result.description).to.equal(m8result.description);
@@ -147,15 +147,15 @@ describe("Video links",function(){
     });
         it("kickstarter",function(done){
             var m9result={
-                'title':"Mover Kit - The first active wearable that kids make & code",
+                'title':'Mover Kit: The 1st educational wearable kids make & code',
                 'description':"Mover Kit encourages movement! It's a game, speed-activated bike light, disco bracelet – whatever a kid can make, move & code it to be.",
                 'type':"video",
                 'url':"https://www.kickstarter.com/projects/techwillsaveus/mover-kit-the-first-active-wearable-that-kids-make?ref=home_potd"
             };
-            scrape.getInfo("https://www.kickstarter.com/projects/techwillsaveus/mover-kit-the-first-active-wearable-that-kids-make?ref=home_potd",function(result){
+            scrape.getInfo("https://www.kickstarter.com/projects/techwillsaveus/mover-kit-the-first-active-wearable-that-kids-make?ref=home_potd",function(err,result){
                 done();
-                expect(result.title).to.equal(m9result.title);
-                expect(result.description).to.equal(m9result.description);
+                expect(result.title).to.not.be.null;
+                expect(result.description).to.not.be.null;
                 expect(result.type).to.equal(m9result.type);
                 expect(result.url).to.equal(m9result.url);
 
@@ -176,7 +176,7 @@ describe("links",function(){
             favicon:"http://www.gsmarena.com/favicon.ico",
             name:"gsmarena.com"
         };
-        scrape.getInfo("http://www.gsmarena.com/sony_xperia_xa_ultra_hands_on-review-1440.php",function(result){
+        scrape.getInfo("http://www.gsmarena.com/sony_xperia_xa_ultra_hands_on-review-1440.php",function(err,result){
             expect(result.title).to.equal(lresult.title);
             expect(result.description).to.equal(lresult.description);
             expect(result.type).to.equal(lresult.type);
@@ -210,7 +210,7 @@ describe("links",function(){
             favicon: "https://lostechies.com/favicon.ico",
             name: "lostechies.com"
         };
-        scrape.getInfo("https://lostechies.com/derickbailey/2012/08/17/asynchronous-unit-tests-with-mocha-promises-and-winjs/", function (result) {
+        scrape.getInfo("https://lostechies.com/derickbailey/2012/08/17/asynchronous-unit-tests-with-mocha-promises-and-winjs/", function (err,result) {
             expect(result.title).to.equal(l4result.title);
             expect(result.description).to.equal(l4result.description);
             expect(result.type).to.equal(l4result.type);
@@ -235,7 +235,7 @@ describe("links",function(){
             favicon: "https://lostechies.com/favicon.ico",
             name: "lostechies.com"
         };
-        scrape.getInfo("https://lostechies.com/derickbailey/2012/08/17/asynchronous-unit-tests-with-mocha-promises-and-winjs/", function (result) {
+        scrape.getInfo("https://lostechies.com/derickbailey/2012/08/17/asynchronous-unit-tests-with-mocha-promises-and-winjs/", function (err,result) {
             expect(result.title).to.equal(l3result.title);
             expect(result.description).to.equal(l3result.description);
             expect(result.type).to.equal(l3result.type);
@@ -257,7 +257,7 @@ describe("links",function(){
             favicon: "http://fredkschott.com/assets/favicon1.ico",
             name: "fredkschott.com"
         };
-        scrape.getInfo("http://fredkschott.com/post/2014/05/nodejs-testing-essentials/", function (result) {
+        scrape.getInfo("http://fredkschott.com/post/2014/05/nodejs-testing-essentials/", function (err,result) {
             done();
             expect(result.title).to.equal(l2result.title);
             expect(result.description).to.equal(l2result.description);
@@ -269,4 +269,168 @@ describe("links",function(){
         });
 
     });
+});
+
+
+describe("Audio",function(){
+    it("soundlcoud",function(done){
+        var a1result={
+            type:"audio",
+            title:"Donald Trump - Trumpified - @RealDonaldTrump by Scott  Isbell",
+            url:"https://soundcloud.com/scottisbell/trumpified",
+            html:""
+        };
+        scrape.getInfo("https://soundcloud.com/scottisbell/trumpified",function(err,result){
+            if(err){
+                console.log("error"+err);
+            }else{
+                expect(a1result.title).to.equal(result.title);
+                expect(a1result.html).to.not.be.null;
+                expect(a1result.html).to.not.be.undefined;
+            }
+        });
+        done();
+
+    });
+
+    it("mixcloud",function(done){
+        var a2result={
+            type:"audio",
+            title:"#Mixmondays Justin Bieber Mini Mix @Djarvee",
+            url:"https://www.mixcloud.com/arveeofficial/mixmondays-justin-bieber-mini-mix-djarvee/",
+            html:""
+        };
+        scrape.getInfo("https://www.mixcloud.com/arveeofficial/mixmondays-justin-bieber-mini-mix-djarvee/",function(err,result){
+
+            if(err){
+                console.log("error"+err);
+            }else{
+                expect(a2result.title).to.equal(result.title);
+                expect(a2result.html).to.not.be.null;
+                expect(a2result.html).to.not.be.undefined;
+            }
+            done();
+        });
+
+    });
+
+    it("clyp",function(done){
+        var a3result={
+            type:"audio",
+            title:"My Clyp",
+            url:"https://clyp.it/s544nfcn",
+            html:""
+        };
+        scrape.getInfo("https://clyp.it/s544nfcn",function(err,result){
+
+            if(err){
+                console.log("error"+err);
+            }else{
+                expect(a3result.title).to.equal(result.title);
+                expect(a3result.html).to.not.be.null;
+                expect(a3result.html).to.not.be.undefined;
+            }
+            done();
+        });
+
+    });
+    //https://huffduffer.com/davidr/332140
+    it("huff duffer",function(done){
+        var a4result={
+            type:"audio",
+            title:"006 - David Sparks of Sparks Law and macsparky.com - U-Turn",
+            url:"https://huffduffer.com/davidr/332140",
+            html:""
+        };
+        scrape.getInfo("https://huffduffer.com/davidr/332140",function(err,result){
+
+            if(err){
+                console.log("error"+err);
+            }else{
+                expect(a4result.title).to.equal(result.title);
+                expect(a4result.html).to.not.be.null;
+                expect(a4result.html).to.not.be.undefined;
+            }
+            done();
+        });
+
+    });
+
+
+
+});
+
+describe.only("Story",function(){
+    it("verse",function(done){
+        var s1result={
+            type:"story",
+            title:"Everything Water Touches",
+            url:"https://verse.com/9c8de05799b1b1671c325b52372b39678837ea5a/299-water/",
+            html:""
+        };
+        scrape.getInfo("https://verse.com/9c8de05799b1b1671c325b52372b39678837ea5a/299-water/",function(err,result){
+
+            if(err){
+                console.log("error"+err);
+            }else{
+                expect(s1result.title).to.equal(result.title);
+                expect(s1result.html).to.not.be.null;
+                expect(s1result.html).to.not.be.undefined;
+                expect(s1result.title).to.not.be.null;
+                expect(s1result.title).to.not.be.undefined;
+            }
+            done();
+        });
+
+    });
+
+    it("amcharts",function(done){
+        var s2result={
+            type:"story",
+            title:"3D stacked'",
+            url:"https://live.amcharts.com/BjYTQ/",
+            html:""
+        };
+        scrape.getInfo("https://live.amcharts.com/BjYTQ/",function(err,result){
+
+            if(err){
+                console.log("error"+err);
+            }else{
+                expect(s2result.title).to.equal(result.title);
+                expect(s2result.html).to.not.be.null;
+                expect(s2result.html).to.not.be.undefined;
+                expect(s2result.title).to.not.be.null;
+                expect(s2result.title).to.not.be.undefined;
+            }
+            done();
+        });
+
+    });
+
+    it("amcharts",function(done){
+        var s2result={
+            type:"story",
+            title:"3D stacked'",
+            url:"https://live.amcharts.com/BjYTQ/",
+            html:""
+        };
+        scrape.getInfo("https://live.amcharts.com/BjYTQ/",function(err,result){
+
+            if(err){
+                console.log("error"+err);
+            }else{
+                expect(s2result.title).to.equal(result.title);
+                expect(s2result.html).to.not.be.null;
+                expect(s2result.html).to.not.be.undefined;
+                expect(s2result.title).to.not.be.null;
+                expect(s2result.title).to.not.be.undefined;
+            }
+            done();
+        });
+
+    });
+
+
+
+
 });

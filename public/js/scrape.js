@@ -44,7 +44,7 @@ d.on("error",function(){
 d.run(scrape.prototype.getInfo=function(link,callback){
     request.get(link)
         .on('response',function(response){
-            if(response.statusCode >=400){
+            if(response.statusCode >=401){
                 var err="Invalid link";
                 callback(err,null);
             }
@@ -55,7 +55,7 @@ d.run(scrape.prototype.getInfo=function(link,callback){
                         if(contains(videos,host_name)){
                             video.getDetails(link,current_link,
                                 function(res){
-                                    callback(res);
+                                    callback(null,res);
                                 });
                         }else if(contains(slides,host_name)){
                             slide.getDetails(link,current_link,
@@ -75,18 +75,18 @@ d.run(scrape.prototype.getInfo=function(link,callback){
                         }else if(contains(stories,host_name)){
                             story.getDetails(link,current_link,
                                 function(res){
-                                    callback(res);
+                                    callback(null,res);
                                 });
                         }else if(contains(audios,host_name)){
 
                             audio.getDetails(link,current_link,
                                 function(res){
-                                    callback(res);
+                                    callback(null,res);
                                 });
                         }else if(contains(docs,host_name)){
                             doc.getDetails(link,current_link,
                                 function(res){
-                                    callback(res);
+                                    callback(null,res);
                                 });
                         }else if(isPdf(link,function(valid){
                                 if(valid){

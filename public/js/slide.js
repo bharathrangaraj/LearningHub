@@ -1,9 +1,7 @@
 /**
  * Created by Bharath on 30/03/16.
  */
-var https=require("follow-redirects").https;
-var http=require("follow-redirects").http;
-var embed=require("./embedHtml")
+var ahelper=require("./aggHelper.js");
 var h2js=require('html-to-json');
 var ogp=require("./ogp.js");
 
@@ -13,8 +11,9 @@ var oembed_list={
     'sway':'https://sway.com/api/v1.0/oembed'
 };
 
-function Slide(){};
-var result={
+function Slide(){}
+//init result variable
+var slide_result={
     'type':"slide",
     'url':"",
     'title':"",
@@ -22,61 +21,49 @@ var result={
 };
 
 Slide.prototype.getDetails=function(url,host_name,callback) {
-    result.url=url;
+    slide_result.url=url;
     if (oembed_list[host_name]) {
-        console.log(prepareoeURL(url, host_name));
-        https.get(prepareoeURL(url, host_name), function (response) {
-            var oe_details = "";
-            response.on('data', function (d) {
-                oe_details += d;
-
+        ahelper.get(prepareoeURL(url,host_name),function(d){
+            slide_result.title=d.title;
+            prepareOeHtml(slide_json.html,function(html){
+                slide_result.html=html;
+                callback(slide_result);
             });
-            response.on('end', function () {
-                var slide_json = JSON.parse(oe_details);
-                result.title=slide_json.title;
-                prepareOeHtml(slide_json.html,function(html){
-                    result.html=html;
-                    callback(result);
-                });
 
-            });
-            response.on('error', function (err) {
-                console.log(err)
-            })
         });
-
     }else if(host_name=="slides" || host_name=="emaze"){
         ogp.getInfo(url,function(ogp_data){
-            result.title=ogp_data.title;
-            result.description=ogp_data.description;
-            result.html=prepareHtml(url);
-            callback(result);
+            slide_result.title=ogp_data.title;
+            slide_result.description=ogp_data.description;
+            slide_result.html=prepareHtml(url);
+            callback(slide_result);
+
         })
     }
 };
-
+//prepare oe url
 function prepareoeURL(url,current_link){
 
         return oembed_list[current_link]+'?url='+encodeURIComponent(url)+'&format=json';
 }
-
+//prepare HTMl for  oe slides
 function prepareOeHtml(ht,callback){
     h2js.parse(ht, {
         'src': function ($doc) {
             return $doc.find('iframe').attr('src');
         }
-    }, function (err, result) {
+    }, function (err, slide_result) {
         if(err){
             console.log(err);
         }else{
-            var html='<iframe src="'+result.src+'" scrolling="no" frameborder="0" width="100%" height="300" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+            var html='<iframe src="'+slide_result.src+'" scrolling="no" frameborder="0" width="100%" height="300" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
             callback(html)
         }
 
     });
 
 }
-
+//prepare HTML for other slides
 function prepareHtml(url){
     return '<iframe src="'+url+'" scrolling="no" frameborder="0" width="100%" height="300" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 }
