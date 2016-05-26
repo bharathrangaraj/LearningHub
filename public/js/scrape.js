@@ -91,7 +91,8 @@ d.run(scrape.prototype.getInfo=function(link,callback){
                         }else if(isPdf(link,function(valid){
                                 if(valid){
                                     pdf.getInfo(link,function(res){
-                                        callback(res);
+                                        console.log("found pdf");
+                                        callback(null,res);
                                     })
                                 }
                                 else{

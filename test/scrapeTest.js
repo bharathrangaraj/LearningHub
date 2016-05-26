@@ -271,7 +271,7 @@ describe("links",function(){
     });
 });
 
-
+//audio links
 describe("Audio",function(){
     it("soundlcoud",function(done){
         var a1result={
@@ -359,8 +359,8 @@ describe("Audio",function(){
 
 
 });
-
-describe.only("Story",function(){
+//story links
+describe("Story",function(){
     it("verse",function(done){
         var s1result={
             type:"story",
@@ -430,7 +430,32 @@ describe.only("Story",function(){
 
     });
 
+});
+//pdf links
+describe.only("pdf",function(){
+    it("pdf links",function(done){
+        var presult={
+            'type':"pdf",
+            'url':"https://drive.google.com/viewerng/viewer?url=http://ptgmedia.pearsoncmg.com/images/9780672329166/samplepages/0672329166_Sample.pdf",
+            'title':"0672329166_Sample.pdf",
+            'image':"",
+            'html':""
+        };
+        scrape.getInfo("http://ptgmedia.pearsoncmg.com/images/9780672329166/samplepages/0672329166_Sample.pdf",function(err,result){
+            if(err){
+                console.log("error"+err);
+            }else{
+                console.log(result);
+                expect(presult.title).to.equal(result.title);
+                expect(presult.url).to.equal(result.url);
+                expect(presult.html).to.not.be.null;
+                expect(presult.html).to.not.be.undefined;
+                expect(presult.title).to.not.be.null;
+                expect(presult.title).to.not.be.undefined;
+            }
+            done();
+        });
 
 
-
+    })
 });
