@@ -7,7 +7,7 @@ var ogp=require("./ogp.js");
 
 var oembed_list={
     'slideshare':'https://www.slideshare.net/api/oembed/2',
-    'speakerdeck':' https://speakerdeck.com/oembed.json',
+    'speakerdeck':' http://speakerdeck.com/oembed.json',
     'sway':'https://sway.com/api/v1.0/oembed'
 };
 
@@ -25,7 +25,7 @@ Slide.prototype.getDetails=function(url,host_name,callback) {
     if (oembed_list[host_name]) {
         ahelper.get(prepareoeURL(url,host_name),function(d){
             slide_result.title=d.title;
-            prepareOeHtml(slide_json.html,function(html){
+            prepareOeHtml(d.html,function(html){
                 slide_result.html=html;
                 callback(slide_result);
             });
@@ -33,8 +33,8 @@ Slide.prototype.getDetails=function(url,host_name,callback) {
         });
     }else if(host_name=="slides" || host_name=="emaze"){
         ogp.getInfo(url,function(ogp_data){
-            slide_result.title=ogp_data.title;
-            slide_result.description=ogp_data.description;
+
+            slide_result.title=ogp_data.og.title;
             slide_result.html=prepareHtml(url);
             callback(slide_result);
 

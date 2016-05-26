@@ -432,7 +432,7 @@ describe("Story",function(){
 
 });
 //pdf links
-describe.only("pdf",function(){
+describe("pdf",function(){
     it("pdf links",function(done){
         var presult={
             'type':"pdf",
@@ -458,4 +458,124 @@ describe.only("pdf",function(){
 
 
     })
+});
+
+//slides
+describe.only("slides",function(){
+    it("slideshare",function(done){
+        var i2result={
+            'type':"slide",
+            'url':"http://www.slideshare.net/h3sean/3-lies-about-your-age",
+            'title':"The Three Lies About your Age",
+            'html':""
+        };
+        scrape.getInfo("http://www.slideshare.net/h3sean/3-lies-about-your-age",function(err,result){
+            if(err){
+                console.log("error"+err);
+            }else{
+                console.log(result);
+                expect(i2result.title).to.equal(result.title);
+                expect(i2result.url).to.equal(result.url);
+                expect(i2result.html).to.not.be.null;
+                expect(i2result.html).to.not.be.undefined;
+                expect(i2result.title).to.not.be.null;
+                expect(i2result.title).to.not.be.undefined;
+            }
+            done();
+        });
+
+    });
+    it("speakerdeck",function(done){
+        var i3result={
+            'type':"slide",
+            'url':"https://speakerdeck.com/akmur/atom-resistance-is-futile",
+            'title':"Atom: Resistance is Futile",
+            'html':""
+        };
+        scrape.getInfo("https://speakerdeck.com/akmur/atom-resistance-is-futile",function(err,result){
+            if(err){
+                console.log("error"+err);
+            }else{
+                console.log(result);
+                expect(i3result.title).to.equal(result.title);
+                expect(i3result.url).to.equal(result.url);
+                expect(i3result.html).to.not.be.null;
+                expect(i3result.html).to.not.be.undefined;
+                expect(i3result.title).to.not.be.null;
+                expect(i3result.title).to.not.be.undefined;
+            }
+            done();
+        });
+
+    });
+    it("slides",function(done){
+        var i1result={
+            'type':"slide",
+            'url':"http://slides.com/ai/postcss-intro#/",
+            'title':"PostCSS Intro by Андрей «A.I.» Ситник",
+            'html':""
+        };
+        scrape.getInfo("http://slides.com/ai/postcss-intro#/",function(err,result){
+            if(err){
+                console.log("error"+err);
+            }else{
+                console.log(result);
+                expect(i1result.title).to.equal(result.title);
+                expect(i1result.url).to.equal(result.url);
+                expect(i1result.html).to.not.be.null;
+                expect(i1result.html).to.not.be.undefined;
+                expect(i1result.title).to.not.be.null;
+                expect(i1result.title).to.not.be.undefined;
+            }
+            done();
+        });
+
+    });
+    it("emaze",function(done){
+        var i4result={
+            'type':"slide",
+            'url':"https://app.emaze.com/@AFFOZIRR#1",
+            'title':"",
+            'html':""
+        };
+        scrape.getInfo("https://app.emaze.com/@AFFOZIRR#1",function(err,result){
+            if(err){
+                console.log("error"+err);
+            }else{
+                console.log(result);
+                expect(i4result.title).to.equal(result.title);
+                expect(i4result.url).to.equal(result.url);
+                expect(i4result.html).to.not.be.null;
+                expect(i4result.html).to.not.be.undefined;
+                expect(i4result.title).to.not.be.null;
+                expect(i4result.title).to.not.be.undefined;
+            }
+            done();
+        });
+
+    });
+
+    it("sway",function(done){
+        var i5result={
+            'type':"slide",
+            'url':"https://sway.com/red_panda",
+            'title':"The Red Panda",
+            'html':""
+        };
+        scrape.getInfo("https://sway.com/red_panda",function(err,result){
+            if(err){
+                console.log("error"+err);
+            }else{
+                console.log(result);
+                expect(i5result.title).to.equal(result.title);
+                expect(i5result.url).to.equal(result.url);
+                expect(i5result.html).to.not.be.null;
+                expect(i5result.html).to.not.be.undefined;
+                expect(i5result.title).to.not.be.null;
+                expect(i5result.title).to.not.be.undefined;
+            }
+            done();
+        });
+
+    });
 });

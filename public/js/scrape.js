@@ -60,7 +60,7 @@ d.run(scrape.prototype.getInfo=function(link,callback){
                         }else if(contains(slides,host_name)){
                             slide.getDetails(link,current_link,
                                 function(res){
-                                    callback(res);
+                                    callback(null,res);
                                 });
                         }else if(contains(images,host_name)){
                             image.getDetails(link,current_link,
