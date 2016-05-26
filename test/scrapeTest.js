@@ -461,7 +461,7 @@ describe("pdf",function(){
 });
 
 //slides
-describe.only("slides",function(){
+describe("slides",function(){
     it("slideshare",function(done){
         var i2result={
             'type':"slide",
@@ -566,7 +566,6 @@ describe.only("slides",function(){
             if(err){
                 console.log("error"+err);
             }else{
-                console.log(result);
                 expect(i5result.title).to.equal(result.title);
                 expect(i5result.url).to.equal(result.url);
                 expect(i5result.html).to.not.be.null;
@@ -579,3 +578,53 @@ describe.only("slides",function(){
 
     });
 });
+//docs
+describe.only("Docs",function(){
+    it("office",function(done){
+        var d1result={
+            'type':"doc",
+            'url':"https://mix.office.com/watch/1otxpj7hz6kbx",
+            'title':"Are poor countries doomed to stay poor?",
+            'html':""
+        };
+        scrape.getInfo("https://mix.office.com/watch/1otxpj7hz6kbx",function(err,result){
+            if(err){
+                console.log("error"+err);
+            }else{
+                expect(d1result.title).to.equal(result.title);
+                expect(d1result.url).to.equal(result.url);
+                expect(d1result.html).to.not.be.null;
+                expect(d1result.html).to.not.be.undefined;
+                expect(d1result.title).to.not.be.null;
+                expect(d1result.title).to.not.be.undefined;
+            }
+            done();
+        });
+
+
+    });
+    it("docs",function(done){
+        var d2result={
+            'type':"doc",
+            'url':"https://docs.com/docscom/4059/understand-your-audience",
+            'title':"Understand your Audience",
+            'html':""
+        };
+        scrape.getInfo("https://docs.com/docscom/4059/understand-your-audience",function(err,result){
+            if(err){
+                console.log("error"+err);
+            }else{
+                expect(d2result.title).to.equal(result.title);
+                expect(d2result.url).to.equal(result.url);
+                expect(d2result.html).to.not.be.null;
+                expect(d2result.html).to.not.be.undefined;
+                expect(d2result.title).to.not.be.null;
+                expect(d2result.title).to.not.be.undefined;
+            }
+            done();
+        });
+
+    });
+
+});
+//images
