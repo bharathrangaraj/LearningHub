@@ -15,15 +15,16 @@ var oembed_list={
     'huffduffer':'https://huffduffer.com/oembed'
 
 };
-//init the return varible
-var audio_result={
-    'type':"audio",
-    'url':"",
-    'title':"",
-    'html':""
-};
+
 //audio details
 Audio.prototype.getDetails=function(url,host_name,callback){
+    //init the return varible
+    var audio_result={
+        'type':"audio",
+        'url':"",
+        'title':"",
+        'html':""
+    };
     audio_result.url=url;
     if(oembed_list[host_name]){
         ahelper.get(prepareoeURL(url, host_name),function(d){

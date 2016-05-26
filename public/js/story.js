@@ -15,15 +15,16 @@ var oembed_list={
     'chartblocks':'https://embed.chartblocks.com/1.0/oembed',
     'repubhub':'http://repubhub.icopyright.net/oembed.act'
 };
-//init the result story variable
-var story_result={
-    'type':"story",
-    'url':"",
-    'title':"",
-    'html':""
-};
+
 //get the story details
 Story.prototype.getDetails=function(url,host_name,callback){
+    //init the result story variable
+    var story_result={
+        'type':"story",
+        'url':"",
+        'title':"",
+        'html':""
+    };
     story_result.url=url;
     if(oembed_list[host_name]){
         ahelper.get(prepareoeURL(url, host_name),function(d){

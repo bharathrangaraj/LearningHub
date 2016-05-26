@@ -387,30 +387,7 @@ describe("Story",function(){
     it("amcharts",function(done){
         var s2result={
             type:"story",
-            title:"3D stacked'",
-            url:"https://live.amcharts.com/BjYTQ/",
-            html:""
-        };
-        scrape.getInfo("https://live.amcharts.com/BjYTQ/",function(err,result){
-
-            if(err){
-                console.log("error"+err);
-            }else{
-                expect(s2result.title).to.equal(result.title);
-                expect(s2result.html).to.not.be.null;
-                expect(s2result.html).to.not.be.undefined;
-                expect(s2result.title).to.not.be.null;
-                expect(s2result.title).to.not.be.undefined;
-            }
-            done();
-        });
-
-    });
-
-    it("amcharts",function(done){
-        var s2result={
-            type:"story",
-            title:"3D stacked'",
+            title:"3D stacked",
             url:"https://live.amcharts.com/BjYTQ/",
             html:""
         };
@@ -579,7 +556,7 @@ describe("slides",function(){
     });
 });
 //docs
-describe.only("Docs",function(){
+describe("Docs",function(){
     it("office",function(done){
         var d1result={
             'type':"doc",
@@ -628,3 +605,174 @@ describe.only("Docs",function(){
 
 });
 //images
+
+
+
+describe.only("images",function(){
+    it("flickr",function(done){
+        var im1result={
+            'type':"image",
+            'url':"https://www.flickr.com/photos/sandeepachetan/11417036513/in/photolist-ioTic8-8XM68m-4GmWXt-rofL1j-rZFVM-pibZyM-ojmzob-pmAjSw-becXLZ-8b3D54-bf6TDr-b4noi2-axDnRC-goBFGN-cLwokd-ayuKKm-poCAMn-bk4bAq-8Ax95H-pk4JaH-9mbXaW-79B7Kz-p31S9P-7CbF3V-eeNiZm-tzDRRy-w8mpnE-zgnLcL-79B7Kx-bU1ASP-7efSX9-8WZXg6-9sEFm1-92Az5x-ngrD75-DDsuj-ec1JV3-prEwvX-4zGL5H-q8TLtn-4zM2AG-jWXX82-xQkwjH-gtDVYP-pW8uuq-isXZ7Y-5rBdVD-5rFxNj-9PSBES-rcJDLu",
+            'title':"India",
+            'description':"Website  | Instagram | tumblr  | Facebook  |  Twitter    Kargil is the midway of the Srinagar-Leh highway, NH1-D. It is  suggested halt for the night before reaching Leh for altitude aclimatisation. Our bus left Kargil at around 4 AM. Just as we were getting out of Kargil, we were greeted with this sunrise.   Camera Canon EOS 5D, Taken on July 30, 2013",
+            'html':""
+        };
+        scrape.getInfo("https://www.flickr.com/photos/sandeepachetan/11417036513/in/photolist-ioTic8-8XM68m-4GmWXt-rofL1j-rZFVM-pibZyM-ojmzob-pmAjSw-becXLZ-8b3D54-bf6TDr-b4noi2-axDnRC-goBFGN-cLwokd-ayuKKm-poCAMn-bk4bAq-8Ax95H-pk4JaH-9mbXaW-79B7Kz-p31S9P-7CbF3V-eeNiZm-tzDRRy-w8mpnE-zgnLcL-79B7Kx-bU1ASP-7efSX9-8WZXg6-9sEFm1-92Az5x-ngrD75-DDsuj-ec1JV3-prEwvX-4zGL5H-q8TLtn-4zM2AG-jWXX82-xQkwjH-gtDVYP-pW8uuq-isXZ7Y-5rBdVD-5rFxNj-9PSBES-rcJDLu",function(err,result){
+            if(err){
+                console.log("error"+err);
+            }else{
+                expect(im1result.title).to.equal(result.title);
+                expect(im1result.url).to.equal(result.url);
+                expect(im1result.html).to.not.be.null;
+                expect(im1result.html).to.not.be.undefined;
+                expect(im1result.title).to.not.be.null;
+                expect(im1result.title).to.not.be.undefined;
+            }
+            done();
+        });
+
+    });
+    it("23HQ",function(done){
+        var im2result={
+            'type':"image",
+            'url':"http://www.23hq.com/Hegemony77/photo/23317358",
+            'title':'1/6th scale black long sleeves T-shirt on 12" GI Joe Action Figure Hasbro Classic Collection',
+            'description':"",
+            'html':""
+        };
+        scrape.getInfo("http://www.23hq.com/Hegemony77/photo/23317358",function(err,result){
+            if(err){
+                console.log("error"+err);
+            }else{
+                expect(im2result.title).to.equal(result.title);
+                expect(im2result.url).to.equal(result.url);
+                expect(im2result.html).to.not.be.null;
+                expect(im2result.html).to.not.be.undefined;
+                expect(im2result.title).to.not.be.null;
+                expect(im2result.title).to.not.be.undefined;
+            }
+            done();
+        });
+
+    });
+    //https://www.gstatic.com/images/branding/googlelogo/2x/googlelogo_color_284x96dp.png
+
+    it("direct images",function(done){
+        var im3result={
+            'type':"image",
+            'url':"https://www.gstatic.com/images/branding/googlelogo/2x/googlelogo_color_284x96dp.png",
+            'title':'gstatic',
+            'description':"",
+            'html':""
+        };
+        scrape.getInfo("https://www.gstatic.com/images/branding/googlelogo/2x/googlelogo_color_284x96dp.png",function(err,result){
+            if(err){
+                console.log("error"+err);
+            }else{
+                expect(im3result.title).to.equal(result.title);
+                expect(im3result.url).to.equal(result.url);
+                expect(im3result.html).to.not.be.null;
+                expect(im3result.html).to.not.be.undefined;
+                expect(im3result.title).to.not.be.null;
+                expect(im3result.title).to.not.be.undefined;
+            }
+            done();
+        });
+
+
+    })
+
+    //https://infogr.am/app/#/edit/5c193426-6b77-4f4e-a271-6612aa62ed40
+    it("infogram",function(done) {
+        var im4result = {
+            'type': "image",
+            'url': "https://infogr.am/app/#/edit/5c193426-6b77-4f4e-a271-6612aa62ed40",
+            'title': '',
+            'description': "",
+            'html': ""
+        };
+        scrape.getInfo("https://infogr.am/app/#/edit/5c193426-6b77-4f4e-a271-6612aa62ed40", function (err, result) {
+            if (err) {
+                console.log("error" + err);
+            } else {
+                expect(im4result.title).to.equal(result.title);
+                expect(im4result.url).to.equal(result.url);
+                expect(im4result.html).to.not.be.null;
+                expect(im4result.html).to.not.be.undefined;
+                expect(im4result.title).to.not.be.null;
+                expect(im4result.title).to.not.be.undefined;
+            }
+            done();
+        });
+    });
+    it("chartblocks",function(done) {
+        var im5result = {
+            'type': "image",
+            'url': "https://public.chartblocks.com/c/5709a41d9973d2a07742b96e?t=98b21de61f34144",
+            'title': 'Test chart',
+            'description': "",
+            'html': ""
+        };
+        scrape.getInfo("https://public.chartblocks.com/c/5709a41d9973d2a07742b96e?t=98b21de61f34144", function (err, result) {
+            if (err) {
+                console.log("error" + err);
+            } else {
+                expect(im5result.title).to.equal(result.title);
+                expect(im5result.url).to.equal(result.url);
+                expect(im5result.html).to.not.be.null;
+                expect(im5result.html).to.not.be.undefined;
+                expect(im5result.title).to.not.be.null;
+                expect(im5result.title).to.not.be.undefined;
+            }
+            done();
+        });
+
+    });
+    it("smugmug video",function(done) {
+        var im6result = {
+            'type': "video",
+            'url': "https://s0kud0.smugmug.com/Travel/EurotripHD-2012/i-5JWLzH5",
+            'title': '',
+            'description': "",
+            'html': ""
+        };
+        scrape.getInfo("https://s0kud0.smugmug.com/Travel/EurotripHD-2012/i-5JWLzH5", function (err, result) {
+            if (err) {
+                console.log("error" + err);
+            } else {
+                expect(im6result.title).to.equal(result.title);
+                expect(im6result.url).to.equal(result.url);
+                expect(im6result.html).to.not.be.null;
+                expect(im6result.html).to.not.be.undefined;
+                expect(im6result.title).to.not.be.null;
+                expect(im6result.title).to.not.be.undefined;
+            }
+            done();
+        });
+
+    });
+    it("smugmug image",function(done) {
+        var im7result = {
+            'type': "image",
+            'url': "https://hershy.smugmug.com/Photography/Daily-Photo-Galleries/Daily-Photos-2009/i-KwqS8NV",
+            'title': 'Morning at Maa Farm24 May 2010Shot at Maa Farm where we stay while in Ranthambhore. Best seen in XLarge size. www.javeri.net',
+            'description': "",
+            'html': ""
+        };
+        scrape.getInfo("https://hershy.smugmug.com/Photography/Daily-Photo-Galleries/Daily-Photos-2009/i-KwqS8NV", function (err, result) {
+            if (err) {
+                console.log("error" + err);
+            } else {
+                expect(im7result.title).to.equal(result.title);
+                expect(im7result.url).to.equal(result.url);
+                expect(im7result.html).to.not.be.null;
+                expect(im7result.html).to.not.be.undefined;
+                expect(im7result.title).to.not.be.null;
+                expect(im7result.title).to.not.be.undefined;
+            }
+            done();
+        });
+
+    });
+
+});

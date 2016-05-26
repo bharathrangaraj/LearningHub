@@ -63,14 +63,16 @@ d.run(scrape.prototype.getInfo=function(link,callback){
                                     callback(null,res);
                                 });
                         }else if(contains(images,host_name)){
+
                             image.getDetails(link,current_link,
                                 function(res){
-                                    callback(res);
+                                    callback(null,res);
                                 });
                         }else if(isImageUrl(link)){
+
                             image.getDetails(link,host_name,
                                 function(res){
-                                    callback(res);
+                                    callback(null,res);
                                 });
                         }else if(contains(stories,host_name)){
                             story.getDetails(link,current_link,
@@ -97,7 +99,7 @@ d.run(scrape.prototype.getInfo=function(link,callback){
                                 }
                                 else{
                                     link1.getInfo(link,function(res){
-                                        callback(res);
+                                        callback(null,res);
                                     })
                                 }
                             })){

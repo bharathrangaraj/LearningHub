@@ -14,15 +14,15 @@ var https=require("follow-redirects").https;
 var embed=require("./embedHtml.js");
 var http=require("follow-redirects").http;
 var URL=require ('url-parse');
-var ogp=require('./ogp.js');
+var image=require('./image.js');
 var test_url=decodeURIComponent("https://www.youtube.com/watch?v=UrxCwYc5h2Q");
 var scrape=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/scrape.js');
 var read = require('node-read');
 
 
-//audio.getDetails("https://soundcloud.com/scottisbell/trumpified","soundcloud",function(result){
-//    console.log()
-//})
+image.getDetails("https://highlights-of-europe.smugmug.com","smugmug",function(result){
+    console.log(result);
+})
 
 
 

@@ -10,16 +10,17 @@ var oembed_list={
     'office':'https://mix.office.com/oembed',
     'docs':'https://docs.com/api/oembed'
 };
-//init doc result
-var doc_result={
-    'type':"doc",
-    'url':"",
-    'title':"",
-    'html':""
-};
+
 
 //doc details
 Doc.prototype.getDetails=function(url,host_name,callback){
+    //init doc result
+    var doc_result={
+        'type':"doc",
+        'url':"",
+        'title':"",
+        'html':""
+    };
     doc_result.url=url;
     if(oembed_list[host_name]){
         ahelper.get(prepareoeURL(url, host_name),function(d){

@@ -32,8 +32,13 @@ AggHelper.prototype.getHttps=function(ep,callback){
             oe_details+=d;
         });
         response.on('end',function(){
-            //console.log(JSON.parse(oe_details));
-            callback(JSON.parse(oe_details))
+            if(oe_details=="Item not found"){
+                callback("");
+            }
+            else{
+                callback(JSON.parse(oe_details))
+            }
+
         });
         response.on('error',function(e){
             console.log(e);
@@ -52,7 +57,12 @@ AggHelper.prototype.getHttp=function(ep,callback){
         });
         response.on('end',function(){
             //console.log(JSON.parse(oe_details));
-            callback(JSON.parse(oe_details))
+            if(oe_details=="Item not found"){
+                callback("");
+            }
+            else{
+                callback(JSON.parse(oe_details))
+            }
         });
         response.on('error',function(e){
             console.log(e);

@@ -18,18 +18,19 @@ var oembed_list={
     'coub':'https://coub.com/api/oembed.json',
     'kickstarter':'https://www.kickstarter.com/services/oembed'
 };
-//init of the return variable
-var video_result={
-    'type':"video",
-    'url':"",
-    'description':"",
-    'title':"",
-    'html':""
-};
+
 //video prototype
 function Video(){};
 //get the video details
 Video.prototype.getDetails=function(url,host_name,callback) {
+    //init of the return variable
+    var video_result={
+        'type':"video",
+        'url':"",
+        'description':"",
+        'title':"",
+        'html':""
+    };
     video_result.url = url;
     var prepared_url = "";
     //prepare the url

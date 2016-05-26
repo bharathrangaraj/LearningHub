@@ -3,10 +3,11 @@
  */
 var https=require("follow-redirects").https;
 var http=require("follow-redirects").http;
-var URL=require ('url-parse');
 var video=require("./video.js");
+var link=require("./link.js")
 var h2js=require('html-to-json');
 var embed=require('./embedHtml.js');
+var ahelper=require("./aggHelper.js");
 
 var oembed_list={
     'flickr':'https://www.flickr.com/services/oembed/',
@@ -21,43 +22,54 @@ var oembed_list={
 };
 
 function Image(){};
-var image_result={
-    'type':"image",
-    'url':"",
-    'title':"",
-    'description':"",
-    'html':""
-};
+
 
 //image details
 Image.prototype.getDetails=function(url,host_name,callback){
+    var image_result={
+        'type':"image",
+        'url':"",
+        'title':"",
+        'description':"",
+        'html':""
+    };
      image_result.url=url;
         if(oembed_list[host_name]){
             ahelper.get(prepareoeURL(url, host_name),function(d){
-                image_result.title=d.title;
+                if(d.title){
+                    image_result.title=d.title.replace(/(\r|\n|\n\r|\r\n)/gm, "");
+                }
+
                 if(d.html){
                     image_result.html=d.html;
-                    callback(image_result);
+
                 } else if(d.url){
                     image_result.html=prepareHtml(d.url);
-                    callback(image_result);
+
                 }
                 callback(image_result);
             });
         }else if(host_name=="smugmug"){
             ahelper.get('https://api.smugmug.com/services/oembed/'+'?url='+encodeURIComponent(url)+'&format=json',function(d){
-                image_result.title=d.title;
-                if(image_json.type=='video'){
-                    image_result.type='video';
-                    prepareSMHtml(image_json.html,function(html){
+                if(d.title){
+                    image_result.title=d.title.replace(/(\r|\n|\n\r|\r\n)/gm, "");
+                }
+                if(d.type=='video'){
+                    d.type='video';
+                    prepareSMHtml(d.html,function(html){
                         image_result.html=html;
                         callback(image_result);
                     })
-                }else{
-                    image_result.html=prepareHtml(image_json.url);
+                }else if(d.type=='image'){
+                    image_result.html=prepareHtml(url);
                     callback(image_result);
+                }else{
+                    link.getInfo(url,function(d){
+                        callback(d);
+                    })
+
                 }
-                callback(image_result);
+
             });
         }else{
             image_result.html=embed.embedImage(prepareHtml(url));
