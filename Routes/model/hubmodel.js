@@ -40,7 +40,7 @@ hubSchema.add({
     favicon:{type:String},
     hostName:{type:String},
     image:{type:String},
-    embedHtml:{type:String,required:true},
+    embedHtml:{type:String},
     description:{type:String},
     isDeleted:{type: Boolean},
     dateAdded:{type: Date},

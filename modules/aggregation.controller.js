@@ -9,27 +9,27 @@ var embed=require(rootpath+'/public/js/embedHtml.js');
 function hubcontroller(){
 
 }
+//scrape the content
 hubcontroller.prototype.scrape=function(url,callback){
     var scrape=require(rootpath+'/public/js/scrape.js');
-    scrape.getInfo(url,function(res){
-
-        callback(res)
+    scrape.getInfo(url,function(error,res){
+        if(error){
+            callback(error,null);
+        }else{
+            callback(null,res);
+        }
     });
-
-
-}
+};
 
 hubcontroller.prototype.add=function(error,params,success){
     console.log(params);
     if(params.type=="video"){
-        var embedHtml=embed.embedVideo(params.html,params.description);
         var newPost=new agg({
-            courseId:001,
+            courseId:002,
             postId:new mongoose.Types.ObjectId,
             title:params.title,
             url:params.url,
             description:params.description,
-            embedHtml:embedHtml,
             type:params.type,
             isDeleted:false,
             tags:params.tags
@@ -37,7 +37,7 @@ hubcontroller.prototype.add=function(error,params,success){
     }else if(params.type=="image"){
     var embedHtml=embed.embedImage(params.html);
     var newPost=new agg({
-        courseId:001,
+        courseId:002,
         postId:new mongoose.Types.ObjectId,
         title:params.title,
         url:params.url,
@@ -48,9 +48,8 @@ hubcontroller.prototype.add=function(error,params,success){
     });
 
     }else if(params.type=="audio"){
-        var embedHtml=embed.embedAudio(params.html);
         var newPost=new agg({
-            courseId:001,
+            courseId:002,
             postId:new mongoose.Types.ObjectId,
             title:params.title,
             url:params.url,
@@ -61,9 +60,8 @@ hubcontroller.prototype.add=function(error,params,success){
         });
 
     }else if(params.type=="slide"){
-        var embedHtml=embed.embedSlide(params.html);
         var newPost=new agg({
-            courseId:001,
+            courseId:002,
             postId:new mongoose.Types.ObjectId,
             title:params.title,
             url:params.url,
@@ -74,9 +72,8 @@ hubcontroller.prototype.add=function(error,params,success){
         });
 
     }else if(params.type=="doc"){
-        var embedHtml=embed.embedDocs(params.html);
         var newPost=new agg({
-            courseId:001,
+            courseId:002,
             postId:new mongoose.Types.ObjectId,
             title:params.title,
             url:params.url,
@@ -91,7 +88,7 @@ hubcontroller.prototype.add=function(error,params,success){
         console.log(params);
         var embedHtml=embed.embedPdf(params);
         var newPost=new agg({
-            courseId:001,
+            courseId:002,
             postId:new mongoose.Types.ObjectId,
             title:params.title,
             image:params.image,
@@ -105,7 +102,7 @@ hubcontroller.prototype.add=function(error,params,success){
     }else if(params.type=="story"){
         var embedHtml=embed.embedStory(params.html);
         var newPost=new agg({
-            courseId:001,
+            courseId:002,
             postId:new mongoose.Types.ObjectId,
             title:params.title,
             url:params.url,
@@ -119,7 +116,7 @@ hubcontroller.prototype.add=function(error,params,success){
 
         var embedHtml=embed.embedLink(params);
         var newPost=new agg({
-            courseId:001,
+            courseId:002,
             postId:new mongoose.Types.ObjectId,
             title:params.title,
             description:params.description,

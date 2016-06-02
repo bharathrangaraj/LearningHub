@@ -2,6 +2,7 @@
 var https=require("follow-redirects").https;
 var http=require("follow-redirects").http;
 var ogp=require('./ogp.js');
+var link=require("./link.js");
 var ahelper=require("./aggHelper.js");
 var h2js=require('html-to-json');
 var ytCreditials={
@@ -41,31 +42,42 @@ Video.prototype.getDetails=function(url,host_name,callback) {
         prepared_url = prepareytURL(ID)
     }
     //use the helper to tget the JSON data
-    ahelper.getHttps(prepared_url, function (d) {
-        if (d =="") {
+    ahelper.getHttps(prepared_url, function (e,d) {
+        if(e){
+            link.getInfo(url,function(res){
+                callback(res);
+            });
 
-
-        } else {
-            if (host_name === 'youtube') {
-                console.log("d" +d);
-                video_result.title = d.items[0].snippet.title;
-                video_result.description = d.items[0].snippet.description;
-                video_result.html = prepareytHtml(url.replace("watch?v=", "embed/"));
-                callback(video_result);
-            } else {
-                video_result.title = d.title;
-                video_result.html = d.html;
-                videoDescription(d, function (des) {
-                    video_result.description = des;
-                    prepareHtml(video_result.html, video_result.description, function (html) {
-                        video_result.html = html;
-                        callback(video_result);
-                    });
-
+        }else{
+            if (d =="") {
+                link.getInfo(url,function(res){
+                    callback(res);
                 });
+
+            } else {
+                if (host_name === 'youtube') {
+                    console.log("d" +d);
+                    video_result.title = d.items[0].snippet.title;
+                    video_result.description = d.items[0].snippet.description;
+                    video_result.html = prepareytHtml(url.replace("watch?v=", "embed/"));
+                    callback(video_result);
+                } else {
+                    video_result.title = d.title;
+                    video_result.html = d.html;
+                    videoDescription(d, function (des) {
+                        video_result.description = des;
+                        prepareHtml(video_result.html, video_result.description, function (html) {
+                            video_result.html = html;
+                            callback(video_result);
+                        });
+
+                    });
+                }
+
             }
 
         }
+
     });
 };
 //get the ID of the youTube video from its URL

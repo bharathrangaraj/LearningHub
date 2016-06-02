@@ -44,6 +44,7 @@ d.on("error",function(){
 d.run(scrape.prototype.getInfo=function(link,callback){
     request.get(link)
         .on('response',function(response){
+            console.log("response.statusCode")
             if(response.statusCode >=401){
                 var err="Invalid link";
                 callback(err,null);
@@ -110,7 +111,12 @@ d.run(scrape.prototype.getInfo=function(link,callback){
                     }
                 });
             }
-        });
+        }).on("error",function(err){
+        console.log("inside error");
+        console.log(err);
+        var err="Invalid link";
+        callback(err,null);
+    });
 });
 
 function contains(list,hostname) {

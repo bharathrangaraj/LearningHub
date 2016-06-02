@@ -3,43 +3,78 @@
  */
 
 var app=angular.module('aggregation',["ngSanitize"]);
-
+//
 
 app.controller('aggregationController',['$scope','$sce','$http',function($scope,$sce,$http){
     $scope.loading=false;
-
     $scope.scraped=true;
     $scope.courseId=001;
-    $scope.formData={};
+    $scope.formData={
+        'url':"",
+        'title':"",
+        'description':"",
+        'tags':[]
+    };
     $scope.posts={};
     $scope.tags="";
+    $scope.linkInvalid=false;
     $scope.current_link_data={};
-    $scope.scrapelink=function(){
-
-        $scope.loading=true;
-
-
-        $http.get('/api/scrape', {params:{
-            'url':$scope.formData.url
-        }}).success(function(data){
-            console.log(data);
-            $scope.current_link_data=data;
-            $scope.formData.title=data.title;
-            if($scope.current_link_data.type==="image" || $scope.current_link_data.type==="audio" || $scope.current_link_data.type==="slide" || $scope.current_link_data.type==="doc" || $scope.current_link_data.type==="pdf" || $scope.current_link_data.type==="story"){
-                $scope.des_hide=true;
-            }else{
-                $scope.des_hide=false;
-                $scope.formData.description=$scope.descriptionValid(data.description);
-            }//end loading and show the form
-                $scope.loading=false;
-                $scope.scraped=false;
-
+    $scope.scrapelink=function(isValid,form){
+        if(isValid){
+            $scope.loading=true;
+            $http.get('/api/scrape', {params:{
+                'url':$scope.formData.url
+            }}).success(function(data){
+                //check data for error
+                console.log(data);
+                if(data=="invalid link"){
+                    $scope.loading=false;
+                    form.$setPristine(true);
+                    $scope.linkInvalid=true;
+                }else{
+                    $scope.linkInvalid=false;
+                    if(data){
+                        $scope.current_link_data=data;
+                    }
+                    if(data.title){
+                        $scope.formData.title=data.title;
+                    }
+                    if(data.description){
+                        $scope.formData.description=$scope.descriptionValid(data.description);
+                    }
+                    //show or hide description
+                    if($scope.current_link_data.type==="image" || $scope.current_link_data.type==="audio" || $scope.current_link_data.type==="slide" || $scope.current_link_data.type==="doc" || $scope.current_link_data.type==="pdf" || $scope.current_link_data.type==="story"){
+                        $scope.des_hide=true;
+                    }else{
+                        $scope.des_hide=false;
+                    }
+                    //end loading and show the form
+                    $scope.loading=false;
+                    $scope.scraped=false;
+                }
             }).error(function(data){
                 $scope.loading=false;
                 console.log(data);
-        });
+            });
+        }
+
     };
-    $scope.addlink=function(){
+    $scope.reset=function(form1,form2){
+        $scope.formData={
+            'url':"",
+            'title':"",
+            'description':"",
+            'tags':[]
+        };
+        form1.$setPristine(true);
+        form2.$setPristine(true);
+        $scope.scraped=true;
+
+    };
+
+
+//add the scraped link to thedb
+    $scope.addlink=function(isValid){
         if($scope.tags){
             $scope.formData.tags=$scope.validTags($scope.tags);
             $scope.current_link_data.tags=$scope.formData.tags;
@@ -64,18 +99,19 @@ app.controller('aggregationController',['$scope','$sce','$http',function($scope,
             $scope.loadlink();
         }).error(function(err){
             console.log(err);
-
-            $scope.scraped=true;
+            $scope.reset()
         })
+        $scope.reset($scope.aggregateData,$scope.aggregateUrl);
     };
+
     $scope.init=function(){
-        $scope.loadlink();
+        //$scope.loadlink();
     };
     $scope.loadlink=function(){
 
         $http.get('/api/posts',{
             params:{
-                courseId:1
+                courseId:002
             }
         }).success(function(data){
             $scope.posts=data;

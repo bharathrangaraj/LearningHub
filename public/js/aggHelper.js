@@ -28,49 +28,67 @@ AggHelper.prototype.get=function(ep,callback){
 AggHelper.prototype.getHttps=function(ep,callback){
     var oe_details="";
     https.get(ep,function(response){
-        response.on('data',function(d){
-            oe_details+=d;
-        });
-        response.on('end',function(){
-            if(oe_details=="Item not found"){
-                callback("");
-            }
-            else{
-                callback(JSON.parse(oe_details))
-            }
-
-        });
-        response.on('error',function(e){
-            console.log(e);
-            //oe_details="";
-            callback(oe_details);
-        })
-    })
-
+        if(response.statusCode>=400){
+            callback("error",null);
+        }else{
+            response.on('data',function(d){
+                oe_details+=d;
+            });
+            response.on('end',function(){
+                //console.log(JSON.parse(oe_details));
+                if(oe_details){
+                    if(oe_details==""){
+                        callback("error",null);
+                    }else if(oe_details=="Item not found"){
+                        callback(null,"");
+                    }
+                    else{
+                        callback(null,JSON.parse(oe_details))
+                    }
+                }else{
+                    callback("error",null);
+                }
+            });
+            response.on('error',function(e){
+                console.log(e);
+                //oe_details="";
+                callback(oe_details);
+            })
+        }
+    });
 };
 
 AggHelper.prototype.getHttp=function(ep,callback){
     var oe_details="";
     http.get(ep,function(response){
-        response.on('data',function(d){
-            oe_details+=d;
-        });
-        response.on('end',function(){
-            //console.log(JSON.parse(oe_details));
-            if(oe_details=="Item not found"){
-                callback("");
-            }
-            else{
-                callback(JSON.parse(oe_details))
-            }
-        });
-        response.on('error',function(e){
-            console.log(e);
-            //oe_details="";
-            callback(oe_details);
-        })
+        if(response.statusCode>=400){
+            callback("error",null);
+        }else{
+            response.on('data',function(d){
+                oe_details+=d;
+            });
+            response.on('end',function(){
+                //console.log(JSON.parse(oe_details));
+                if(oe_details){
+                    if(oe_details==""){
+                        callback("error",null);
+                    }else if(oe_details=="Item not found"){
+                        callback(null,"");
+                    }
+                    else{
+                        callback(null,JSON.parse(oe_details))
+                    }
+                }else{
+                    callback("error",null);
+                }
+            });
+            response.on('error',function(e){
+                console.log(e);
+                //oe_details="";
+                callback(oe_details);
+            })
+        }
     })
-
 };
 
 

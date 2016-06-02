@@ -11,9 +11,12 @@ var controller=require(rootpath+'/modules/aggregation.controller.js');
 
 
 router.get('/api/scrape',function(req,res){
-
-   controller.scrape(req.query.url,function(details){
-        res.json(details);
+   controller.scrape(req.query.url,function(error,details){
+       if(error){
+           res.send("invalid link")
+       }else{
+           res.json(details);
+       }
     });
 
 

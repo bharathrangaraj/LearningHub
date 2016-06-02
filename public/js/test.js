@@ -20,9 +20,9 @@ var scrape=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/scrape
 var read = require('node-read');
 
 
-image.getDetails("https://highlights-of-europe.smugmug.com","smugmug",function(result){
-    console.log(result);
-})
+scrape.getInfo("https://www.you",function(error,details){
+    console.log(details);
+});
 
 
 
