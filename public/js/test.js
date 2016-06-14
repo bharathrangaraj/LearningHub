@@ -20,7 +20,7 @@ var scrape=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/scrape
 var read = require('node-read');
 
 
-scrape.getInfo("https://www.you",function(error,details){
+scrape.getInfo("https://upload.wikimedia.org/wikipedia/commons/6/6a/Gareth_Bale_2015_(1).jpg",function(error,details){
     console.log(details);
 });
 

@@ -44,7 +44,6 @@ d.on("error",function(){
 d.run(scrape.prototype.getInfo=function(link,callback){
     request.get(link)
         .on('response',function(response){
-            console.log("response.statusCode")
             if(response.statusCode >=401){
                 var err="Invalid link";
                 callback(err,null);
@@ -55,19 +54,19 @@ d.run(scrape.prototype.getInfo=function(link,callback){
                         var host_name=hostName(link);
                         if(contains(videos,host_name)){
                             video.getDetails(link,current_link,
-                                function(res){
-                                    callback(null,res);
+                                function(err,res){
+                                    callback(err,res);
                                 });
                         }else if(contains(slides,host_name)){
                             slide.getDetails(link,current_link,
-                                function(res){
-                                    callback(null,res);
+                                function(err,res){
+                                    callback(err,res);
                                 });
                         }else if(contains(images,host_name)){
 
                             image.getDetails(link,current_link,
-                                function(res){
-                                    callback(null,res);
+                                function(err,res){
+                                    callback(err,res);
                                 });
                         }else if(isImageUrl(link)){
 
@@ -77,19 +76,19 @@ d.run(scrape.prototype.getInfo=function(link,callback){
                                 });
                         }else if(contains(stories,host_name)){
                             story.getDetails(link,current_link,
-                                function(res){
-                                    callback(null,res);
+                                function(err,res){
+                                    callback(err,res);
                                 });
                         }else if(contains(audios,host_name)){
 
                             audio.getDetails(link,current_link,
-                                function(res){
-                                    callback(null,res);
+                                function(err,res){
+                                    callback(err,res);
                                 });
                         }else if(contains(docs,host_name)){
                             doc.getDetails(link,current_link,
-                                function(res){
-                                    callback(null,res);
+                                function(err,res){
+                                    callback(err,res);
                                 });
                         }else if(isPdf(link,function(valid){
                                 if(valid){

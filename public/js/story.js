@@ -27,11 +27,14 @@ Story.prototype.getDetails=function(url,host_name,callback){
     };
     story_result.url=url;
     if(oembed_list[host_name]){
-        ahelper.get(prepareoeURL(url, host_name),function(d){
-            story_result.title=d.title;
-            story_result.html=d.html;
-            callback(story_result);
-
+        ahelper.get(prepareoeURL(url, host_name),function(e,d){
+            if(e){
+                callback(e,null);
+            }else{
+                story_result.title=d.title;
+                story_result.html=d.html;
+                callback(null,story_result);
+            }
         });
     }
 

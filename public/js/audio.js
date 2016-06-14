@@ -27,10 +27,15 @@ Audio.prototype.getDetails=function(url,host_name,callback){
     };
     audio_result.url=url;
     if(oembed_list[host_name]){
-        ahelper.get(prepareoeURL(url, host_name),function(d){
-            audio_result.title=d.title;
-            audio_result.html=d.html;
-            callback(audio_result);
+        ahelper.get(prepareoeURL(url, host_name),function(e,d){
+            if(e){
+                callback(e,null);
+            }else{
+                audio_result.title=d.title;
+                audio_result.html=d.html;
+                callback(null,audio_result);
+            }
+
 
         });
     }

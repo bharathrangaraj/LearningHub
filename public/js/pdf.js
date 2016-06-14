@@ -14,18 +14,25 @@ var pdf_result={
     'image':"",
     'html':""
 };
-Pdf.prototype.getInfo=function(url,callback){
 
+Pdf.prototype.getInfo=function(url,callback){
     pdf_result.url=google_viewer+encodeURI(url);
-    console.log(pdf_result.src);
     meta(pdf_result.url, function(err, data){
-        pdf_result.title=data.title;
-        pdf_result.image="https:"+data.otherimages[0].src;
-        pdf_result.html="";
-        callback(pdf_result);
+        if(err){
+            callback(err,null);
+        }else{
+            pdf_result.title=data.title;
+            pdf_result.image="https:"+data.otherimages[0].src;
+            pdf_result.html=prepareHtml(pdf_result.url);
+            callback(pdf_result);
+        }
     });
 
 };
 
+function prepareHtml(url){
+    url=url+'&embedded=true';
+    return '<iframe src="'+url+'" scrolling="no" frameborder="0" width="100%" height="500" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+}
 
 module.exports=new Pdf();

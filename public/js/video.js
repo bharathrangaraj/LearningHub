@@ -45,13 +45,13 @@ Video.prototype.getDetails=function(url,host_name,callback) {
     ahelper.getHttps(prepared_url, function (e,d) {
         if(e){
             link.getInfo(url,function(res){
-                callback(res);
+                callback(null,res);
             });
 
         }else{
             if (d =="") {
                 link.getInfo(url,function(res){
-                    callback(res);
+                    callback(null,res);
                 });
 
             } else {
@@ -60,7 +60,7 @@ Video.prototype.getDetails=function(url,host_name,callback) {
                     video_result.title = d.items[0].snippet.title;
                     video_result.description = d.items[0].snippet.description;
                     video_result.html = prepareytHtml(url.replace("watch?v=", "embed/"));
-                    callback(video_result);
+                    callback(null,video_result);
                 } else {
                     video_result.title = d.title;
                     video_result.html = d.html;
@@ -68,7 +68,7 @@ Video.prototype.getDetails=function(url,host_name,callback) {
                         video_result.description = des;
                         prepareHtml(video_result.html, video_result.description, function (html) {
                             video_result.html = html;
-                            callback(video_result);
+                            callback(null,video_result);
                         });
 
                     });

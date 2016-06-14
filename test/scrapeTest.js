@@ -282,8 +282,9 @@ describe("Audio",function(){
         };
         scrape.getInfo("https://soundcloud.com/scottisbell/trumpified",function(err,result){
             if(err){
-                console.log("error"+err);
+                console.log("error is"+err);
             }else{
+                console.log(result);
                 expect(a1result.title).to.equal(result.title);
                 expect(a1result.html).to.not.be.null;
                 expect(a1result.html).to.not.be.undefined;
@@ -303,8 +304,9 @@ describe("Audio",function(){
         scrape.getInfo("https://www.mixcloud.com/arveeofficial/mixmondays-justin-bieber-mini-mix-djarvee/",function(err,result){
 
             if(err){
-                console.log("error"+err);
+                console.log("error is"+err);
             }else{
+                console.log(result);
                 expect(a2result.title).to.equal(result.title);
                 expect(a2result.html).to.not.be.null;
                 expect(a2result.html).to.not.be.undefined;
@@ -324,8 +326,9 @@ describe("Audio",function(){
         scrape.getInfo("https://clyp.it/s544nfcn",function(err,result){
 
             if(err){
-                console.log("error"+err);
+                console.log("error is"+err);
             }else{
+                console.log(result);
                 expect(a3result.title).to.equal(result.title);
                 expect(a3result.html).to.not.be.null;
                 expect(a3result.html).to.not.be.undefined;
@@ -345,8 +348,9 @@ describe("Audio",function(){
         scrape.getInfo("https://huffduffer.com/davidr/332140",function(err,result){
 
             if(err){
-                console.log("error"+err);
+                console.log("error is"+err);
             }else{
+                console.log(result);
                 expect(a4result.title).to.equal(result.title);
                 expect(a4result.html).to.not.be.null;
                 expect(a4result.html).to.not.be.undefined;
@@ -373,6 +377,7 @@ describe("Story",function(){
             if(err){
                 console.log("error"+err);
             }else{
+                console.log(result);
                 expect(s1result.title).to.equal(result.title);
                 expect(s1result.html).to.not.be.null;
                 expect(s1result.html).to.not.be.undefined;
@@ -396,6 +401,7 @@ describe("Story",function(){
             if(err){
                 console.log("error"+err);
             }else{
+                console.log(result);
                 expect(s2result.title).to.equal(result.title);
                 expect(s2result.html).to.not.be.null;
                 expect(s2result.html).to.not.be.undefined;
@@ -409,7 +415,7 @@ describe("Story",function(){
 
 });
 //pdf links
-describe("pdf",function(){
+describe.only("pdf",function(){
     it("pdf links",function(done){
         var presult={
             'type':"pdf",
@@ -543,6 +549,7 @@ describe("slides",function(){
             if(err){
                 console.log("error"+err);
             }else{
+                console.log(result);
                 expect(i5result.title).to.equal(result.title);
                 expect(i5result.url).to.equal(result.url);
                 expect(i5result.html).to.not.be.null;
@@ -568,6 +575,7 @@ describe("Docs",function(){
             if(err){
                 console.log("error"+err);
             }else{
+                console.log(result);
                 expect(d1result.title).to.equal(result.title);
                 expect(d1result.url).to.equal(result.url);
                 expect(d1result.html).to.not.be.null;
@@ -591,6 +599,7 @@ describe("Docs",function(){
             if(err){
                 console.log("error"+err);
             }else{
+                console.log(result);
                 expect(d2result.title).to.equal(result.title);
                 expect(d2result.url).to.equal(result.url);
                 expect(d2result.html).to.not.be.null;
@@ -608,7 +617,7 @@ describe("Docs",function(){
 
 
 
-describe.only("images",function(){
+describe("images",function(){
     it("flickr",function(done){
         var im1result={
             'type':"image",
