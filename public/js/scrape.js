@@ -98,8 +98,8 @@ d.run(scrape.prototype.getInfo=function(link,callback){
                                     })
                                 }
                                 else{
-                                    link1.getInfo(link,function(res){
-                                        callback(null,res);
+                                    link1.getInfo(link,function(err,res){
+                                        callback(err,res);
                                     })
                                 }
                             })){

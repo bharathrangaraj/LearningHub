@@ -27,10 +27,11 @@ Ogp.prototype.getOgImage=function(url,callback){
 
 //retuen the og data-the og data contain the metadata and the og tag data
 Ogp.prototype.getInfo=function(url,callback){
+    //data initialization
     og(url, function(error, data) {
             if(error){
+                console.log("inside error");
                 data={};
-                console.log(error);
                 callback(data);
             }else{
                 callback(data);

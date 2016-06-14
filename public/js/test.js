@@ -20,8 +20,13 @@ var scrape=require('/Users/Bharath/WebstormProjects/LearningHub/public/js/scrape
 var read = require('node-read');
 
 
-scrape.getInfo("https://upload.wikimedia.org/wikipedia/commons/6/6a/Gareth_Bale_2015_(1).jpg",function(error,details){
-    console.log(details);
+scrape.getInfo("https://color.adobe.com/create/color-wheel/?base=2&rule=Monochromatic&selected=1&name=My%20Color%20Theme&mode=rgb&rgbvalues=0.11235955056179775,0.5,0.47090311638757915,0.5247191011235954,1,0.9643246905273797,0.2247191011235955,1,0.9418062327751583,0.2623595505617977,0.5,0.48216234526368984,0.1797752808988764,0.8,0.7534449862201267&swatchOrder=0,1,2,3,4",function(error,details){
+    if(error){
+        console.log(error);
+    }else{
+        console.log(details);
+    }
+
 });
 
 

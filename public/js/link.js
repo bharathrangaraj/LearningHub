@@ -24,6 +24,7 @@ Link.prototype.getInfo=function(url,callback){
     result.url=url;
     ogp.getInfo(url,function(data) {
         if (data.og) {
+            console.log("inside");
             if (data.og.title) {
                 result.title = data.og.title;
 
@@ -47,38 +48,51 @@ Link.prototype.getInfo=function(url,callback){
                 result.name=getName(url);
                 getFavicon(url, function (favicon) {
                     result.favicon = favicon;
-                    callback(result);
+                    callback(null,result);
                 });
             } else {
-
-                    result.description=getDescription(url,function(description){
+                getDescription(url,function(description){
                         result.description=description;
                         result.name=getName(url);
                         getFavicon(url, function (favicon) {
                             result.favicon = favicon;
-                            callback(result);
+                            callback(null,result);
                         });
+                });
+            }
+
+        }else{
+            if(!data.title){
+                getMeta(url,function(meta_data){
+                    console.log("inside des");
+                    result.title=meta_data.tit;
+                    result.description=meta_data.des;
+                    getFavicon(url, function (favicon) {
+                        result.favicon = favicon;
+                        callback(null,result);
                     });
-            }
+                });
 
-        } else {
-            if (data.title) {
-                result.title = data.title.replace(/(\r|\n|\n\r|\r\n)/gm, "");
-            }
-            if (data.images) {
-                result.image = getImageUrl(data.images, url);
-            }
+            }else{
+                if (data.title) {
+                    result.title = data.title.replace(/(\r|\n|\n\r|\r\n)/gm, "");
+                }
+                //else case when the returned data from ogp get info is null
+                if (data.images) {
+                    result.image = getImageUrl(data.images, url);
+                }
 
-                result.description= getDescription(url,function(description){
-
-                        result.description=description;
+                getDescription(url,function(description){
+                    result.description=description;
                     result.name=getName(url);
                     getFavicon(url, function (favicon) {
                         result.favicon = favicon;
-                        callback(result);
+                        callback(null,result);
                     });
 
                 });
+            }
+
         }
 
     });
@@ -130,9 +144,43 @@ function getDescription(url,callback){
         var des="";
         if(description){
             des=description;
-
+            callback(des.replace(/(\r|\n|\n\r|\r\n)/gm, ""));
+        }else{
+            callback(des);
         }
-        callback(des.replace(/(\r|\n|\n\r|\r\n)/gm, ""));
+
+    })
+}
+//get the title from meta tags
+function getTitle(url,callback){
+    meta.getTitle(url,function(title){
+        var tit="";
+        if(title){
+            tit=title;
+            callback(tit.replace(/(\r|\n|\n\r|\r\n)/gm, ""));
+        }else{
+            callback(tit);
+        }
+
+    })
+}
+//get metadata
+function getMeta(url,callback){
+    meta.getInfo(url,function(data){
+        console.log("meta data:\n"+data.title);
+        var meta_data={
+            tit:"",
+            des:""
+        };
+
+        if(data.title){
+            meta_data.tit=data.title.replace(/(\r|\n|\n\r|\r\n)/gm, "");
+        }
+        if(data.description){
+            meta_data.des=data.description.replace(/(\r|\n|\n\r|\r\n)/gm, "");
+        }
+
+        callback(meta_data);
 
     })
 }
@@ -142,24 +190,23 @@ var url_name=new URL(url);
     var hostname=url_name.host;
     return hostname.includes("www.")?hostname.replace("www.",""):hostname;
 }
-
+//getting the thumbnail
 function get_thumbnail(images){
-
     var min_size=5000;
     var aspect_ratio=3;
     var max_size=0;
     var src="";
     images.sort(compare);
-
     images.forEach(function(img,index){
         if(img.src){
-
             if(img.width && img.height){
-                var size= img.width*img.height;
-                var ratio=(img.width/img.height);
-                if((size>=min_size)&&(ratio<aspect_ratio)){
-                    if(size>max_size){
-                        src=img.src;
+                if(img.height>=200){
+                    var size= img.width*img.height;
+                    var ratio=(img.width/img.height);
+                    if((size>=min_size)&&(ratio<aspect_ratio)){
+                        if(size>max_size){
+                            src=img.src;
+                        }
                     }
                 }
             }

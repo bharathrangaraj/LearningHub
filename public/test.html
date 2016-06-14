@@ -104,8 +104,23 @@
     .pdf-icon{
         color:#1D7F78;
     }
-
-
+    /*link styles*/
+    .link-box{
+        border-left-style: solid;
+        border-left-width: 5px;
+        border-left-color:#FFCC00;
+    }
+    .link-icon{
+        color:#FFCC00;
+    }
+    .link-wrapper{
+        background: transparent;
+        max-height: 400px;
+    }
+    .image-wrapper img{
+        max-height: 400px;
+        max-width: 100%;
+    }
     /*title-styling*/
     .title-text{
         font-size: 18px;
@@ -173,6 +188,11 @@
             border-left-style: solid;
             border-left-width: 1px;
             border-left-color:#1D7F78;
+        }
+        .link-box{
+            border-left-style: solid;
+            border-left-width: 1px;
+            border-left-color:#FFCC00;
         }
         .card-action i{
             font-size:10px;
@@ -294,7 +314,7 @@
     <div class="box box-default doc-box">
         <div class="box-header doc-header">
             <div class="row">
-                <div class="col-xs-1 text-center icon doc-icon"><i class="fa  fa-slideshare fa-2x"></i></div>
+                <div class="col-xs-1 text-center icon doc-icon"><i class="fa   fa-file fa-2x"></i></div>
                 <div class="col-xs-8 title-text">
                     <span >Testing Docs</span>
                 </div>
@@ -358,6 +378,66 @@
             <div class="row">
                 <div class="col-xs-11 text-center pdf-wrapper">
                     <iframe src="https://drive.google.com/viewerng/viewer?url=http://ptgmedia.pearsoncmg.com/images/9780672329166/samplepages/0672329166_Sample.pdf&embedded=true" scrolling="no" frameborder="0" width="100%" height="500" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--link card with thumbnail-->
+    <div class="box box-default link-box">
+        <div class="box-header link-header">
+            <div class="row">
+                <div class="col-xs-1 text-center icon link-icon"><i class="fa   fa-external-link fa-2x"></i></div>
+                <div class="col-xs-8 title-text">
+                    <span >OnePlus 3 with 6GB RAM, 64GB memory, Dash Charging launched at Rs 27,999</span>
+                </div>
+                <div class="col-xs-3">
+                    <span class="card-action pull-right">
+                        <i class="fa fa-star-o fa-2x"></i>&nbsp;
+                        <i class="fa fa-times fa-2x"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="box-body link-body">
+            <div class="row">
+                <div class="col-md-4 text-center link-image link-wrapper">
+                    <img class="img-responsive center-block" src="http://media2.intoday.in/indiatoday/images/stories/launch-main_559_061416083533.jpg" alt="title">
+                </div>
+                <div class="col-md-7 link-description">
+                    <h4><b>Description</b></h4>
+                    <p class="description text-justify">
+                        The company will start selling the OnePlus 3 via regular open sale method -- without invites -- from 12.30 AM IST (June 15) exclusively through Amazon India.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--link without thumbnail-->
+    <div class="box box-default link-box">
+        <div class="box-header link-header">
+            <div class="row">
+                <div class="col-xs-1 text-center icon link-icon"><i class="fa   fa-external-link fa-2x"></i></div>
+                <div class="col-xs-8 title-text">
+                    <span >Learn AngularJS 1.X</span>
+                </div>
+                <div class="col-xs-3">
+                    <span class="card-action pull-right">
+                        <i class="fa fa-star-o fa-2x"></i>&nbsp;
+                        <i class="fa fa-times fa-2x"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="box-body link-body">
+            <div class="row">
+                <div class="col-xs-11 link-description">
+                    <h4><b>Description</b></h4>
+                    <p class="description text-justify">
+                        Learn how to easily build single-page web applications using this popular JavaScript framework.
+                    </p>
+                    <p>
+                        <span><img src="https://www.codecademy.com/favicon.ico">Read more in </span><a href="https://www.codecademy.com/learn/learn-angularjs" target="_blank">codecademy.com.</a>
+                    </p>
                 </div>
             </div>
         </div>

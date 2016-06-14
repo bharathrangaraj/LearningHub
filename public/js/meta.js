@@ -7,20 +7,34 @@ function Meta(){};
 
 Meta.prototype.getTitle=function(url,callback){
     Meta.prototype.getInfo(url,function(meta_data){
-       callback(meta_data.title);
+        if(meta_data.title){
+            callback(meta_data.title);
+        }else{
+            callback("");
+        }
+
     });
 
 };
 
 Meta.prototype.getDescription=function(url,callback){
     Meta.prototype.getInfo(url,function(meta_data){
-        callback(meta_data.description);
+        if(meta_data.description){
+            callback(meta_data.description);
+        }else{
+            callback("");
+        }
     });
 
 };
 Meta.prototype.getImage=function(url,callback){
     Meta.prototype.getInfo(url,function(meta_data){
-        callback(meta_data.image);
+        if(meta_data.image){
+            callback(meta_data.image);
+        }else{
+            callback("");
+        }
+
     });
 
 };
@@ -28,11 +42,14 @@ Meta.prototype.getImage=function(url,callback){
 Meta.prototype.getInfo=function(url,callback){
     var meta_data={};
     meta(url,function(err,data){
-        meta_data.title=data.title;
-        meta_data.description=data.description;
-        meta_data.image=data.otherimages[(data.otherimages.length)/2];
-        callback(data);
-    })
-}
+        //console.log(data);
+        if(err){
+            callback(meta_data);
+        }else{
+            callback(data);
+        }
+
+    });
+};
 
 module.exports=new Meta();
