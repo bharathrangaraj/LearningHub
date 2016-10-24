@@ -8,7 +8,7 @@ var sinon=require("sinon");
 var sinonChai=require("sinon-chai");
 chai.use(sinonChai);
 //testing video links
-describe.skip("Video links",function(){
+describe("Video links",function(){
     it("youtube",function(done){
         var m1result={
             'title':"Welcome to Node Studios! - NODE",
@@ -164,7 +164,7 @@ describe.skip("Video links",function(){
         });
 });
 //describing the links
-describe.only("links",function(){
+describe("links",function(){
     it("link with ogp data and complete image link",function(done){
         var lresult={
             type:'link',
@@ -583,7 +583,7 @@ describe("slides",function(){
         var i5result={
             'type':"slide",
             'url':"https://sway.com/red_panda",
-            'title':"The Red Panda",
+            'title':"The Red Panda Presentation",
             'html':""
         };
         scrape.getInfo("https://sway.com/red_panda",function(err,result){

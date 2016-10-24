@@ -2,9 +2,7 @@
  * Created by Bharath on 25/02/16.
  */
 
-var app=angular.module('aggregation',["ngSanitize"]);
-//
-
+var app=angular.module('aggregation',["ui.bootstrap","ngSanitize"]);
 app.controller('aggregationController',['$scope','$sce','$http',function($scope,$sce,$http){
     $scope.loading=false;
     $scope.scraped=true;
@@ -15,7 +13,13 @@ app.controller('aggregationController',['$scope','$sce','$http',function($scope,
         'description':"",
         'tags':[]
     };
-    $scope.posts={};
+    //$scope.in=true;
+    var initialize=false;
+    $scope.currentPage=0;
+    $scope.numPerPage=3;
+    $scope.maxSize=5;
+    $scope.filteredPosts=[];
+    $scope.posts=[];
     $scope.tags="";
     $scope.linkInvalid=false;
     $scope.current_link_data={};
@@ -105,7 +109,7 @@ app.controller('aggregationController',['$scope','$sce','$http',function($scope,
     };
 
     $scope.init=function(){
-        //$scope.loadlink();
+        $scope.loadlink();
     };
     $scope.loadlink=function(){
 
@@ -114,8 +118,10 @@ app.controller('aggregationController',['$scope','$sce','$http',function($scope,
                 courseId:002
             }
         }).success(function(data){
+            console.log("after");
             $scope.posts=data;
-            $scope.$broadcast('Posts loaded',$scope.posts);
+            $scope.in=true;
+            $scope.currentPage=1;
 
         }).error(function(data){
 
@@ -144,6 +150,18 @@ app.controller('aggregationController',['$scope','$sce','$http',function($scope,
     $scope.validTags=function(data){
         return data.split(',');
     };
+
+    $scope.$watch("currentPage + numPerPage", function(){
+        if(initialize){
+            console.log($scope.posts);
+            var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                , end = begin + $scope.numPerPage;
+
+            $scope.filteredPosts = $scope.posts.slice(begin, end);
+            console.log($scope.filteredPosts);
+            $scope.$broadcast('Posts loaded',$scope.filteredPosts);
+        }
+    });
 
 }]);
 

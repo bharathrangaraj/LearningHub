@@ -22,6 +22,8 @@
     <!-- Latest compiled JavaScript -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <!-- angular-->
+    <script data-require="ui-bootstrap@*" data-semver="0.12.1" src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
+
     <script src="aggregation.controller.js"></script>
     <script src="./admin/js/app.min.js"></script>
 
@@ -118,7 +120,7 @@
 <div class="container fluid" ng-show="posts.length>0">
     <div class="row">
         <div class="col-md-10" id="LinksList" ng-controller="commentsController">
-           <ul ng-repeat="post in posts">
+           <ul ng-repeat="post in filteredPosts">
                <li>
                    <div class="panel panel-default">
                        <div class="panel-heading">
@@ -183,6 +185,14 @@
            </ul>
         </div>
     </div>
+
+    <pagination
+            ng-model="currentPage"
+            total-items="posts.length"
+            max-size="maxSize"
+            boundary-links="true"
+    >
+    </pagination>
 
 <script>
 
