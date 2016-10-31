@@ -7,7 +7,7 @@ var http=require("follow-redirects").http;
 var ogp=require("./ogp.js");
 var ahelper=require("./aggHelper.js");
 var embed=require("./embedHtml.js");
-function Audio(){};
+function Audio(){}
 var oembed_list={
     'soundcloud':'http://soundcloud.com/oembed',
     'mixcloud':'https://www.mixcloud.com/oembed/',

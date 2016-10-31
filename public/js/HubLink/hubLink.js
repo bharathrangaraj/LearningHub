@@ -1,23 +1,44 @@
 /**
  * Created by Bharath on 30/10/2016.
  */
-var HubLink = angular.module('HubLink', [])
-    .controller( 'HubLinkController', [ '$scope', '$sce',function ($scope, $sce) {
+var HubLink = angular.module('HubLink', ['HubPostDelete', 'toaster'] )
+    .controller( 'HubLinkController', [ '$scope', '$sce','$http', 'toaster', function ($scope, $sce, $http, toaster) {
+
+        // view data preparation
         var vm = this;
         vm.post.url = $sce.trustAsResourceUrl(vm.post.url);
-        if(vm.post.description){
-            vm.post.description = descriptionValid(vm.post.description);
-        }
-
-
-
-        descriptionValid=function(description){
-            if(description.length>700){
-                return description.slice(0,600)+"...";
-            }else{
-                return description;
-            }
+        vm.owner = (vm.post.userId == 1);
+        //delete methods
+        vm.delete = function(){
+            console.log('click');
+            $('#deletePost').modal('show');
         };
+
+        vm.confirmDelete = function(){
+            console.log(vm.post.postId);
+            $http.delete('/api/delete',
+                {
+                    params:{
+                        'postId' : vm.post.postId
+                    }
+                })
+                .success( function(data){
+                    console.log('deleted');
+                    $('#deletePost').modal('hide');
+                    toaster.pop( 'success', "Successfully Deleted", vm.post.title);
+                    window.location.reload();
+                })
+                .error( function(data){
+                    console.log('error');
+                    $('#deletePost').modal('hide');
+                    toaster.pop( 'error', "Error in deleting", vm.post.title);
+                    window.location.reload();
+                });
+        };
+
+        vm.deleteClose = function(){
+            $('#deletePost').modal('hide');
+        }
 
     }] )
     .directive( 'hubLink', function () {

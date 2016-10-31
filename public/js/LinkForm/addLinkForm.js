@@ -15,8 +15,10 @@
     $scope.formData={
         'url':"",
         'title':"",
+        'type': "",
         'description':"",
-        'tags':[]
+        'tags':[],
+        'userId' : 1
     };
 
     /**
@@ -37,8 +39,9 @@
                     $scope.linkInvalid=true;
                 }else{
                     $scope.linkInvalid=false;
-                    if(data){
-                        $scope.current_link_data=data;
+                    $scope.formData.url = data.url;
+                    if(data.type){
+                        $scope.formData.type = data.type;
                     }
                     if(data.title){
                         $scope.formData.title=data.title;
@@ -47,7 +50,7 @@
                         $scope.formData.description=$scope.descriptionValid(data.description);
                     }
                     //show or hide description
-                    if($scope.current_link_data.type==="image" || $scope.current_link_data.type==="audio" || $scope.current_link_data.type==="slide" || $scope.current_link_data.type==="doc" || $scope.current_link_data.type==="pdf" || $scope.current_link_data.type==="story"){
+                    if(data.type==="image" || data.type==="audio" || data.type==="slide" || data.type==="doc" || data.type==="pdf" || data.type==="story"){
                         $scope.des_hide=true;
                     }else{
                         $scope.des_hide=false;
@@ -63,6 +66,15 @@
         }
 
     };
+
+        //util methods
+        $scope.descriptionValid=function(description){
+            if(description.length>700){
+                return description.slice(0,600)+"...";
+            }else{
+                return description;
+            }
+        };
 
     /**
      * function to reset the form
@@ -87,32 +99,28 @@
      */
 
     $scope.addlink= function (isValid) {
+
         if($scope.tags) {
-            $scope.formData.tags=$scope.validTags($scope.tags);
-            $scope.current_link_data.tags=$scope.formData.tags;
-        }else {
-            $scope.current_link_data.tags="";
+            $scope.formData.tags = $scope.validTags($scope.tags);
         }
 
-        $scope.current_link_data.title=$scope.formData.title;
         if (!$scope.des_hide) {
             $scope.formData.description=$scope.descriptionValid($scope.formData.description);
-            $scope.current_link_data.description=$scope.formData.description;
         }
-        $http.post('/api/add',$scope.current_link_data).success(function(data){
-            $scope.formData={};
-            $scope.current_link_data={};
 
+        $http.post('/api/add',$scope.formData).success(function (data){
             $scope.tags="";
             $scope.des_hide=false;
             $scope.scraped=true;
 
             $('#Addlink').modal('hide');
-            window.reload();
+            window.location.reload();
         }).error(function(err){
             console.log(err);
-            $scope.reset()
+            $scope.reset();
+            $('#Addlink').modal('hide');
         });
+
         $scope.reset($scope.aggregateData,$scope.aggregateUrl);
     };
 
@@ -124,6 +132,7 @@
     $scope.validTags=function(data){
         return data.split(',');
     };
+
 
 }]);
 

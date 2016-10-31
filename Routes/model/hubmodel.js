@@ -34,6 +34,7 @@ commentSchema.pre('update',function(next){
 hubSchema.add({
     courseId:{type:Number, required: true},
     postId:{type: mongoose.Schema.Types.ObjectId},
+    userId: {type: Number, required: true},
     title:{type:String,required: true},
     url:{type:String,required:true},
     type:{type:String,required:true},
@@ -42,7 +43,7 @@ hubSchema.add({
     image:{type:String},
     embedHtml:{type:String},
     description:{type:String},
-    isDeleted:{type: Boolean},
+    isDeleted:{type: Boolean, required: true},
     dateAdded:{type: Date},
     dateUpdated:{type: Date},
     comments:[commentSchema],

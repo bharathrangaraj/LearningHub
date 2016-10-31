@@ -7,8 +7,8 @@
             </div>
             <div class="col-xs-3">
                     <span class="card-action pull-right">
-                        <i class="fa fa-star-o"></i>&nbsp;
-                        <i class="fa fa-times"></i>
+                        <i class="fa fa-star-o" ng-show="vm.owner"></i>&nbsp;
+                        <i class="fa fa-times" ng-show="vm.owner" ng-click="vm.delete()"></i>
                     </span>
             </div>
         </div>
@@ -28,3 +28,5 @@
         </div>
     </div>
 </div>
+<hub-post-delete></hub-post-delete>
+<toaster-container></toaster-container>
