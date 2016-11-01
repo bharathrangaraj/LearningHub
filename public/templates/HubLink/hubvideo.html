@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-xs-1 text-center icon video-icon"><i class="fa fa-file-video-o fa-2x"></i></div>
             <div class="col-xs-8 title-text">
-                <span >{{vm.post.title}}</span>
+                <span>{{vm.post.title}}</span>
             </div>
             <div class="col-xs-3">
                     <span class="card-action pull-right">
@@ -24,6 +24,9 @@
                 <p class="description text-justify">
                     {{vm.post.description}}
                 </p>
+            </div>
+            <div class="col-xs-12">
+               <span ng-repeat="tag in vm.post.tags" class=" tag label-primary">{{tag}}</span>
             </div>
         </div>
     </div>

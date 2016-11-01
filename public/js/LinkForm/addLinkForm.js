@@ -1,7 +1,7 @@
 /**
  * Created by Bharath on 24/10/2016.
  */
- var addLinkForm = angular.module('addLinkForm', [])
+ var addLinkForm = angular.module('addLinkForm', ['ngTagsInput'])
      .directive("addLink", function(){
         return {
             restrict: 'E',
@@ -20,7 +20,7 @@
         'tags':[],
         'userId' : 1
     };
-
+    $scope.unformattedtags = [];
     /**
      * funciton to scrape the link
      * @param isValid
@@ -100,22 +100,21 @@
 
     $scope.addlink= function (isValid) {
 
-        if($scope.tags) {
-            $scope.formData.tags = $scope.validTags($scope.tags);
+        if($scope.unformattedtags) {
+            $scope.formData.tags = $scope.validTags($scope.unformattedtags);
         }
 
         if (!$scope.des_hide) {
             $scope.formData.description=$scope.descriptionValid($scope.formData.description);
         }
-
+        console.log($scope.formData);
         $http.post('/api/add',$scope.formData).success(function (data){
-            $scope.tags="";
+            $scope.unformattedtags="";
             $scope.des_hide=false;
             $scope.scraped=true;
-
             $('#Addlink').modal('hide');
             window.location.reload();
-        }).error(function(err){
+        }).error( function(err){
             console.log(err);
             $scope.reset();
             $('#Addlink').modal('hide');
@@ -126,13 +125,19 @@
 
     /**
      *
-     * @param data
+     * @param unformattedTags
      * @returns {Array|*}
      */
-    $scope.validTags=function(data){
-        return data.split(',');
+    $scope.validTags=function(unformattedTags){
+        console.log(unformattedTags);
+        var formattedTags = [];
+        Object.keys(unformattedTags).forEach(function(tag){
+            formattedTags.push(unformattedTags[tag].text)
+        });
+        console.log(formattedTags);
+        return formattedTags;
     };
 
-
 }]);
+
 

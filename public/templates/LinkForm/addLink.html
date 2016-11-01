@@ -38,7 +38,7 @@
                     <!-- Tags -->
                     <div id="tag-group" class="form-group">
                         <label for="url">Tags</label>
-                        <input type="text" rows="3" name="tags" id="tags" class="form-control" placeholder="Add theTags seperated by commas" ng-model="tags">
+                        <tags-input ng-model="unformattedtags" replace-spaces-with-dashes="false" class="ti-input-sm" placeholder="Tags"></tags-input>
                         <span class="help-block"></span>
                     </div>
                     <!-- Aggregate Data submit-->

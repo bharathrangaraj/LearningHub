@@ -186,3 +186,8 @@ i {
     cursor: pointer;
 }
 
+.tag {
+    margin: 3px 3px 3px 3px;
+    padding: 2px 2px 2px 2px;
+}
+
