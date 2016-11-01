@@ -18,7 +18,8 @@
         'type': "",
         'description':"",
         'tags':[],
-        'userId' : 1
+        'userId' : 1,
+        "html" : ""
     };
     $scope.unformattedtags = [];
     /**
@@ -38,6 +39,7 @@
                     form.$setPristine(true);
                     $scope.linkInvalid=true;
                 }else{
+                    console.log(data);
                     $scope.linkInvalid=false;
                     $scope.formData.url = data.url;
                     if(data.type){
@@ -54,6 +56,10 @@
                         $scope.des_hide=true;
                     }else{
                         $scope.des_hide=false;
+                    }
+
+                    if(data.html){
+                        $scope.formData.html = data.html;
                     }
                     //end loading and show the form
                     $scope.loading=false;
@@ -84,8 +90,11 @@
         $scope.formData={
             'url':"",
             'title':"",
+            'type': "",
             'description':"",
-            'tags':[]
+            'tags':[],
+            'userId' : 1,
+            "html" : ""
         };
         form1.$setPristine(true);
         form2.$setPristine(true);
@@ -129,12 +138,10 @@
      * @returns {Array|*}
      */
     $scope.validTags=function(unformattedTags){
-        console.log(unformattedTags);
         var formattedTags = [];
         Object.keys(unformattedTags).forEach(function(tag){
             formattedTags.push(unformattedTags[tag].text)
         });
-        console.log(formattedTags);
         return formattedTags;
     };
 

@@ -17,7 +17,7 @@ var slide_result={
     'type':"slide",
     'url':"",
     'title':"",
-    'html':""
+    "html":""
 };
 
 Slide.prototype.getDetails=function(url,host_name,callback) {
@@ -51,7 +51,6 @@ Slide.prototype.getDetails=function(url,host_name,callback) {
 };
 //prepare oe url
 function prepareoeURL(url,current_link){
-
         return oembed_list[current_link]+'?url='+encodeURIComponent(url)+'&format=json';
 }
 //prepare HTMl for  oe slides

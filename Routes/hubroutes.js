@@ -35,6 +35,19 @@ router.post('/api/add',function(req,res){
 
 });
 
+router.post('/api/personaladd', function(req, res){
+    controller.personalAdd(function(err){
+            console.log(err);
+            return;
+        },req.body
+        ,function (post) {
+            res.status(200).json({
+                result: true, post: post
+            });
+        });
+
+});
+
 router.delete('/api/delete', function(req,res){
     console.log("body"+req.query.postId);
     controller.delete(req.query,

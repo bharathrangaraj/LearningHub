@@ -24,15 +24,16 @@
                 <!-- form for submitting the data-->
                 <form name="aggregateData" ng-hide="scraped" ng-submit="addlink(aggregateData.$valid)" novalidate>
                     <!-- title -->
-                    <div id="title-group" class="form-group" ng-class="{'has-error':(aggregateData.title.$invalid && !aggregateData.title.$pristine)}">
+                    <div id="title-group" class="form-group" ng-class="{'has-error':(aggregateData.title.$invalid || aggregateData.title.$error.minlength)}">
                         <label for="url">Title*</label>
-                        <textarea rows="3" name="title" id="title" class="form-control" placeholder="title" ng-model="formData.title" ng-required="true" ng-minlength="30"  required></textarea>
+                        <textarea rows="3" name="title" id="title" class="form-control" placeholder="title" ng-model="formData.title" ng-required="true" ng-minlength="10" required></textarea>
                         <span ng-show="aggregateData.title.$invalid && !aggregateData.title.$pristine" class="help-block">Title is required</span>
+                        <span ng-show="aggregateData.title.$invalid && !aggregateData.title.$pristine && aggregateData.title.$error.minlength" class="help-block">Title too short</span>
                     </div>
                     <!-- Description -->
-                    <div id="description-group" class="form-group" ng-hide="des_hide" ng-class="{'has-error':(aggregateData.description.$invalid && !aggregateData.description.$pristine) || aggregateData.description.$error.minlength}">
+                    <div id="description-group" class="form-group" ng-hide="des_hide" ng-class="{'has-error': des_hide ? !des_hide :(aggregateData.description.$invalid) || aggregateData.description.$error.minlength}">
                         <label for="url">Description*</label>
-                        <textarea rows="3" name="description" id="description" class="form-control" placeholder="description" ng-model="formData.description" ng-required="true" ng-minlength="100"  required></textarea>
+                        <textarea rows="3" name="description" id="description" class="form-control" placeholder="description" ng-model="formData.description" ng-required="!des_hide" ng-minlength="100"  required></textarea>
                         <span ng-show="aggregateData.description.$error.minlength" class="help-block">Description is too short</span>
                     </div>
                     <!-- Tags -->

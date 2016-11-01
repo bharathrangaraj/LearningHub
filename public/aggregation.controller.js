@@ -6,7 +6,6 @@ app.controller('aggregationController',['$scope','$sce','$http', function($scope
     $scope.posts=[];
 
     $scope.init=function(){
-        console.log("init");
         $scope.loadlink();
     };
 
@@ -18,8 +17,6 @@ app.controller('aggregationController',['$scope','$sce','$http', function($scope
             }
         }).success(function(data){
             $scope.posts=data;
-            console.log($scope.posts.length);
-
         }).error(function(data){
                 console.log(data);
         })

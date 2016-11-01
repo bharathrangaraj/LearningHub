@@ -4,6 +4,25 @@ var hubSchema= new mongoose.Schema();
 
 var commentSchema=new mongoose.Schema();
 
+var personalSchema= new mongoose.Schema();
+
+personalSchema.add({
+    courseId:{type:Number, required: true},
+    postId:{type: mongoose.Schema.Types.ObjectId},
+    userId: {type: Number, required: true},
+    title:{type:String,required: true},
+    url:{type:String,required:true},
+    type:{type:String,required:true},
+    favicon:{type:String},
+    hostName:{type:String},
+    image:{type:String},
+    embedHtml:{type:String},
+    description:{type:String},
+    isDeleted:{type: Boolean, required: true},
+    comments:[commentSchema],
+    tags:[{type:String}]
+});
+
 commentSchema.add({
     commentId:{type:mongoose.Schema.Types.ObjectId},
     userId:{type:Number},
@@ -67,5 +86,7 @@ hubSchema.pre('update',function(next){
     next();
 });
 
-var agg=mongoose.model('hubSchema',hubSchema);
+var agg = {};
+agg.posts=mongoose.model('hubSchema',hubSchema);
+agg.personal = mongoose.model('personalSchema', personalSchema);
 module.exports=agg;

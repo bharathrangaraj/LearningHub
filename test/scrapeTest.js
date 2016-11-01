@@ -463,7 +463,7 @@ describe("pdf",function(){
             'url':"https://drive.google.com/viewerng/viewer?url=http://ptgmedia.pearsoncmg.com/images/9780672329166/samplepages/0672329166_Sample.pdf",
             'title':"0672329166_Sample.pdf",
             'image':"",
-            'html':""
+            "html":""
         };
         scrape.getInfo("http://ptgmedia.pearsoncmg.com/images/9780672329166/samplepages/0672329166_Sample.pdf",function(err,result){
             if(err){
@@ -491,7 +491,7 @@ describe("slides",function(){
             'type':"slide",
             'url':"http://www.slideshare.net/h3sean/3-lies-about-your-age",
             'title':"The Three Lies About your Age",
-            'html':""
+            "html":""
         };
         scrape.getInfo("http://www.slideshare.net/h3sean/3-lies-about-your-age",function(err,result){
             if(err){
@@ -514,7 +514,7 @@ describe("slides",function(){
             'type':"slide",
             'url':"https://speakerdeck.com/akmur/atom-resistance-is-futile",
             'title':"Atom: Resistance is Futile",
-            'html':""
+            "html":""
         };
         scrape.getInfo("https://speakerdeck.com/akmur/atom-resistance-is-futile",function(err,result){
             if(err){
@@ -537,7 +537,7 @@ describe("slides",function(){
             'type':"slide",
             'url':"http://slides.com/ai/postcss-intro#/",
             'title':"PostCSS Intro by Андрей «A.I.» Ситник",
-            'html':""
+            "html":""
         };
         scrape.getInfo("http://slides.com/ai/postcss-intro#/",function(err,result){
             if(err){
@@ -560,7 +560,7 @@ describe("slides",function(){
             'type':"slide",
             'url':"https://app.emaze.com/@AFFOZIRR#1",
             'title':"",
-            'html':""
+            "html":""
         };
         scrape.getInfo("https://app.emaze.com/@AFFOZIRR#1",function(err,result){
             if(err){
@@ -584,7 +584,7 @@ describe("slides",function(){
             'type':"slide",
             'url':"https://sway.com/red_panda",
             'title':"The Red Panda Presentation",
-            'html':""
+            "html":""
         };
         scrape.getInfo("https://sway.com/red_panda",function(err,result){
             if(err){
@@ -610,7 +610,7 @@ describe("Docs",function(){
             'type':"doc",
             'url':"https://mix.office.com/watch/1otxpj7hz6kbx",
             'title':"Are poor countries doomed to stay poor?",
-            'html':""
+            "html":""
         };
         scrape.getInfo("https://mix.office.com/watch/1otxpj7hz6kbx",function(err,result){
             if(err){
@@ -634,7 +634,7 @@ describe("Docs",function(){
             'type':"doc",
             'url':"https://docs.com/docscom/4059/understand-your-audience",
             'title':"Understand your Audience",
-            'html':""
+            "html":""
         };
         scrape.getInfo("https://docs.com/docscom/4059/understand-your-audience",function(err,result){
             if(err){
@@ -665,7 +665,7 @@ describe("images",function(){
             'url':"https://www.flickr.com/photos/sandeepachetan/11417036513/in/photolist-ioTic8-8XM68m-4GmWXt-rofL1j-rZFVM-pibZyM-ojmzob-pmAjSw-becXLZ-8b3D54-bf6TDr-b4noi2-axDnRC-goBFGN-cLwokd-ayuKKm-poCAMn-bk4bAq-8Ax95H-pk4JaH-9mbXaW-79B7Kz-p31S9P-7CbF3V-eeNiZm-tzDRRy-w8mpnE-zgnLcL-79B7Kx-bU1ASP-7efSX9-8WZXg6-9sEFm1-92Az5x-ngrD75-DDsuj-ec1JV3-prEwvX-4zGL5H-q8TLtn-4zM2AG-jWXX82-xQkwjH-gtDVYP-pW8uuq-isXZ7Y-5rBdVD-5rFxNj-9PSBES-rcJDLu",
             'title':"India",
             'description':"Website  | Instagram | tumblr  | Facebook  |  Twitter    Kargil is the midway of the Srinagar-Leh highway, NH1-D. It is  suggested halt for the night before reaching Leh for altitude aclimatisation. Our bus left Kargil at around 4 AM. Just as we were getting out of Kargil, we were greeted with this sunrise.   Camera Canon EOS 5D, Taken on July 30, 2013",
-            'html':""
+            "html":""
         };
         scrape.getInfo("https://www.flickr.com/photos/sandeepachetan/11417036513/in/photolist-ioTic8-8XM68m-4GmWXt-rofL1j-rZFVM-pibZyM-ojmzob-pmAjSw-becXLZ-8b3D54-bf6TDr-b4noi2-axDnRC-goBFGN-cLwokd-ayuKKm-poCAMn-bk4bAq-8Ax95H-pk4JaH-9mbXaW-79B7Kz-p31S9P-7CbF3V-eeNiZm-tzDRRy-w8mpnE-zgnLcL-79B7Kx-bU1ASP-7efSX9-8WZXg6-9sEFm1-92Az5x-ngrD75-DDsuj-ec1JV3-prEwvX-4zGL5H-q8TLtn-4zM2AG-jWXX82-xQkwjH-gtDVYP-pW8uuq-isXZ7Y-5rBdVD-5rFxNj-9PSBES-rcJDLu",function(err,result){
             if(err){
@@ -688,7 +688,7 @@ describe("images",function(){
             'url':"http://www.23hq.com/Hegemony77/photo/23317358",
             'title':'1/6th scale black long sleeves T-shirt on 12" GI Joe Action Figure Hasbro Classic Collection',
             'description':"",
-            'html':""
+            "html":""
         };
         scrape.getInfo("http://www.23hq.com/Hegemony77/photo/23317358",function(err,result){
             if(err){
@@ -713,7 +713,7 @@ describe("images",function(){
             'url':"https://www.gstatic.com/images/branding/googlelogo/2x/googlelogo_color_284x96dp.png",
             'title':'gstatic',
             'description':"",
-            'html':""
+            "html":""
         };
         scrape.getInfo("https://www.gstatic.com/images/branding/googlelogo/2x/googlelogo_color_284x96dp.png",function(err,result){
             if(err){
@@ -739,7 +739,7 @@ describe("images",function(){
             'url': "https://infogr.am/app/#/edit/5c193426-6b77-4f4e-a271-6612aa62ed40",
             'title': '',
             'description': "",
-            'html': ""
+            "html": ""
         };
         scrape.getInfo("https://infogr.am/app/#/edit/5c193426-6b77-4f4e-a271-6612aa62ed40", function (err, result) {
             if (err) {
@@ -761,7 +761,7 @@ describe("images",function(){
             'url': "https://public.chartblocks.com/c/5709a41d9973d2a07742b96e?t=98b21de61f34144",
             'title': 'Test chart',
             'description': "",
-            'html': ""
+            "html": ""
         };
         scrape.getInfo("https://public.chartblocks.com/c/5709a41d9973d2a07742b96e?t=98b21de61f34144", function (err, result) {
             if (err) {
@@ -784,7 +784,7 @@ describe("images",function(){
             'url': "https://s0kud0.smugmug.com/Travel/EurotripHD-2012/i-5JWLzH5",
             'title': '',
             'description': "",
-            'html': ""
+            "html": ""
         };
         scrape.getInfo("https://s0kud0.smugmug.com/Travel/EurotripHD-2012/i-5JWLzH5", function (err, result) {
             if (err) {
@@ -807,7 +807,7 @@ describe("images",function(){
             'url': "https://hershy.smugmug.com/Photography/Daily-Photo-Galleries/Daily-Photos-2009/i-KwqS8NV",
             'title': 'Morning at Maa Farm24 May 2010Shot at Maa Farm where we stay while in Ranthambhore. Best seen in XLarge size. www.javeri.net',
             'description': "",
-            'html': ""
+            "html": ""
         };
         scrape.getInfo("https://hershy.smugmug.com/Photography/Daily-Photo-Galleries/Daily-Photos-2009/i-KwqS8NV", function (err, result) {
             if (err) {
