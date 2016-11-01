@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
     <meta charset="UTF-8">
-    <title>Youtube aggregation</title>
+    <title>Learning Hub - Links Aggregator</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Custom Font awesome -->
@@ -21,14 +21,31 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- font awesome -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
     <!-- angular-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css" rel="stylesheet" />
+    <script data-require="ui-bootstrap@*" data-semver="0.12.1" src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
+    <!--angular toaster-->
+    <script src="https://code.angularjs.org/1.2.0/angular-animate.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
+    <!-- angular tags-->
+    <link rel="stylesheet" href="http://mbenford.github.io/ngTagsInput/css/ng-tags-input.min.css" />
+    <link rel="stylesheet" href="http://mbenford.github.io/ngTagsInput/css/ng-tags-input.bootstrap.min.css" />
+    <script src="http://mbenford.github.io/ngTagsInput/js/ng-tags-input.min.js"></script>
+    <!--custom directives-->
+    <script src="js/LinkForm/addLinkForm.js"></script>
+    <script src="js/HubLink/hubPostDelete.js"></script>
+    <script src="js/HubLink/hubLink.js"></script>
+    <!--main module and directive-->
     <script src="aggregation.controller.js"></script>
     <script src="./admin/js/app.min.js"></script>
 
 </head>
 <body ng-app="aggregation" ng-controller="aggregationController" data-ng-init="init()">
 <!-- Container top-level functions-->
-<div class="container-fluid">
+
+<div class="container-fluid controls">
     <div class="row functions">
         <div class=" col-xs-offset-1 col-md-10">
             <input type="text" name="search" placeholder="Search by tags or text" ng-model="query">
@@ -36,72 +53,8 @@
         </div>
     </div>
 </div>
-<!-- end of  top-level functions container-->
 
-
-
-    <!-- Add link model-->
-    <div id="Addlink"role="dialog" aria-labelledby="addlinktitle" tabindex="-1" class="modal fade">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="addlinktitle">Add new link</h4>
-                </div>
-                <!-- End of modal header-->
-                <div class="modal-body">
-                    <!-- form for submitting the URL -->
-                    <form  name="aggregateUrl"  ng-submit="scrapelink(aggregateUrl.$valid,aggregateUrl)" novalidate>
-                        <!-- url -->
-                        <div id="url-group" class="form-group" ng-class="{'has-error' :(aggregateUrl.url.$invalid && !aggregateUrl.url.$pristine)|| linkInvalid}">
-                            <label for="url">Paste url*</label>
-                            <input type="url" name="url" id="url" class="form-control" placeholder="url" onchange="linkInvalid=false" ng-model="formData.url" required>
-                            <span ng-show="(aggregateUrl.url.$invalid && !aggregateUrl.url.$pristine) || linkInvalid" class="help-block"> Valid URL is required!</span>
-                        </div>
-                        <!-- AggregateUrl submit-->
-                        <button type="submit" class="btn btn-primary" ng-show="scraped" ng-disabled="aggregateUrl.$invalid">
-                           <span data-ng-show="loading"><i class="fa fa-spinner fa-spin"></i>&nbsp;&nbsp;Scraping..</span>
-                            <span data-ng-hide="loading">Scrape</span>
-                        </button>
-                    </form>
-                    <!-- form for submitting the data-->
-                    <form name="aggregateData" ng-hide="scraped" ng-submit="addlink(aggregateData.$valid)"novalidate>
-                           <!-- title -->
-                            <div id="title-group" class="form-group" ng-class="{'has-error':(aggregateData.title.$invalid && !aggregateData.title.$pristine)}">
-                                <label for="url">Title*</label>
-                                <textarea rows="3" name="title" id="title" class="form-control" placeholder="title" ng-model="formData.title" ng-required="true" ng-minlength="30"  required></textarea>
-                                <span ng-show="aggregateData.title.$invalid && !aggregateData.title.$pristine" class="help-block">Title is required</span>
-                            </div>
-                            <!-- Description -->
-                            <div id="description-group" class="form-group" ng-hide="des_hide" ng-class="{'has-error':(aggregateData.description.$invalid && !aggregateData.description.$pristine) || aggregateData.description.$error.minlength}">
-                                <label for="url">Description*</label>
-                                <textarea rows="3" name="description" id="description" class="form-control" placeholder="description" ng-model="formData.description" ng-required="true" ng-minlength="100"  required></textarea>
-                                <span ng-show="aggregateData.description.$error.minlength" class="help-block">Description is too short</span>
-                            </div>
-                            <!-- Tags -->
-                            <div id="tag-group" class="form-group">
-                                <label for="url">Tags</label>
-                                <input type="text" rows="3" name="tags" id="tags" class="form-control" placeholder="Add theTags seperated by commas" ng-model="tags">
-                                <span class="help-block"></span>
-                            </div>
-                            <!-- Aggregate Data submit-->
-                            <button type="submit" class="btn btn-primary" ng-disabled="aggregateData.$invalid">Add
-                            </button>
-                            <span>
-                                <button class="btn btn-default" ng-click="reset(aggregateUrl,aggregateData)">Reset
-                                </button>
-                            </span>
-                    </form>
-
-                </div>
-                <!-- End of modal body-->
-
-            </div>
-            <!-- End of modal content -->
-        </div>
-            <!-- End of modal dialog-->
-    </div>
-    <!-- end of modal-->
-
+<add-link></add-link>
 
 <!-- Default page when there is no link added-->
 <div class="container-fluid" ng-show="posts.length==0">
@@ -116,93 +69,9 @@
 
 <!-- presenting  the aggregated links from the DB-->
 <div class="container fluid" ng-show="posts.length>0">
-    <div class="row">
-        <div class="col-md-10" id="LinksList" ng-controller="commentsController">
-           <ul ng-repeat="post in posts">
-               <li>
-                   <div class="panel panel-default">
-                       <div class="panel-heading">
-                           <div class="row">
-                               <div class="col-md-1 custom hidden-md hidden-sm hidden-xs">
-                                   <span class="align-center"><i class="fa fa-external-link-square  fa-3x" id="icon">&nbsp;</i> </span>
-                               </div>
-                               <div class="col-md-10">
-                                   <span id="tit">{{post.title}}</span>
-
-                                   <span><p class="user">Added by abc before 10 mins</p></span>
-                               </div>
-                           </div>
-                       </div>
-
-                       <div class="panel-body">
-
-                           <div class="row">
-
-
-                              <div class="col-xs-12 text-center">
-
-                               <p ng-bind-html=trustHtml(post.embedHtml)></p>
-
-
-                              </div>
-
-                           </div>
-                       </div>
-
-                       <div class="panel-footer">
-
-
-                           <span class="commentToggle meta-content" id="{{'c'+post.postId}}" onclick="commentsclick(this.id)">comments</span>&nbsp;<span class="badge">{{post.comments.length}}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="meta-content" id="{{'t'+post.postId}}" onclick="tagsclick(this.id)">tags</span>&nbsp;<span class="badge">{{post.tags.length}}</span>
-                           <div id="{{'c'+post.postId+'d'}}" class="comments">
-                                    <div class="input-group cmt">
-                                        <input type="text" ng-model="content" class="form-control" placeholder="Add a comment...">
-                                                        <span class="input-group-btn">
-                                                             <button type="button" class="btn btn-default" ng-click="addComment(post)">Comment</button>
-                                                        </span>
-                                    </div>
-
-                                    <div ng-repeat="com in post.comments" class="boxed">
-                                        <span class="username">{{com.userId}}</span> &nbsp;<span contenteditable="true">{{com.comment}}</span><br>
-                                        <span>edit</span>
-
-
-                                    </div>
-                           </div>
-                           <div id="{{'t'+post.postId+'d'}}" class="tags">
-                               <span ng-repeat="tag in post.tags">
-                                   <span class=" label label-primary">{{tag}}</span>
-                               </span>
-
-
-                           </div>
-                       </div>
-                       </div>
-
-               </li>
-
-           </ul>
-        </div>
+    <div  ng-repeat="post in posts">
+        <hub-link  post="post"></hub-link>
     </div>
-
-<script>
-
-    $('.comments').hide();
-    $('.tags').hide();
-    function commentsclick(id){
-
-        var _id="#"+id+"d.comments";
-        console.log(_id);
-        $(_id).slideToggle();
-    }
-    function tagsclick(id){
-        var _id="#"+id+"d.tags";
-        console.log(_id);
-        $(_id).slideToggle();
-    }
-
-</script>
-
-
 </div>
 </body>
 </html>

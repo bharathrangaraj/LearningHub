@@ -1,89 +1,193 @@
-
-ul
-{
-    list-style-type: none;
-}
-#icon{
-    color:red;
-
-
-}
-
-#load{
-    color:white;
-}
-
-.table>tbody>tr>td{
-    border-top:none;
-}
-
-
-.user{
-    font-size:12px;
-
-
-}
-
-#tit{
-    font-weight: bolder;
-    font-size: 16px;
-    color: #337ab7;
-}
-
-.custom {
-    width: 5%;
-    padding-right: 10px;
-    padding-top: 5px;
-    margin-left: 5px;
-    align-content: center;
-
-
-}
-.link_name{
-    color: #337ab7;
-    font-weight: bolder;
-}
-
-.functions,.content{
+.controls{
     margin-top: 50px;
-    margin-bottom:50px;
-
+    margin-bottom: 50px;
 }
-
-
-
-.boxed{
-    border: 0px solid #ccc;
-    margin-top: 10px;
-    background-color: #f5f5f5;
+/*box styles*/
+ .box-default{
+     border-top-style: none;
+     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+ }
+.box-default:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
-
-.meta-content{
-    font-size:18px;
-    cursor:pointer;
-    color:  #337ab7;
-
-}
-.meta-content:hover{
-    text-decoration: underline;
+/*video styles*/
+.video-box{
+    border-left-style: solid;
+    border-left-width: 5px;
+    border-left-color:#428bca;
 }
 .description{
-    color: #337ab7;
-    font-weight: bold;
+    font-color:#444;
+}
+.video-icon{
+    color:#428bca;
+}
+/*image style*/
+.image-box{
+    border-left-style: solid;
+    border-left-width: 5px;
+    border-left-color:#FF736D;
+}
+.image-icon{
+    color:#FF736D;
+}
+
+/*audio style*/
+.audio-box{
+    border-left-style: solid;
+    border-left-width: 5px;
+    border-left-color:#C3CC2E;
+}
+.audio-icon{
+    color:#C3CC2E;
+}
+
+/*slide style*/
+.slide-box{
+    border-left-style: solid;
+    border-left-width: 5px;
+    border-left-color:#53AFFF;
+}
+.slide-icon{
+    color:#53AFFF;
+}
+/*doc style*/
+.doc-box{
+    border-left-style: solid;
+    border-left-width: 5px;
+    border-left-color:#CC2019;
+}
+.doc-icon{
+    color:#CC2019;
+}
+/*story style*/
+.story-box{
+    border-left-style: solid;
+    border-left-width: 5px;
+    border-left-color:#607F99;
+}
+.story-icon{
+    color:#607F99;
+}
+
+
+/*story style*/
+.pdf-box{
+    border-left-style: solid;
+    border-left-width: 5px;
+    border-left-color:#1D7F78;
+}
+.pdf-icon{
+    color:#1D7F78;
+}
+/*link styles*/
+.link-box{
+    border-left-style: solid;
+    border-left-width: 5px;
+    border-left-color:#FFCC00;
+}
+.link-icon{
+    color:#FFCC00;
+}
+.link-wrapper{
+    background: transparent;
+    max-height: 400px;
+}
+.image-wrapper img{
+    max-height: 400px;
+    max-width: 100%;
+}
+/*title-styling*/
+.title-text{
+    font-size: 18px;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    font-weight: bolder;
+}
+.card-action{
+    font-color:#428bca;
+}
+.card-action i{
     font-size:16px;
+    font-size:2vw;
 }
-.username{
-    font-size:14px;
-    font-weight: bold;
-    color:#337ab7;
-    margin-left: 10px;
+.icon{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
-
-.tags{
-    margin-bottom: 10px;
-    margin-top:10px;
+.icon i{
+    font-size:16px;
+    font-size:2vw;
 }
 
-.cmt{
-    margin-top:10px;
+.image-wrapper{
+    background: transparent;
+    max-height: 500px;
 }
+.image-wrapper img{
+    max-height: 500px;
+    max-width: 100%;
+}
+/*responsive rules*/
+@media (max-width:768px) {
+    .video-box{
+        border-left-style: solid;
+        border-left-width: 1px;
+        border-left-color:#428bca;
+    }
+    .image-box{
+        border-left-style: solid;
+        border-left-width: 1px;
+        border-left-color:#FF736D;
+    }
+    .audio-box{
+        border-left-style: solid;
+        border-left-width: 1px;
+        border-left-color:#C3CC2E;
+    }
+    .slide-box{
+        border-left-style: solid;
+        border-left-width: 1px;
+        border-left-color:#53AFFF;
+    }
+    .doc-box{
+        border-left-style: solid;
+        border-left-width: 1px;
+        border-left-color:#CC2019;
+    }
+    .story-box{
+        border-left-style: solid;
+        border-left-width: 1px;
+        border-left-color:#607F99;
+    }
+    .pdf-box{
+        border-left-style: solid;
+        border-left-width: 1px;
+        border-left-color:#1D7F78;
+    }
+    .link-box{
+        border-left-style: solid;
+        border-left-width: 1px;
+        border-left-color:#FFCC00;
+    }
+    .card-action i{
+        font-size:10px;
+        font-size:4vw;
+    }
+    .icon i{
+        font-size:10px;
+        font-size:4vw;
+    }
+
+}
+
+i {
+    cursor: pointer;
+}
+
+.tag {
+    margin: 3px 3px 3px 3px;
+    padding: 2px 2px 2px 2px;
+}
+

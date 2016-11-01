@@ -35,6 +35,21 @@ router.post('/api/add',function(req,res){
 
 });
 
+router.delete('/api/delete', function(req,res){
+    console.log("body"+req.query.postId);
+    controller.delete(req.query,
+        function (data) {
+        res.status(200).json({
+            result: true
+        })
+    },
+        function(err){
+        res.status(400).json({
+            result:false
+        })
+    })
+});
+
 
 router.put('/api/comment',function(req,res){
 

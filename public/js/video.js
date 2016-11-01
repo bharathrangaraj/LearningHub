@@ -56,9 +56,9 @@ Video.prototype.getDetails=function(url,host_name,callback) {
 
             } else {
                 if (host_name === 'youtube') {
-                    console.log("d" +d);
                     video_result.title = d.items[0].snippet.title;
                     video_result.description = d.items[0].snippet.description;
+                    video_result.url = url.replace("watch?v=", "embed/");
                     video_result.html = prepareytHtml(url.replace("watch?v=", "embed/"));
                     callback(null,video_result);
                 } else {
