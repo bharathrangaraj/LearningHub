@@ -1,0 +1,42 @@
+<!-- Add link model-->
+<div id="editPost"role="dialog" aria-labelledby="editPost" tabindex="-1" class="modal fade">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addlinktitle">Edit Post</h4>
+            </div>
+            <!-- End of modal header-->
+            <div class="modal-body">
+                <!-- form for editing the data-->
+                <form name="editPostData" ng-hide="scraped" ng-submit="addlink(editPostData.$valid)" novalidate>
+                    <!-- title -->
+                    <div id="title-group" class="form-group" ng-class="{'has-error':(editPostData.title.$invalid || editPostData.title.$error.minlength)}">
+                        <label for="title">Title*</label>
+                        <textarea rows="3" name="title" id="title" class="form-control" placeholder="title" ng-model="vm.post.title" ng-required="true" ng-minlength="10" required></textarea>
+                        <span ng-show="editPostData.title.$invalid && !editPostData.title.$pristine" class="help-block">Title is required</span>
+                        <span ng-show="editPostData.title.$invalid && !editPostData.title.$pristine && editPostData.title.$error.minlength" class="help-block">Title too short</span>
+                    </div>
+                    <!-- Description -->
+                    <div id="description-group" class="form-group" ng-hide="des_hide" ng-class="{'has-error': des_hide ? !des_hide :(editPostData.description.$invalid) || editPostData.description.$error.minlength}">
+                        <label for="description">Description*</label>
+                        <textarea name="description" rows="3" name="description" id="description" class="form-control" placeholder="description" ng-model="vm.post.description" ng-required="!des_hide" ng-minlength="100"  required></textarea>
+                        <span ng-show="editPostData.description.$error.minlength" class="help-block">Description is too short</span>
+                    </div>
+                    <!-- Tags -->
+                    <div id="tag-group" class="form-group">
+                        <label>Tags</label>
+                        <tags-input name="tags" ng-model="vm.post.tags" replace-spaces-with-dashes="false" class="ti-input-sm" placeholder="Tags"></tags-input>
+                        <span class="help-block"></span>
+                    </div>
+                    <!-- Aggregate Data submit-->
+                    <button type="submit" class="btn btn-primary" ng-disabled="editPostData.$invalid">Edit</button>
+                </form>
+
+            </div>
+            <!-- End of modal body-->
+
+        </div>
+        <!-- End of modal content -->
+    </div>
+    <!-- End of modal dialog-->
+</div>

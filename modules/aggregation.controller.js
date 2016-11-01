@@ -4,6 +4,8 @@
 var rootpath=require('app-root-path');
 var mongoose=require('mongoose');
 var agg=require('/Users/Bharath/WebstormProjects/LearningHub/Routes/model/hubmodel.js');
+var personalspace  = agg.personal;
+var posts = agg.posts;
 
 
 function hubcontroller(){
@@ -22,10 +24,8 @@ hubcontroller.prototype.scrape=function(url,callback){
 };
 
 hubcontroller.prototype.add=function(error,params,success){
-
     console.log(params);
-
-    var newPost=new agg({
+    var newPost=new posts({
         courseId:002,
         postId:new mongoose.Types.ObjectId,
         userId:params.userId,
@@ -35,7 +35,36 @@ hubcontroller.prototype.add=function(error,params,success){
         favicon: params.favicon ? params.favicon : null,
         hostName: params.hostName ? params.hostName : null,
         image: params.image ? params.image : null,
-        embedHtml: params.embedHtml ? params.embedHtml : null,
+        embedHtml: params.html ? params.html : null,
+        description:params.description ? params.description : null,
+        isDeleted:false,
+        tags:params.tags
+    });
+
+    newPost.save(function(err){
+        if(err){
+            error(err);
+            return;
+
+        }else{
+            success(newPost);
+        }
+    })
+
+};
+hubcontroller.prototype.personalAdd=function(error,params,success){
+    console.log(params);
+    var newPost=new personalspace({
+        courseId:002,
+        postId:new mongoose.Types.ObjectId,
+        userId:params.userId,
+        title:params.title,
+        url:params.url,
+        type:params.type,
+        favicon: params.favicon ? params.favicon : null,
+        hostName: params.hostName ? params.hostName : null,
+        image: params.image ? params.image : null,
+        embedHtml: params.html ? params.html : null,
         description:params.description ? params.description : null,
         isDeleted:false,
         tags:params.tags
@@ -55,7 +84,7 @@ hubcontroller.prototype.add=function(error,params,success){
 
 hubcontroller.prototype.delete = function(query, success, error){
 
-    agg.update(
+    posts.update(
         {
             postId: query.postId
         },{
@@ -105,9 +134,8 @@ hubcontroller.prototype.comment=function(error,params,success){
 
 
 hubcontroller.prototype.getlinks=function(error,params,success){
-    console.log(params.courseId);
 
-    agg.find({courseId:params.courseId, isDeleted: false}).sort({'dateAdded':-1}).exec(function(error,posts){
+    posts.find({courseId:params.courseId, isDeleted: false}).sort({'dateAdded':-1}).exec(function(error,posts){
         if(error){
             error(error);
             return;
@@ -117,13 +145,7 @@ hubcontroller.prototype.getlinks=function(error,params,success){
         }
     })
 
-}
-
-//"comments.comment":params.content,
-//    "comments.commentId":new mongoose.Types.ObjectId,
-//    "comments.userId":params.userId,
-//    "comments.isDeleted":false
-
+};
 
 module.exports=new hubcontroller();
 

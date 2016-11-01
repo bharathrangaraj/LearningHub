@@ -1,19 +1,27 @@
 /**
  * Created by Bharath on 30/10/2016.
  */
-var HubLink = angular.module('HubLink', ['HubPostDelete', 'toaster'] )
-    .controller( 'HubLinkController', [ '$scope', '$sce','$http', 'toaster', function ($scope, $sce, $http, toaster) {
+var HubLink = angular.module('HubLink', ['HubPostDelete', 'HubPostEdit', 'toaster'] )
+    .controller( 'HubLinkController', [ '$rootScope', '$scope', '$sce','$http', 'toaster', function ($rootScope,$scope, $sce, $http, toaster) {
 
         // view data preparation
         var vm = this;
         vm.post.url = $sce.trustAsResourceUrl(vm.post.url);
         vm.owner = (vm.post.userId == 1);
-        //delete methods
-        vm.delete = function(){
-            console.log('click');
-            $('#deletePost').modal('show');
+        if(vm.post.embedHtml){
+            vm.post.embedHtml = $sce.trustAsHtml(vm.post.embedHtml);
+        }
+
+        //edit methods
+        vm.edit = function(){
+          console.log('click');
+            $('#editPost').modal('show');
         };
 
+        //delete methods
+        vm.delete = function(){
+            $('#deletePost').modal('show');
+        };
         vm.confirmDelete = function(){
             console.log(vm.post.postId);
             $http.delete('/api/delete',
@@ -47,6 +55,12 @@ var HubLink = angular.module('HubLink', ['HubPostDelete', 'toaster'] )
             switch (postType) {
                 case 'video':
                     templateUrl = './templates/HubLink/hubvideo.html';
+                    break;
+                case 'pdf':
+                    templateUrl = './templates/HubLink/hubpdf.html';
+                    break;
+                case 'slide':
+                    templateUrl = './templates/HubLink/hubslide.html';
                     break;
 
             }

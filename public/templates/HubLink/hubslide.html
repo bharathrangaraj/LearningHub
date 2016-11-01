@@ -8,7 +8,7 @@
             <div class="col-xs-3">
                     <span class="card-action pull-right">
                         <i class="fa fa-star-o fa-2x"></i>&nbsp;
-                        <i class="fa fa-times fa-2x"></i>
+                        <i class="fa fa-times fa-2x" ng-click="vm.delete()"></i>
                     </span>
             </div>
         </div>
@@ -16,8 +16,14 @@
     <div class="box-body slide-body">
         <div class="row">
             <div class="col-xs-11 text-center slide-wrapper">
-                <iframe src="vm.post.url" scrolling="no" frameborder="0" width="100%" height="500" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                <div ng-bind-html="vm.post.embedHtml"></div>
+                <!--<iframe src="{{vm.post.url}}" scrolling="no" frameborder="0" width="100%" height="500" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
+            </div>
+            <div class="col-xs-11">
+                <span ng-repeat="tag in vm.post.tags" class=" tag label-primary">{{tag}}</span>
             </div>
         </div>
     </div>
 </div>
+<hub-post-delete></hub-post-delete>
+<toaster-container></toaster-container>
