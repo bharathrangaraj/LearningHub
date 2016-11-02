@@ -1,5 +1,5 @@
 
-var app=angular.module('aggregation',["ui.bootstrap",
+var app=angular.module('aggregation',[
     "ngSanitize", 'addLinkForm', 'HubLink']);
 app.controller('aggregationController',['$scope','$sce','$http', function($scope,$sce,$http){
 

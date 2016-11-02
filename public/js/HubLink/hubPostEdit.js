@@ -5,6 +5,9 @@ var HubPostEdit = angular.module('HubPostEdit', [])
     .directive('hubPostEdit', function() {
         return {
             restrict: 'E',
-            templateUrl: './templates/HubLink/hubPostEdit.html'
+            templateUrl: './templates/HubLink/hubPostEdit.html',
+            scope: {
+                post: '='
+            }
         }
     });

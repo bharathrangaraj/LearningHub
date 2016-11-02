@@ -101,9 +101,28 @@ hubcontroller.prototype.delete = function(query, success, error){
     )
 };
 
+hubcontroller.prototype.edit = function(body, success, error){
+    console.log(body);
+    posts.update(
+        {
+            postId: body.postId
+        },{
+            $set:{
+                "title" : body.title,
+                "decription": body.description,
+                "tags":body.tags
+            }
+        }, function(err){
+            if(err){
+                error(err);
+            }else{
+                success("edited");
+            }
+        }
+    )
+};
+
 hubcontroller.prototype.comment=function(error,params,success){
-
-
     agg.update(
         {
             postId:params.postId

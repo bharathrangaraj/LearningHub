@@ -8,8 +8,8 @@
             <div class="col-xs-3">
                     <span class="card-action pull-right">
                         <i class="fa fa-star-o" ng-show="vm.owner"></i>&nbsp;
-                        <i class="fa fa-pencil-square-o" ng-show="vm.owner" ng-click="vm.edit()"></i>&nbsp;
-                        <i class="fa fa-times" ng-show="vm.owner" ng-click="vm.delete()"></i>
+                        <i class="fa fa-pencil-square-o" ng-show="vm.owner" ng-click="vm.edit(vm.post)"></i>&nbsp;
+                        <i class="fa fa-times" ng-show="vm.owner" ng-click="vm.delete(vm.post)"></i>
                     </span>
             </div>
         </div>
@@ -27,11 +27,10 @@
                 </p>
             </div>
             <div class="col-xs-11">
-               <span ng-repeat="tag in vm.post.tags" class=" tag label-primary">{{tag}}</span>
+               <span ng-repeat="tag in vm.post.tags" class=" tag label-primary">{{tag["text"] || tag }}</span>
             </div>
         </div>
     </div>
 </div>
-<hub-post-delete></hub-post-delete>
-<hub-post-edit></hub-post-edit>
+<!--<hub-post-delete post="vm.post"></hub-post-delete>-->
 <toaster-container></toaster-container>
