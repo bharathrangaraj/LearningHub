@@ -49,7 +49,7 @@ router.post('/api/personaladd', function(req, res){
 });
 
 router.delete('/api/delete', function(req,res){
-    console.log("body"+req.query.postId);
+
     controller.delete(req.query,
         function (data) {
         res.status(200).json({
@@ -63,6 +63,20 @@ router.delete('/api/delete', function(req,res){
     })
 });
 
+router.post('/api/edit', function(req,res){
+    console.log("body"+req.body);
+    controller.edit(req.body,
+        function (data) {
+            res.status(200).json({
+                result: true
+            })
+        },
+        function(err){
+            res.status(400).json({
+                result:false
+            })
+        })
+});
 
 router.put('/api/comment',function(req,res){
 
